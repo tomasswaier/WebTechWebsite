@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <link href="/src/styles.css" rel="stylesheet">
+</head>
+<body class='h-screen flex flex-col justify-between '>
+  <header class="w-full flex flex-row justify-end items-center " >
+    <div name="logo" class="w-30 h-13 bg-gray-300 rounded-2xl mr-auto m-5">
+    </div>
+    <div name="search_bar" class="w-96">
+       <input type="text" placeholder="Search.." class="w-full ">
+    </div>
+    <div name="cart_wrapper">
+      <div name="placeholder" class="w-24 h-24 bg-green-200"></div>
+    </div>
+    <div name="login_wrapper">
+      <div name="placeholder" class="w-24 h-24 bg-green-300"></div>
+    </div>
+    <div name="register_wrapper">
+      <div name="placeholder" class="w-24 h-24 bg-green-500"></div>
+    </div>
+  </header>
+  <main name="body_wrapper" class="mb-auto ">
+    <div name="welcome_text" class="text-2xl flex flex-col font-bold mt-3 mb-5 items-center">
+        <span>Discover the Latest Fashion Trends</span>
+        <br>
+        <span>Find the perfect outfit for every occasion with our exclusive collections.</span>
+        <button type="button" class="bg-gray-400 active:bg-gray-200">Kam ide tento button?</button>
+    </div>
+    <! –– Shouldn't there be javascript dictating how many elements can be on screen at one time? -->
+    <div name="product_box" class='p-10 '>
+        <span class="text-2xl font-bold">New Arrivals> </span>
+        <div name="new_arrivals" class="w-full flex overflow-hidden space-x-10">
+            <div class="flex flex-col">
+                <div name="logo" class="w-2xl max-w-80 min-w-20 h-50 bg-gray-300 rounded-2xl mr-auto">
+                </div>
+                <span>White T-shirt</span>
+                <span>$28.00</span>
+
+            </div>
+            <div class="flex flex-col">
+                <div name="logo" class="w-2xl max-w-80 min-w-20 h-50 bg-gray-300 rounded-2xl mr-auto">
+                </div>
+                <span>White T-shirt</span>
+                <span>$28.00</span>
+
+            </div>
+            <div class="flex flex-col">
+                <div name="logo" class="w-2xl max-w-80 min-w-20 h-50 bg-gray-300 rounded-2xl mr-auto">
+                </div>
+                <span>White T-shirt</span>
+                <span>$28.00</span>
+
+            </div>
+            <div class="flex flex-col">
+                <div name="logo" class="w-2xl max-w-80 min-w-20 h-50 bg-gray-300 rounded-2xl mr-auto">
+                </div>
+                <span>White T-shirt</span>
+                <span>$28.00</span>
+
+            </div>
+        </div>
+
+    </div>
+  </main>
+
+
+  <footer class="w-full h-28 bottom-0 mt-auto">
+      <hr>
+      <div class='w-full h-full flex justify-center align-middle space-x-5'>
+
+      <span>Contact</span>
+      <span>FAQ</span>
+      <span>c all rights reserved</span>
+      </div>
+
+  </footer>
+</body>
+</html>
+
+
