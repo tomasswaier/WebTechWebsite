@@ -3,23 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-  <link href="/src/styles.css" rel="stylesheet">
+  <!--<link href="/src/styles.css" rel="stylesheet">-->
 </head>
 <body class='h-screen flex flex-col justify-between '>
-  <header class="w-full flex flex-row justify-end items-center " >
-    <div name="logo" class="w-30 h-13 bg-gray-300 rounded-2xl mr-auto m-5">
+  <header class="w-full flex flex-row justify-end items-center space-x-2.5" >
+    <div name="logo" class="w-30 h-13 bg-neutral-300 rounded-2xl mr-auto m-5">
     </div>
     <div name="search_bar" class="w-96">
-       <input type="text" placeholder="Search.." class="w-full ">
+       <input type="text" placeholder="Search.." class="w-full rounded-2xl border-gray-300 border-2 p-1 focus:outline-none">
     </div>
     <div name="cart_wrapper">
-      <div name="placeholder" class="w-24 h-24 bg-green-200"></div>
+      <img src="../resources/icons/shoppingCart.png" alt="shopping cart icon" class="w-14 h-14">
     </div>
     <div name="login_wrapper">
-      <div name="placeholder" class="w-24 h-24 bg-green-300"></div>
+      <button type="submit" class="w-20 h-10 bg-neutral-400 text-white active:bg-neutral-200 rounded-2xl">Log in</button>
     </div>
     <div name="register_wrapper">
-      <div name="placeholder" class="w-24 h-24 bg-green-500"></div>
+      <button type="submit" class="w-20 h-10 bg-black text-white active:bg-neutral-200 rounded-2xl">Register</button>
+
     </div>
   </header>
   <main name="body_wrapper" class="">
@@ -27,35 +28,35 @@
         <span>Discover the Latest Fashion Trends</span>
         <br>
         <span>Find the perfect outfit for every occasion with our exclusive collections.</span>
-        <button type="button" class="bg-gray-400 active:bg-gray-200">Kam ide tento button?</button>
+        <button type="submit" class="bg-neutral-400 active:bg-neutral-200">Kam ide tento button?</button>
     </div>
     <! –– Shouldn't there be javascript dictating how many elements can be on screen at one time? -->
-    <div name="product_box" class='p-10  h-full'>
-        <span class="text-2xl font-bold">New Arrivals> </span>
+    <div name="product_box" class='p-10 '>
+      <a href="allProducts.html" class="text-2xl font-bold" >New Arrivals></a>
         <div name="new_arrivals" class="w-full flex overflow-hidden space-x-10">
             <div class="flex flex-col">
-                <div name="logo" class="w-2xl max-w-80 min-w-20 h-50 bg-gray-300 rounded-2xl mr-auto">
+                <div name="logo" class="w-2xl max-w-80 min-w-20 h-50 bg-neutral-300 rounded-2xl mr-auto">
                 </div>
                 <span>White T-shirt</span>
                 <span>$28.00</span>
 
             </div>
             <div class="flex flex-col">
-                <div name="logo" class="w-2xl max-w-80 min-w-20 h-50 bg-gray-300 rounded-2xl mr-auto">
+                <div name="logo" class="w-2xl max-w-80 min-w-20 h-50 bg-neutral-300 rounded-2xl mr-auto">
                 </div>
                 <span>White T-shirt</span>
                 <span>$28.00</span>
 
             </div>
             <div class="flex flex-col">
-                <div name="logo" class="w-2xl max-w-80 min-w-20 h-50 bg-gray-300 rounded-2xl mr-auto">
+                <div name="logo" class="w-2xl max-w-80 min-w-20 h-50 bg-neutral-300 rounded-2xl mr-auto">
                 </div>
                 <span>White T-shirt</span>
                 <span>$28.00</span>
 
             </div>
             <div class="flex flex-col">
-                <div name="logo" class="w-2xl max-w-80 min-w-20 h-50 bg-gray-300 rounded-2xl mr-auto">
+                <div name="logo" class="w-2xl max-w-80 min-w-20 h-50 bg-neutral-300 rounded-2xl mr-auto">
                 </div>
                 <span>White T-shirt</span>
                 <span>$28.00</span>
@@ -64,16 +65,56 @@
         </div>
     </div>
     <div class="flex space-x-5 flex-row justify-center">
-        <div class="h-1 w-15 bg-gray-400"></div>
-        <div class="h-1 w-15 bg-gray-400"></div>
-        <div class="h-1 w-15 bg-gray-400"></div>
-        <div class="h-1 w-15 bg-gray-400"></div>
-        <div class="h-1 w-15 bg-gray-400"></div>
+        <div class="h-0.5 w-15 bg-neutral-400"></div>
+        <div class="h-0.5 w-15 bg-neutral-400"></div>
+        <div class="h-0.5 w-15 bg-neutral-400"></div>
+        <div class="h-0.5 w-15 bg-neutral-400"></div>
+        <div class="h-0.5 w-15 bg-neutral-400"></div>
+    </div>
+    <div name="product_box" class='p-10 '>
+        <span class="text-2xl font-bold">On Sale> </span>
+        <div name="new_arrivals" class="w-full flex overflow-hidden space-x-10">
+            <div class="flex flex-col">
+                <div name="logo" class="w-2xl max-w-80 min-w-20 h-50 bg-neutral-300 rounded-2xl mr-auto">
+                </div>
+                <span>White T-shirt</span>
+                <span>$28.00</span>
+
+            </div>
+            <div class="flex flex-col">
+                <div name="logo" class="w-2xl max-w-80 min-w-20 h-50 bg-neutral-300 rounded-2xl mr-auto">
+                </div>
+                <span>White T-shirt</span>
+                <span>$28.00</span>
+
+            </div>
+            <div class="flex flex-col">
+                <div name="logo" class="w-2xl max-w-80 min-w-20 h-50 bg-neutral-300 rounded-2xl mr-auto">
+                </div>
+                <span>White T-shirt</span>
+                <span>$28.00</span>
+
+            </div>
+            <div class="flex flex-col">
+                <div name="logo" class="w-2xl max-w-80 min-w-20 h-50 bg-neutral-300 rounded-2xl mr-auto">
+                </div>
+                <span>White T-shirt</span>
+                <span>$28.00</span>
+
+            </div>
+        </div>
+    </div>
+    <div class="flex space-x-5 flex-row justify-center">
+        <div class="h-0.5 w-15 bg-neutral-400"></div>
+        <div class="h-0.5 w-15 bg-neutral-400"></div>
+        <div class="h-0.5 w-15 bg-neutral-400"></div>
+        <div class="h-0.5 w-15 bg-neutral-400"></div>
+        <div class="h-0.5 w-15 bg-neutral-400"></div>
     </div>
   </main>
   <footer class="w-full h-28 bottom-0 mt-auto">
       <hr>
-      <div class='w-full h-full flex justify-center align-middle space-x-5'>
+      <div class='w-full h-full flex justify-center items-center space-x-5'>
         <span>Contact</span>
         <span>FAQ</span>
         <span>c all rights reserved</span>
