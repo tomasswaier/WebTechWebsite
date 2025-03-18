@@ -9,8 +9,9 @@
   <header class="w-full flex flex-row justify-end items-center space-x-2.5" >
     <div name="logo" class="w-30 h-13 bg-neutral-300 rounded-2xl mr-auto m-5">
     </div>
-    <div name="search_bar" class="w-96">
-       <input type="search" placeholder="Search.." class="w-full rounded-2xl border-gray-300 border-2 p-1 focus:outline-none" >
+    <div name="search_bar" class="w-96 flex flex-row">
+      <input type="search" placeholder="Search.." class="w-full rounded-2xl border-gray-300 border-2 p-1 focus:outline-none" >
+      <img src="../resources/icons/searchIcon.png" alt="shopping cart icon" class="w-6 h-6 absolute">
     </div>
     <div name="cart_wrapper">
       <img src="../resources/icons/shoppingCart.png" alt="shopping cart icon" class="w-14 h-14">
@@ -33,39 +34,8 @@
     <! –– Shouldn't there be javascript dictating how many elements can be on screen at one time? -->
     <div name="product_box" class='p-10 '>
       <a href="allProducts.html" class="text-4xl font-bold " >New Arrivals></a>
-        <div name="new_arrivals" class="w-full flex overflow-auto space-x-10 whitespace-nowrap ">
-            <div class="flex flex-col">
-                <div name="logo" class="w-2xl max-w-80 min-w-20 h-50 bg-neutral-300 rounded-2xl mr-auto overflow-hidden">
-                  <img src="../resources/product_images/example_shirt_front.png" alt="funny cat shirt" class="w-fit h-fit">
-                </div>
-                <span>White T-shirt</span>
-                <span>$28.00</span>
-
-            </div>
-            <div class="flex flex-col">
-                <div name="logo" class="w-2xl max-w-80 min-w-20 h-50 bg-neutral-300 rounded-2xl mr-auto overflow-hidden">
-                  <img src="../resources/product_images/example_shirt_front.png" alt="funny cat shirt" class="w-fit h-fit">
-                </div>
-                <span>White T-shirt</span>
-                <span>$28.00</span>
-
-            </div>
-            <div class="flex flex-col">
-                <div name="logo" class="w-2xl max-w-80 min-w-20 h-50 bg-neutral-300 rounded-2xl mr-auto overflow-hidden">
-                  <img src="../resources/product_images/example_shirt_front.png" alt="funny cat shirt" class="w-fit h-fit">
-                </div>
-                <span>White T-shirt</span>
-                <span>$28.00</span>
-
-            </div>
-            <div class="flex flex-col">
-                <div name="logo" class="w-2xl max-w-80 min-w-20 h-50 bg-neutral-300 rounded-2xl mr-auto overflow-hidden">
-                  <img src="../resources/product_images/example_shirt_front.png" alt="funny cat shirt" class="w-fit h-fit">
-                </div>
-                <span>White T-shirt</span>
-                <span>$28.00</span>
-
-            </div>
+        <div name="newArrivals" id="newArrivals" class="w-full flex overflow-auto space-x-10 whitespace-nowrap ">
+          <!-- here go all items -->
         </div>
     </div>
     <div class="flex space-x-5 flex-row justify-center">
@@ -77,39 +47,7 @@
     </div>
     <div name="product_box" class='p-10 '>
       <a href="allProducts.html" class="text-4xl font-bold " >On Sale></a>
-        <div name="new_arrivals" class="w-full flex overflow-auto space-x-10 whitespace-nowrap ">
-            <div class="flex flex-col">
-                <div name="logo" class="w-2xl max-w-80 min-w-20 h-50 bg-neutral-300 rounded-2xl mr-auto overflow-hidden">
-                  <img src="../resources/product_images/example_shirt_front.png" alt="funny cat shirt" class="w-fit h-fit">
-                </div>
-                <span>White T-shirt</span>
-                <span>$28.00</span>
-
-            </div>
-            <div class="flex flex-col">
-                <div name="logo" class="w-2xl max-w-80 min-w-20 h-50 bg-neutral-300 rounded-2xl mr-auto overflow-hidden">
-                  <img src="../resources/product_images/example_shirt_front.png" alt="funny cat shirt" class="w-fit h-fit">
-                </div>
-                <span>White T-shirt</span>
-                <span>$28.00</span>
-
-            </div>
-            <div class="flex flex-col">
-                <div name="logo" class="w-2xl max-w-80 min-w-20 h-50 bg-neutral-300 rounded-2xl mr-auto overflow-hidden">
-                  <img src="../resources/product_images/example_shirt_front.png" alt="funny cat shirt" class="w-fit h-fit">
-                </div>
-                <span>White T-shirt</span>
-                <span>$28.00</span>
-
-            </div>
-            <div class="flex flex-col">
-                <div name="logo" class="w-2xl max-w-80 min-w-20 h-50 bg-neutral-300 rounded-2xl mr-auto overflow-hidden">
-                  <img src="../resources/product_images/example_shirt_front.png" alt="funny cat shirt" class="w-fit h-fit">
-                </div>
-                <span>White T-shirt</span>
-                <span>$28.00</span>
-
-            </div>
+        <div name="onSale" id="onSale" class="w-full flex overflow-auto space-x-10 whitespace-nowrap ">
         </div>
     </div>
     <div class="flex space-x-5 flex-row justify-center mb-5">
@@ -128,6 +66,8 @@
         <span>c all rights reserved</span>
       </div>
   </footer>
+  <script src="loadMaxImages.js"></script>
+
 </body>
 </html>
 
