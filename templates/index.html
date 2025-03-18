@@ -4,14 +4,15 @@
   <meta charset="UTF-8">
   <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
   <link href="../src/styles.css" rel="stylesheet">
+  <script src="loadMaxImages.js"></script>
 </head>
-<body class='h-screen flex flex-col justify-between '>
-  <header class="w-full flex flex-row justify-end items-center space-x-2.5" >
+<body class='h-screen flex flex-col justify-between ' onload="loadMaxImages('newArrivals',Math.max((screen.width / 320), 5));loadMaxImages('onSale',Math.max((screen.width / 320), 5));">
+  <header class="w-full flex flex-row justify-end items-center space-x-2.5 h-20" >
     <div name="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto m-5">
       <img src="../resources/icons/logo.png" alt="logo" class="max-h-28 h-fit">
     </div>
-    <div name="search_bar" class="w-96 flex flex-row">
-      <input type="search" placeholder="Search.." class="w-full rounded-2xl border-gray-300 border-2 p-1 focus:outline-none" >
+    <div name="search_bar" class="flex flex-row ">
+      <input type="search" placeholder="Search.." class="ml-auto min-w-96 w-full max-w-2xl rounded-2xl border-gray-300 border-2 p-1 focus:outline-none" >
       <img src="../resources/icons/searchIcon.png" alt="shopping cart icon" class="w-6 h-6 relative right-8 top-1">
     </div>
     <div name="cart_wrapper">
@@ -35,13 +36,13 @@
     <! –– Shouldn't there be javascript dictating how many elements can be on screen at one time? -->
     <div name="product_box" class='p-10 '>
       <a href="allProducts.html" class="text-4xl font-bold " >New Arrivals></a>
-        <div name="newArrivals" id="newArrivals" class="w-full flex overflow-auto space-x-10 whitespace-nowrap ">
+        <div name="newArrivals" id="newArrivals" class="w-full flex overflow-auto no-scrollbar space-x-10 whitespace-nowrap ">
           <!-- here go all items -->
         </div>
     </div>
     <div name="product_box" class='p-10 '>
       <a href="allProducts.html" class="text-4xl font-bold " >On Sale></a>
-        <div name="onSale" id="onSale" class="w-full flex overflow-auto space-x-10 whitespace-nowrap ">
+        <div name="onSale" id="onSale" class="w-full flex overflow-auto no-scrollbar space-x-10 whitespace-nowrap ">
         </div>
     </div>
   </main>
@@ -53,7 +54,6 @@
         <span>c all rights reserved</span>
       </div>
   </footer>
-  <script src="loadMaxImages.js"></script>
 
 </body>
 </html>

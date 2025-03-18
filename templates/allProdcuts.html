@@ -3,36 +3,119 @@
 <head>
   <meta charset="UTF-8">
   <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-  <!--<link href="/src/styles.css" rel="stylesheet">-->
+  <link href="../src/styles.css" rel="stylesheet">
+  <script src="loadMaxImages.js"></script>
 </head>
-<body class='h-screen flex flex-col justify-between '>
-  <header class="w-full flex flex-row justify-end items-center " >
-    <div name="logo" class="w-30 h-13 bg-gray-300 rounded-2xl mr-auto m-5">
+<body class='h-screen flex flex-col justify-between ' onload="loadMaxImages('itemDisplay',8);">
+  <header class="w-full flex flex-row justify-end items-center space-x-2.5 h-20" >
+    <div name="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto m-5">
+      <img src="../resources/icons/logo.png" alt="logo" class="max-h-28 h-fit">
     </div>
-    <div name="search_bar" class="w-96">
-       <input type="text" placeholder="Search.." class="w-full ">
+    <div name="search_bar" class="flex flex-row ">
+      <input type="search" placeholder="Search.." class="ml-auto min-w-96 w-full max-w-2xl rounded-2xl border-gray-300 border-2 p-1 focus:outline-none" >
+      <img src="../resources/icons/searchIcon.png" alt="shopping cart icon" class="w-6 h-6 relative right-8 top-1">
     </div>
     <div name="cart_wrapper">
-      <div name="placeholder" class="w-24 h-24 bg-green-200"></div>
+      <img src="../resources/icons/shoppingCart.png" alt="shopping cart icon" class="w-14 h-14">
     </div>
     <div name="login_wrapper">
-      <div name="placeholder" class="w-24 h-24 bg-green-300"></div>
+      <button type="submit" class="w-20 h-10 bg-neutral-400 text-white active:bg-neutral-200 rounded-2xl">Log in</button>
     </div>
     <div name="register_wrapper">
-      <div name="placeholder" class="w-24 h-24 bg-green-500"></div>
+      <button type="submit" class="w-20 h-10 bg-black text-white active:bg-neutral-200 rounded-2xl">Register</button>
+
     </div>
   </header>
-  <main name="body_wrapper" class="">
+  <main name="body_wrapper" class="flex flex-row" >
+    <div name="leftSide" class="max-w-64 w-full mx-10 my-20 ">
+      <span class="font-bold text-2xl">Filters</span>      
+      <fieldset class="">
+        <span class="font-bold ">Categories</span>
+        <div>
+          <input type="checkbox" name="placeholder" value="placeholder" class="accent-black rounded-4xl mr-1.5">
+          <span>T-shirt</span>
+        </div>
+        <div>
+          <input type="checkbox" name="placeholder" value="placeholder" class="accent-black rounded-4xl mr-1.5">
+          <span>Sweatpants</span>
+        </div>
+        <div>
+          <input type="checkbox" name="placeholder" value="placeholder" class="accent-black rounded-4xl mr-1.5">
+          <span>Shirts</span>
+        </div>
+        <div>
+          <input type="checkbox" name="placeholder" value="placeholder" class="accent-black rounded-4xl mr-1.5">
+          <span>Pants</span>
+        </div>
+        <div>
+          <input type="checkbox" name="placeholder" value="placeholder" class="accent-black rounded-4xl mr-1.5">
+          <span>Hoodies</span>
+        </div>
+        <div>
+          <input type="checkbox" name="placeholder" value="placeholder" class="accent-black rounded-4xl mr-1.5">
+          <span>Hats</span>
+        </div>
+        <div>
+          <span class="font-bold">Color</span>
+          <div id="colorSelection">
+            <!-- I want to make this automatic by calling a thing in php-->
+            <input type="radio" name="placeholder" value="placeholder" class="accent-amber-650">
+            <input type="radio" name="placeholder" value="placeholder" class="accent-amber-650">
+            <input type="radio" name="placeholder" value="placeholder" class="accent-amber-650">
+            <input type="radio" name="placeholder" value="placeholder" class="accent-amber-650">
+            <span>add color :P I can't do it without forms plugin</span>
+          </div>
+        </div>
+        <div>
+          <div class="flex flex-row -space-y-80">
+          <span class="font-bold mr-auto ">Price</span>
+          <span class="right-0">$0-$100</span>
+            
+          </div>
+            <input type="range" name="" value="" class="w-full accent-neutral-200 ">
+            
+          
+        </div>
+        
+      </fieldset>
+    </div>
+    <div name="rightSide" class="w-full h-full mt-16 mr-10">
+      <div name="topSideOfItemsDisplay" class="flex flex-row justify-start space-x-3 w-full mb-5">
+        <div class="bg-amber-200">
+          <span>Men's</span>
+         </div> 
+        <div class="border-black">
+          <span>Women's</span>
+         </div> 
+        <div class="border-black ">
+          <span>Unisex</span>
+         </div> 
+         <div class="ml-auto">
+           <select>
+             <option value="placeholder">Meow</option>
+             <option value="placeholder">Meow2</option>
+           </select>
+         </div>
+      </div>
+    <div name="itemDisplay" id="itemDisplay" class="w-full h-full flex flex-row flex-wrap justify-between">
+      <!-- here go all items -->
+    </div>
+      
+    </div>
+      
+    </div>
   </main>
   <footer class="w-full h-28 bottom-0 mt-auto">
       <hr>
-      <div class='w-full h-full flex justify-center align-middle space-x-5'>
+      <div class='relative top-10 flex justify-center space-x-5'>
         <span>Contact</span>
         <span>FAQ</span>
         <span>c all rights reserved</span>
       </div>
   </footer>
+
 </body>
 </html>
+
 
 

@@ -15,12 +15,10 @@ function getItemData() {
   return item
 }
 
-function loadMaxImages(parentId) {
+function loadMaxImages(parentId, numberOfItems) {
   const parentElement = document.getElementById(parentId);
   console.log(screen.width);
-  const itemWidth = 320;
-  for (let i = 0; i < Math.max((screen.width / itemWidth), 5);
-       i++) { // exatra 4 elements ff
+  for (let i = 0; i < numberOfItems; i++) { // exatra 4 elements ff
     const itemData = getItemData()
 
     const elementWrapper = document.createElement("div");
@@ -45,5 +43,5 @@ function loadMaxImages(parentId) {
   }
 }
 
-loadMaxImages("newArrivals")
-loadMaxImages("onSale")
+// loadMaxImages("newArrivals")
+// loadMaxImages("onSale")
