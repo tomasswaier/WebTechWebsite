@@ -19,7 +19,8 @@ function loadMaxImages(parentId) {
   const parentElement = document.getElementById(parentId);
   console.log(screen.width);
   const itemWidth = 320;
-  for (let i = 0; i < (screen.width / itemWidth); i++) { // exatra 4 elements ff
+  for (let i = 0; i < Math.max((screen.width / itemWidth), 5);
+       i++) { // exatra 4 elements ff
     const itemData = getItemData()
 
     const elementWrapper = document.createElement("div");

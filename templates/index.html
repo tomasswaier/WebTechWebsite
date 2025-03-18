@@ -7,11 +7,12 @@
 </head>
 <body class='h-screen flex flex-col justify-between '>
   <header class="w-full flex flex-row justify-end items-center space-x-2.5" >
-    <div name="logo" class="w-30 h-13 bg-neutral-300 rounded-2xl mr-auto m-5">
+    <div name="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto m-5">
+      <img src="../resources/icons/logo.png" alt="logo" class="max-h-28 h-fit">
     </div>
     <div name="search_bar" class="w-96 flex flex-row">
       <input type="search" placeholder="Search.." class="w-full rounded-2xl border-gray-300 border-2 p-1 focus:outline-none" >
-      <img src="../resources/icons/searchIcon.png" alt="shopping cart icon" class="w-6 h-6 absolute">
+      <img src="../resources/icons/searchIcon.png" alt="shopping cart icon" class="w-6 h-6 relative right-8 top-1">
     </div>
     <div name="cart_wrapper">
       <img src="../resources/icons/shoppingCart.png" alt="shopping cart icon" class="w-14 h-14">
@@ -38,29 +39,15 @@
           <!-- here go all items -->
         </div>
     </div>
-    <div class="flex space-x-5 flex-row justify-center">
-        <div class="h-0.5 w-15 bg-neutral-400"></div>
-        <div class="h-0.5 w-15 bg-neutral-400"></div>
-        <div class="h-0.5 w-15 bg-neutral-400"></div>
-        <div class="h-0.5 w-15 bg-neutral-400"></div>
-        <div class="h-0.5 w-15 bg-neutral-400"></div>
-    </div>
     <div name="product_box" class='p-10 '>
       <a href="allProducts.html" class="text-4xl font-bold " >On Sale></a>
         <div name="onSale" id="onSale" class="w-full flex overflow-auto space-x-10 whitespace-nowrap ">
         </div>
     </div>
-    <div class="flex space-x-5 flex-row justify-center mb-5">
-        <div class="h-0.5 w-15 bg-neutral-400"></div>
-        <div class="h-0.5 w-15 bg-neutral-400"></div>
-        <div class="h-0.5 w-15 bg-neutral-400"></div>
-        <div class="h-0.5 w-15 bg-neutral-400"></div>
-        <div class="h-0.5 w-15 bg-neutral-400"></div>
-    </div>
   </main>
   <footer class="w-full h-28 bottom-0 mt-auto">
       <hr>
-      <div class='flex justify-center space-x-5'>
+      <div class='relative top-10 flex justify-center space-x-5'>
         <span>Contact</span>
         <span>FAQ</span>
         <span>c all rights reserved</span>
