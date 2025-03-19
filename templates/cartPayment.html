@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <title>cart - shipping & payment</title>
+</head>
+<body class="flex flex-col min-h-screen">
+<header class="w-full flex flex-row justify-end items-center space-x-2.5 h-20" >
+    <div name="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto m-5">
+        <img src="../resources/icons/logo.png" alt="logo" class="h-full">
+    </div>
+    <div name="search_bar" class="flex flex-row ">
+        <input type="search" placeholder="Search.." class="ml-auto min-w-96 w-full max-w-2xl rounded-2xl border-gray-300 border-2 p-1 focus:outline-none pl-5" >
+        <img src="../resources/icons/searchIcon.png" alt="shopping cart icon" class="w-6 h-6 relative right-8 top-1">
+    </div>
+    <div name="cart_wrapper">
+        <a href="#">
+            <img src="../resources/icons/shoppingCart.png" alt="shopping cart icon" class="max-h-10">
+        </a>
+    </div>
+    <div name="login_wrapper">
+        <button type="submit" class="w-20 h-10 bg-neutral-400 text-white active:bg-neutral-200 rounded-2xl">Log in</button>
+    </div>
+    <div name="register_wrapper">
+        <button type="submit" class="w-20 h-10 bg-black text-white active:bg-neutral-200 rounded-2xl">Register</button>
+    </div>
+</header>
+<main class="container mx-auto px-4 py-4">
+    <ul class="flex gap-10 py-10">
+        <li>1 • Overview</li>
+        <li>2 • Address</li>
+        <li class="font-bold">3 • Shipping & Payment</li>
+    </ul>
+
+    <div id="main_cart_section" class="flex flex-col md:flex-row w-full">
+        <form method="post" action="#" class="flex flex-col w-full md:max-w-[50vw] md:mr-30">
+            <label for="shipping_choice" class="font-bold text-lg mb-2">Select Shipping</label>
+            <div id="shipping_choice" class="flex flex-col space-y-2">
+                <div class="flex items-center space-x-2">
+                    <input id="sps" name="sps" value="3" type="radio" class="bg-black border-gray-400 text-white accent-black">
+                    <label for="sps">SPS - $3.00</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input id="gls" name="gls" value="4" type="radio" class="bg-black border-gray-400 text-white accent-black">
+                    <label for="gls">GLS - $4.00</label>
+                </div>
+
+            </div>
+            <label for="payment_info" class="font-bold text-lg mb-2">Payment details</label>
+            <div id="payment_info" class="flex flex-col w-full space-y-2">
+                <input name="cardholder" placeholder="Cardholder name" class="w-full border border-gray-400 rounded-md p-1" required>
+                <input name="card_number" placeholder="Card number" class="w-full border border-gray-400 rounded-md p-1" required>
+                <div id="card_info_group" class="flex flex-col md:flex-row justify-between w-full md:space-x-2 space-y-3 md:space-y-0">
+                    <input name="expiration_date" placeholder="Expiration date" class="w-full border border-gray-400 rounded-md p-1" required>
+                    <input name="cvc" placeholder="CVC" class="w-full border border-gray-400 rounded-md p-1" required>
+                </div>
+                <button type="submit" class="w-full bg-black rounded-xl text-white py-2.5 hover:cursor-pointer">
+                    Pay with card
+                </button>
+            </div>
+
+        </form>
+        <div id="products_section" class="flex flex-col w-full md:w-[50vw]">
+            <label for="order_summary" class="font-bold text-lg mb-2">
+                Order summary
+            </label>
+            <ul id="order_summary" class="flex w-full flex-col gap-y-4">
+                <li class="flex flex-row w-full items-center justify-normal space-x-2">
+                    <img src="../resources/product_images/example_shirt_front.png" alt="img1" class="w-auto max-h-15">
+                    <div class="flex flex-row justify-between w-full">
+                        <p class="font-bold">Meow T-shirt</p>
+                        <p>Size: L</p>
+                        <p>Quantity: 1</p>
+                        <p>$28.00</p>
+                    </div>
+                </li>
+                <li class="flex flex-row w-full items-center justify-normal space-x-2">
+                    <img src="../resources/product_images/example_shirt_front_white.png" alt="img1" class="w-auto max-h-15">
+                    <div class="flex flex-row justify-between w-full">
+                        <span class="font-bold">Meow T-shirt</span>
+                        <span>Size: L</span>
+                        <span>Quantity: 1</span>
+                        <span>$28.00</span>
+                    </div>
+                </li>
+                <li class="flex w-full flex-row justify-between">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">$56.00</span>
+                </li>
+                <!--Place for shipping price-->
+                <li id="shipping_price" class="flex w-full flex-row justify-between hidden">
+
+                </li>
+                <li class="flex w-full flex-row justify-between">
+                    <span>Total:</span>
+                    <span id="total_price">$56.00</span>
+                </li>
+                <hr class="my-3 w-full h-0.5 border-t-0 bg-gray-300" />
+            </ul>
+        </div>
+
+    </div>
+</main>
+<footer class="w-full mt-auto h-auto mb-10">
+    <hr>
+    <div class='flex justify-center space-x-5'>
+        <span>Contact</span>
+        <span>FAQ</span>
+        <span>c all rights reserved</span>
+    </div>
+</footer>
+</body>
+<script>
+    const shippingChoices = document.querySelector("#shipping_choice");
+    const shippingInputs = shippingChoices.querySelectorAll("input");
+    const shippingPrice = document.querySelector("#shipping_price");
+    const subtotal = parseFloat(document.querySelector("#subtotal").textContent.replace('$', ''))
+    let totalPrice = document.querySelector("#total_price");
+
+    function formatCurrency(number) {
+        return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(number);
+    }
+
+    shippingInputs.forEach(input => {
+        input.addEventListener("change", ev => {
+            const shippingPriceValue = parseFloat(ev.target.value);
+            shippingInputs.forEach(i => {
+                if (i.id !== ev.target.id) {
+                    i.checked = false;
+                    shippingPrice.style.display = "flex";
+                    shippingPrice.innerHTML = `
+                        <label for="shipping_price">Shipping:</label>
+                        <span id="shipping_price">${formatCurrency(shippingPriceValue)}</span>
+                    `;
+                    totalPrice.innerHTML = `${formatCurrency(subtotal + shippingPriceValue)}`
+                }
+            });
+        });
+    });
+</script>
+</html>
