@@ -8,17 +8,17 @@
   <script src="loadMaxImages.js"></script>
 </head>
 <body class='h-screen flex flex-col justify-between ' onload="loadMaxImages('newArrivals',Math.max((screen.width / 320), 5));loadMaxImages('onSale',Math.max((screen.width / 320), 5));">
-  <header class="w-full flex flex-row justify-end items-center space-x-2.5 h-20" >
-    <div name="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto m-5">
-      <img src="../resources/icons/logo.png" alt="logo" class="max-h-28 h-fit">
+  <header class="w-full flex flex-row justify-end items-center space-x-2.5 h-24" >
+    <div name="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto ">
+      <img src="../resources/icons/logo.png" alt="logo" class="h-full w-fit">
     </div>
   </header>
   <main name="body_wrapper" class="flex justify-center  w-full h-full">
     <div class="flex flex-col my-auto space-y-3 w-120">
       <span >Login</span>
-      <input class="border rounded-lg p-2 border-neutral-200" type="text" name="" value="" placeholder="Email or phone number">
+      <input class="custom-input-field border-neutral-200" type="text" name="" value="" placeholder="Email or phone number">
       <span >Password</span>
-      <input class="border rounded-lg p-2 border-neutral-200" type="text" name="" value="" placeholder="Password">
+      <input class="custom-input-field border-neutral-200" type="text" name="" value="" placeholder="Password">
       <div class="flex flex-row space-x-48">
         <span>
           <input class='accent-black' type="checkbox" name="" value="">
