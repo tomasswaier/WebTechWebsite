@@ -57,13 +57,22 @@
         </div>
         <div>
           <span class="font-bold">Color</span>
-          <div id="colorSelection">
+          <div id="colorSelection" class="flex gap-2">
             <!-- I want to make this automatic by calling a thing in php-->
-            <input type="radio" name="placeholder" value="placeholder" class="accent-amber-650">
-            <input type="radio" name="placeholder" value="placeholder" class="accent-amber-650">
-            <input type="radio" name="placeholder" value="placeholder" class="accent-amber-650">
-            <input type="radio" name="placeholder" value="placeholder" class="accent-amber-650">
-            <span>add color :P I can't do it without forms plugin</span>
+            <label>
+              <input type="checkbox" name="color_choice" value="white" class="peer hidden">
+                <span
+                  class="w-5 h-5 rounded-full border-2 border-gray-300 block cursor-pointer peer-checked:ring-2 peer-checked:ring-black bg-white"
+                  aria-label="white">
+                </span>
+            </label>
+            <label>
+              <input type="checkbox" name="color_choice" value="black" class="peer hidden">
+              <span
+                      class="w-5 h-5 rounded-full border-2 border-gray-300 block cursor-pointer peer-checked:ring-2 peer-checked:ring-black bg-black"
+                      aria-label="black">
+                </span>
+            </label>
           </div>
         </div>
         <div>
