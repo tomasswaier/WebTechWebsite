@@ -6,7 +6,7 @@
   <link href="../src/styles.css" rel="stylesheet">
   <script src="loadMaxImages.js"></script>
 </head>
-<body class='h-screen flex flex-col justify-between ' onload="loadMaxImages('itemDisplay',8);">
+<body class='flex flex-col h-screen min-h-screen ' onload="loadMaxImages('itemDisplay',8);">
   <header class="w-full flex flex-row justify-end items-center space-x-2.5 h-20" >
     <div name="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto m-5">
       <img src="../resources/icons/logo.png" alt="logo" class="max-h-28 h-fit">
@@ -26,10 +26,10 @@
 
     </div>
   </header>
-  <main name="body_wrapper" class="flex flex-row" >
-    <div name="leftSide" class="max-w-64 w-full mx-10 my-20 ">
+  <main id="main" class="flex flex-row flex-grow" >
+    <div id="itemFiltersWrapper" name="leftSide" class="max-w-64 w-full mx-10 my-20 ">
       <span class="font-bold text-2xl">Filters</span>      
-      <fieldset class="">
+      <fieldset id="itemsFiltersFieldset" class="">
         <span class="font-bold ">Categories</span>
         <div>
           <input type="checkbox" name="placeholder" value="placeholder" class="accent-black rounded-4xl mr-1.5">
@@ -70,16 +70,14 @@
           <div class="flex flex-row -space-y-80">
           <span class="font-bold mr-auto ">Price</span>
           <span class="right-0">$0-$100</span>
-            
           </div>
             <input type="range" name="" value="" class="w-full accent-neutral-200 ">
             
           
         </div>
-        
       </fieldset>
     </div>
-    <div name="rightSide" class="w-full h-full mt-16 mr-10">
+    <div name="rightSide" class="w-full  mt-16 mr-10">
       <div name="topSideOfItemsDisplay" class="flex flex-row justify-start space-x-3 w-full mb-5">
         <div class="bg-amber-200">
           <span>Men's</span>
@@ -97,9 +95,12 @@
            </select>
          </div>
       </div>
-    <div name="itemDisplay" id="itemDisplay" class="w-full h-full flex flex-row flex-wrap justify-between">
-      <!-- here go all items -->
-    </div>
+      <div name="itemDisplay" id="itemDisplay" class="w-full flex flex-row flex-wrap justify-between">
+        <!-- here go all items -->
+      </div>
+      <div name="buttonWrapper" class="flex justify-center align-middle">
+        <input type="button" name="loadMode" value="Load More" class="border-black rounded-xl border-2 p-3 hover:bg-neutral-200" onclick="loadMaxImages('itemDisplay',8);">
+      </div>
       
     </div>
       
@@ -115,6 +116,7 @@
   </footer>
 
 </body>
+  <script src="allProductsScreenAdjuster.js"></script>
 </html>
 
 
