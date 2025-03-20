@@ -7,9 +7,9 @@
   <script src="loadMaxImages.js"></script>
 </head>
 <body class='flex flex-col h-screen min-h-screen ' onload="loadMaxImages('itemDisplay',8);">
-  <header class="w-full flex flex-row justify-end items-center space-x-2.5 h-20" >
-    <div name="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto m-5">
-      <img src="../resources/icons/logo.png" alt="logo" class="max-h-28 h-fit">
+  <header class="w-full flex flex-row justify-end items-center space-x-2.5 h-24" >
+    <div name="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto ">
+      <img src="../resources/icons/logo.png" alt="logo" class="h-full w-fit">
     </div>
     <div name="search_bar" class="flex flex-row ">
       <input type="search" placeholder="Search.." class="ml-auto min-w-96 w-full max-w-2xl rounded-2xl border-gray-300 border-2 p-1 focus:outline-none" >
@@ -19,11 +19,12 @@
       <img src="../resources/icons/shoppingCart.png" alt="shopping cart icon" class="w-14 h-14">
     </div>
     <div name="login_wrapper">
-      <button type="submit" class="w-20 h-10 bg-neutral-400 text-white active:bg-neutral-200 rounded-2xl">Log in</button>
+      <a href="logInPage.html"><button type="submit" class="w-20 h-10 bg-neutral-400 text-white active:bg-neutral-200 rounded-2xl">Log in</button>
+      </a>
     </div>
     <div name="register_wrapper">
-      <button type="submit" class="w-20 h-10 bg-black text-white active:bg-neutral-200 rounded-2xl">Register</button>
-
+      <a href="registerPage.html"><button type="submit" class="w-20 h-10 bg-black text-white active:bg-neutral-200 rounded-2xl">Register</button>
+      </a>
     </div>
   </header>
   <main id="main" class="flex flex-row flex-grow" >
