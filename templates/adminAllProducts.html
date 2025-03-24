@@ -8,7 +8,7 @@
   <script src="loadMaxImages.js"></script>
 </head>
 
-<body class='h-screen grid grid-cols-1 justify-between ' onload="loadMaxImages('newArrivals',Math.max((screen.width / 320)+2, 5));loadMaxImages('onSale',Math.max((screen.width / 320)+2, 5));">
+<body class='h-screen flex flex-col justify-between ' onload="loadMaxImages('newArrivals',Math.max((screen.width / 320), 5));loadMaxImages('onSale',Math.max((screen.width / 320), 5));">
   <header class="w-full flex flex-row justify-end items-center space-x-2.5 h-24">
     <div name="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto ">
       <img src="../resources/icons/logo.png" alt="logo" class="h-full w-fit">
@@ -29,29 +29,42 @@
       </a>
     </div>
   </header>
-  <main name="body_wrapper" class="grid grid-cols-1 w-full h-full">
-    <div name="welcome_text" class="text-2xl justify-self-center grid-cols-1 grid justify-items-center w-fit font-bold mt-3 mb-5">
-      <span>Discover the Latest Fashion Trends</span>
-      <br>
-      <span>Find the perfect outfit for every occasion with our exclusive collections.</span>
-      <button type="submit" class="m-3 w-fit bg-neutral-300 active:bg-neutral-200 rounded-2xl p-3">Shop now</button>
+  <main name="body_wrapper" class="w-full h-full">
+    <div name="buttonWrapper" class="w-full h-fit">
+      <button type="button" class="bg-black text-white">+ Add Item</button>
     </div>
-    <! –– Shouldn't there be javascript dictating how many elements can be on screen at one time? -->
-      <div name="product_box" class='p-10 '>
-        <a href="allProducts.html" class="text-4xl font-bold ">New Arrivals></a>
-        <div name="newArrivals" id="newArrivals" class="w-full grid grid-flow-col overflow-scroll no-scrollbar space-x-10 whitespace-nowrap ">
-          <!-- here go all items -->
-        </div>
-      </div>
-      <div name="product_box" class='p-10 '>
-        <a href="allProducts.html" class="text-4xl font-bold ">On Sale></a>
-        <div name="onSale" id="onSale" class="w-full grid grid-flow-col overflow-scroll no-scrollbar space-x-10 whitespace-nowrap ">
-        </div>
-      </div>
+    <div name="table wrapper w-full h-fit">
+      <table class="w-full ">
+        <thead class="gap-5">
+          <td></td>
+          <td><span>Category</span></td>
+          <td><span>Name</span></td>
+          <td><span>Price</span></td>
+          <td><span>Stock</span></td>
+          <td><span>Edit</span></td>
+          <td><span>Delete</span></td>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="w-14 h-14 bg-neutral-300 rounded-lg"></div>
+            </td>
+            <td>Shirt</td>
+            <td>cool shirt</td>
+            <td>$28.00</td>
+            <td>in Stock</td>
+            <td>icon</td>
+            <td>icon</td>
+
+        </tbody>
+      </table>
+
+
+    </div>
   </main>
   <footer class="w-full h-28 bottom-0 mt-auto">
     <hr>
-    <div class='relative top-10 grid mx-auto grid-flow-col align-middle w-fit space-x-5'>
+    <div class='relative top-10 flex justify-center space-x-5'>
       <span>Contact</span>
       <span>FAQ</span>
       <span>c all rights reserved</span>
@@ -59,5 +72,3 @@
   </footer>
 
 </body>
-
-</html>
