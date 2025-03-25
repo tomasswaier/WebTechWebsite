@@ -1,18 +1,20 @@
 <!doctype html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
   <link href="../src/styles.css" rel="stylesheet">
   <script src="loadMaxImages.js"></script>
 </head>
-<body class='flex flex-col h-screen min-h-screen ' onload="loadMaxImages('itemDisplay',8);">
-  <header class="w-full flex flex-row justify-end items-center space-x-2.5 h-24" >
+
+<body class='grid grid-flow-row h-screen min-h-screen ' onload="loadMaxImages('itemDisplay',8);">
+  <header class="w-full flex flex-row justify-end items-center space-x-2.5 h-24">
     <div name="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto ">
       <img src="../resources/icons/logo.png" alt="logo" class="h-full w-fit">
     </div>
     <div name="search_bar" class="flex flex-row ">
-      <input type="search" placeholder="Search.." class="ml-auto min-w-96 w-full max-w-2xl rounded-2xl border-gray-300 border-2 p-1 focus:outline-none" >
+      <input type="search" placeholder="Search.." class="ml-auto min-w-96 w-full max-w-2xl rounded-2xl border-gray-300 border-2 p-1 focus:outline-none">
       <img src="../resources/icons/searchIcon.png" alt="shopping cart icon" class="w-6 h-6 relative right-8 top-1">
     </div>
     <div name="cart_wrapper">
@@ -27,9 +29,9 @@
       </a>
     </div>
   </header>
-  <main id="main" class="flex flex-row flex-grow" >
+  <main id="main" class="grid h-fit gap-8 grid-flow-col ">
     <div id="itemFiltersWrapper" name="leftSide" class="max-w-64 w-full mx-10 my-20 ">
-      <span class="font-bold text-2xl">Filters</span>      
+      <span class="font-bold text-2xl">Filters</span>
       <fieldset id="itemsFiltersFieldset" class="">
         <span class="font-bold ">Categories</span>
         <div>
@@ -58,76 +60,70 @@
         </div>
         <div>
           <span class="font-bold">Color</span>
-          <div id="colorSelection" class="flex gap-2">
+          <div id="colorSelection" class="grid grid-cols-10">
             <!-- I want to make this automatic by calling a thing in php-->
             <label>
               <input type="checkbox" name="color_choice" value="white" class="peer hidden">
-                <span
-                  class="w-5 h-5 rounded-full border-2 border-gray-300 block cursor-pointer peer-checked:ring-2 peer-checked:ring-black bg-white"
-                  aria-label="white">
-                </span>
+              <span class="w-5 h-5 rounded-full border-2 border-gray-300 block cursor-pointer peer-checked:ring-2 peer-checked:ring-black bg-white" aria-label="white">
+              </span>
             </label>
             <label>
               <input type="checkbox" name="color_choice" value="black" class="peer hidden">
-              <span
-                      class="w-5 h-5 rounded-full border-2 border-gray-300 block cursor-pointer peer-checked:ring-2 peer-checked:ring-black bg-black"
-                      aria-label="black">
-                </span>
+              <span class="w-5 h-5 rounded-full border-2 border-gray-300 block cursor-pointer peer-checked:ring-2 peer-checked:ring-black bg-black" aria-label="black">
+              </span>
             </label>
           </div>
         </div>
         <div>
-          <div class="flex flex-row -space-y-80">
-          <span class="font-bold mr-auto ">Price</span>
-          <span class="right-0">$0-$100</span>
+          <div class="grid justify-between grid-cols-2">
+            <span class="font-bold mr-auto ">Price</span>
+            <span class="justify-self-end">$0-$100</span>
           </div>
-            <input type="range" name="" value="" class="w-full accent-neutral-200 ">
-            
-          
+          <input type="range" name="" value="" class="w-full accent-neutral-200 ">
+
+
         </div>
       </fieldset>
     </div>
     <div name="rightSide" class="w-full  mt-16 mr-10">
       <div name="topSideOfItemsDisplay" class="flex flex-row justify-start space-x-3 w-full mb-5">
-        <div class="bg-amber-200">
+        <div class="border-2 p-2 rounded-lg">
           <span>Men's</span>
-         </div> 
-        <div class="border-black">
+        </div>
+        <div class="border-2 p-2 rounded-lg">
           <span>Women's</span>
-         </div> 
-        <div class="border-black ">
+        </div>
+        <div class="border-2 p-2 rounded-lg ">
           <span>Unisex</span>
-         </div> 
-         <div class="ml-auto">
-           <select>
-             <option value="placeholder">Meow</option>
-             <option value="placeholder">Meow2</option>
-           </select>
-         </div>
+        </div>
+        <div class="ml-auto border-2 p-2 rounded-lg ">
+          <select>
+            <option value="placeholder">Meow</option>
+            <option value="placeholder">Meow2</option>
+          </select>
+        </div>
       </div>
       <div name="itemDisplay" id="itemDisplay" class="w-full flex flex-row flex-wrap justify-between">
         <!-- here go all items -->
       </div>
-      <div name="buttonWrapper" class="flex justify-center align-middle">
+      <div name="buttonWrapper" class="grid justify-center align-middle">
         <input type="button" name="loadMode" value="Load More" class="border-black rounded-xl border-2 p-3 hover:bg-neutral-200" onclick="loadMaxImages('itemDisplay',8);">
       </div>
-      
+
     </div>
-      
+
     </div>
   </main>
   <footer class="w-full h-28 bottom-0 mt-auto">
-      <hr>
-      <div class='relative top-10 flex justify-center space-x-5'>
-        <span>Contact</span>
-        <span>FAQ</span>
-        <span>c all rights reserved</span>
-      </div>
+    <hr>
+    <div class='relative top-10 grid mx-auto grid-flow-col align-middle w-fit space-x-5'>
+      <span>Contact</span>
+      <span>FAQ</span>
+      <span>c all rights reserved</span>
+    </div>
   </footer>
 
 </body>
-  <script src="allProductsScreenAdjuster.js"></script>
+<script src="allProductsScreenAdjuster.js"></script>
+
 </html>
-
-
-
