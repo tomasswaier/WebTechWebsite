@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-    <title>Product Detail</title>
+  <meta charset="UTF-8">
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <title>Product Detail</title>
 </head>
+
 <body>
-  <header class="w-full flex flex-row justify-end items-center space-x-2.5 h-24" >
+  <header class="w-full flex flex-row justify-end items-center space-x-2.5 h-24">
     <div name="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto ">
-      <img src="../resources/icons/logo.png" alt="logo" class="h-full w-fit">
+      <a href="index.html"><img src="../resources/icons/logo.png" alt="logo" class="h-full w-fit"></a>
     </div>
     <div name="search_bar" class="flex flex-row ">
-      <input type="search" placeholder="Search.." class="ml-auto min-w-96 w-full max-w-2xl rounded-2xl border-gray-300 border-2 p-1 focus:outline-none" >
+      <input type="search" placeholder="Search.." class="ml-auto min-w-96 w-full max-w-2xl rounded-2xl border-gray-300 border-2 p-1 focus:outline-none">
       <img src="../resources/icons/searchIcon.png" alt="shopping cart icon" class="w-6 h-6 relative right-8 top-1">
     </div>
     <div name="cart_wrapper">
@@ -26,75 +28,72 @@
       </a>
     </div>
   </header>
-<main class="container mx-auto px-4 py-4">
+  <main class="container mx-auto px-4 py-4">
     <div class="flex flex-wrap -mx-4">
-        <div id="product_photos" class="w-full h-max-[100vh] md:w-1/2 px-4 mb-8">
-            <img id="mainImage" src="../resources/product_images/example_shirt_front.png" alt="img1" class="w-auto max-h-[50vh] mb-4 justify-self-center">
-            <div class="flex gap-4 py-4 justify-center overflow-x-auto overflow-y-hidden">
-                <img src="../resources/product_images/example_shirt_front.png" alt="img0" class="w-auto max-h-[25vh] hover:scale-125 transition duration-300" onclick="changeImage(this.src)">
-                <img src="../resources/product_images/example_shirt_side.png" alt="img2" class="w-auto max-h-[25vh] hover:scale-125 transition duration-300" onclick="changeImage(this.src)">
-                <img src="../resources/product_images/example_shirt_side1.png" alt="img3" class="w-auto max-h-[25vh] hover:scale-125 transition duration-300" onclick="changeImage(this.src)">
-            </div>
+      <div id="product_photos" class="w-full h-max-[100vh] md:w-1/2 px-4 mb-8">
+        <img id="mainImage" src="../resources/product_images/example_shirt_front.png" alt="img1" class="w-auto max-h-[50vh] mb-4 justify-self-center">
+        <div class="flex gap-4 py-4 justify-center overflow-x-auto overflow-y-hidden">
+          <img src="../resources/product_images/example_shirt_front.png" alt="img0" class="w-auto max-h-[25vh] hover:scale-125 transition duration-300" onclick="changeImage(this.src)">
+          <img src="../resources/product_images/example_shirt_side.png" alt="img2" class="w-auto max-h-[25vh] hover:scale-125 transition duration-300" onclick="changeImage(this.src)">
+          <img src="../resources/product_images/example_shirt_side1.png" alt="img3" class="w-auto max-h-[25vh] hover:scale-125 transition duration-300" onclick="changeImage(this.src)">
         </div>
-    <!--Product info-->
-        <div id="product_info" class="w-full md:w-1/2 px-4">
-            <h1 class="font-bold mb-5 text-xl">Meow T-shirt</h1>
-            <p class="mb-3">
-                Elevate your everyday style with this essential Meow T-Shirt. Crafted from premium, breathable cotton, it offers unbeatable comfort and a perfect fit. The timeless crew neck design pairs effortlessly with jeans, joggers, or shorts, making it a versatile staple in any wardrobe. Whether you’re dressing it up or keeping it casual, this T-shirt has you covered.
-            <p>
-            <h2 class="font-bold mb-3">Color</h2>
-            <div id="color_picker" class="flex gap-4 mb-3">
-                <label>
-                    <input type="radio" name="selectedColor" value="black" class="peer hidden">
-                    <span
-                            class="w-8 h-8 rounded-full border-2 border-gray-300 block cursor-pointer
-                peer-checked:ring-2 peer-checked:ring-black bg-black"
-                            aria-label="black">
-                    </span>
-                </label>
-                <label>
-                    <input type="radio" name="selectedColor" value="white" class="peer hidden">
-                    <span
-                            class="w-8 h-8 rounded-full border-2 border-gray-300 block cursor-pointer
-                peer-checked:ring-2 peer-checked:ring-black bg-white"
-                            aria-label="white">
-                    </span>
-                </label>
-            </div>
-            <h2 class="font-bold mb-3">Material</h2>
-            <p class="mb-3">100% Cotton</p>
-            <form action="#" method="post" class="grid grid-cols-2 gap-5 max-w-md">
-                <h2 class="font-bold p-2 text-xl">$28.00</h2>
-                <select name="size" id="size_selection" class="border-black border rounded-lg focus:border-black-500 pl-[10px]">
-                    <option selected value="">Select size</option>
-                    <option value="S">S</option>
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                    <option value="XL">XL</option>
-                </select>
-                <button type="submit" class="bg-black rounded-lg text-white p-2">
-                    Add to cart
-                </button>
-                <input type="number" name="quantity" placeholder="0" class="border border-black rounded-lg pl-[14px]">
-            </form>
+      </div>
+      <!--Product info-->
+      <div id="product_info" class="w-full md:w-1/2 px-4">
+        <h1 class="font-bold mb-5 text-xl">Meow T-shirt</h1>
+        <p class="mb-3">
+          Elevate your everyday style with this essential Meow T-Shirt. Crafted from premium, breathable cotton, it offers unbeatable comfort and a perfect fit. The timeless crew neck design pairs effortlessly with jeans, joggers, or shorts, making it a versatile staple in any wardrobe. Whether you’re dressing it up or keeping it casual, this T-shirt has you covered.
+        <p>
+        <h2 class="font-bold mb-3">Color</h2>
+        <div id="color_picker" class="flex gap-4 mb-3">
+          <label>
+            <input type="radio" name="selectedColor" value="black" class="peer hidden">
+            <span class="w-8 h-8 rounded-full border-2 border-gray-300 block cursor-pointer
+                peer-checked:ring-2 peer-checked:ring-black bg-black" aria-label="black">
+            </span>
+          </label>
+          <label>
+            <input type="radio" name="selectedColor" value="white" class="peer hidden">
+            <span class="w-8 h-8 rounded-full border-2 border-gray-300 block cursor-pointer
+                peer-checked:ring-2 peer-checked:ring-black bg-white" aria-label="white">
+            </span>
+          </label>
+        </div>
+        <h2 class="font-bold mb-3">Material</h2>
+        <p class="mb-3">100% Cotton</p>
+        <form action="#" method="post" class="grid grid-cols-2 gap-5 max-w-md">
+          <h2 class="font-bold p-2 text-xl">$28.00</h2>
+          <select name="size" id="size_selection" class="border-black border rounded-lg focus:border-black-500 pl-[10px]">
+            <option selected value="">Select size</option>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+          </select>
+          <button type="submit" class="bg-black rounded-lg text-white p-2">
+            Add to cart
+          </button>
+          <input type="number" name="quantity" placeholder="0" class="border border-black rounded-lg pl-[14px]">
+        </form>
 
 
-        </div>
+      </div>
     </div>
-</main>
-<footer class="w-full h-20 bottom-0 mt-auto">
+  </main>
+  <footer class="w-full h-20 bottom-0 mt-auto">
     <hr>
     <div class='flex justify-center space-x-5'>
-        <span>Contact</span>
-        <span>FAQ</span>
-        <span>c all rights reserved</span>
+      <span>Contact</span>
+      <span>FAQ</span>
+      <span>c all rights reserved</span>
     </div>
-</footer>
-<script>
+  </footer>
+  <script>
     function changeImage(src) {
-        let mainImage = document.getElementById('mainImage')
-        mainImage.src = src;
+      let mainImage = document.getElementById('mainImage')
+      mainImage.src = src;
     }
-</script>
+  </script>
 </body>
+
 </html>
