@@ -12,8 +12,7 @@ function showHideFieldset(childFieldsetId) {
 
 function adjustScreenFilters(parentId, childFieldsetId) {
   const main = document.getElementById("main");
-  main.classList.remove("flex-row");
-  main.classList.add("flex-col");
+  main.classList.remove("grid-flow-col", "gap-8");
   const parentElement = document.getElementById(parentId);
   if (!parentElement) {
     return;
@@ -25,6 +24,8 @@ function adjustScreenFilters(parentId, childFieldsetId) {
   turnOnFilterButton.innerText = "Show Filters";
   turnOnFilterButton.classList.add("border-2", "rounded-xl", "p-1");
   document.getElementById(childFieldsetId).classList.add("hidden");
+  document.getElementById(childFieldsetId)
+      .parentElement.classList.remove("mt-20");
 
   parentElement.appendChild(turnOnFilterButton);
 
