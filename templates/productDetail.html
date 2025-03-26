@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <title>Product Detail</title>
+
 </head>
+
 <body>
-  <header class="w-full flex flex-row justify-end items-center space-x-2.5 h-24" >
+  <header class="w-full flex flex-row justify-end items-center space-x-2.5 h-24">
     <div name="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto ">
-      <img src="../resources/icons/logo.png" alt="logo" class="h-full w-fit">
+      <a href="index.html"><img src="../resources/icons/logo.png" alt="logo" class="h-full w-fit"></a>
     </div>
     <div name="search_bar" class="flex flex-row ">
-      <input type="search" placeholder="Search.." class="ml-auto min-w-96 w-full max-w-2xl rounded-2xl border-gray-300 border-2 p-1 focus:outline-none" >
+      <input type="search" placeholder="Search.." class="ml-auto min-w-96 w-full max-w-2xl rounded-2xl border-gray-300 border-2 p-1 focus:outline-none">
       <img src="../resources/icons/searchIcon.png" alt="shopping cart icon" class="w-6 h-6 relative right-8 top-1">
     </div>
     <div name="cart_wrapper">
@@ -27,6 +30,7 @@
       </a>
     </div>
   </header>
+
 <main class="container mx-auto px-4 py-4">
     <div class="grid gird-rows-2 md:grid-cols-2 -mx-4">
         <div id="product_photos" class="w-full h-max-[100vh] px-4 mb-8">
@@ -80,22 +84,26 @@
             </form>
 
 
-        </div>
+
+      </div>
     </div>
-</main>
-<footer class="w-full h-20 bottom-0 mt-auto">
+  </main>
+  <footer class="w-full h-20 bottom-0 mt-auto">
     <hr>
+
     <div class='relative top-10 grid mx-auto grid-flow-col align-middle w-fit space-x-5'>
         <span>Contact</span>
         <span>FAQ</span>
         <span>c all rights reserved</span>
+
     </div>
-</footer>
-<script>
+  </footer>
+  <script>
     function changeImage(src) {
-        let mainImage = document.getElementById('mainImage')
-        mainImage.src = src;
+      let mainImage = document.getElementById('mainImage')
+      mainImage.src = src;
     }
-</script>
+  </script>
 </body>
+
 </html>
