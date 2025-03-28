@@ -24,8 +24,9 @@ function loadMaxImages(parentId, numberOfItems) {
     const elementWrapper = document.createElement("div");
     parentElement.appendChild(elementWrapper);
     elementWrapper.classList.add("flex", "flex-col")
-    const imageWrapper = document.createElement("div");
+    const imageWrapper = document.createElement("a");
     elementWrapper.appendChild(imageWrapper);
+    imageWrapper.href = "./productDetail.html";
     imageWrapper.setAttribute(
         "class",
         "w-2xl max-w-80 min-w-20 h-50 bg-neutral-300 rounded-2xl mr-auto overflow-hidden");
