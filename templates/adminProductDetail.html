@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <link href="../src/styles.css" rel="stylesheet">
+  <script src="displayInputImage.js"></script>
+</head>
+
+<body class='h-screen grid grid-cols-1 justify-between ' onload="initiateImageInputField('imageDisplay')">
+  <header class="w-full flex flex-row justify-end items-center space-x-2.5 h-24">
+    <div name="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto ">
+      <a href="index.html"><img src="../resources/icons/logo.png" alt="logo" class="h-full w-fit"></a>
+    </div>
+    <div name="search_bar" class="flex flex-row ">
+      <input type="search" placeholder="Search.." class="ml-auto min-w-96 w-full max-w-2xl rounded-2xl border-gray-300 border-2 p-1 focus:outline-none">
+      <img src="../resources/icons/searchIcon.png" alt="shopping cart icon" class="w-6 h-6 relative right-8 top-1">
+    </div>
+    <div name="cart_wrapper">
+      <img src="../resources/icons/shoppingCart.png" alt="shopping cart icon" class="w-14 h-14">
+    </div>
+    <div name="login_wrapper">
+      <a href="logInPage.html"><button type="submit" class="w-20 h-10 bg-neutral-400 text-white active:bg-neutral-200 rounded-2xl">Log in</button>
+      </a>
+    </div>
+    <div name="register_wrapper">
+      <a href="registerPage.html"><button type="submit" class="w-20 h-10 bg-black text-white active:bg-neutral-200 rounded-2xl">Register</button>
+      </a>
+    </div>
+  </header>
+  <main name="bodyWrapper" class="w-full h-full grid grid-cols-1 px-10">
+    <div id="imageDisplay" class="w-full grid grid-flow-col overflow-scroll no-scrollbar space-x-10 whitespace-nowrap ">
+      <!-- here go all items -->
+      <div class="w-60 h-40  rounded-2xl bg-neutral-200 border-2 overflow-hidden flex">
+        <img id="display_image" src="" class="h-full w-full" />
+        <label for="user_image">
+          <img src="../resources/icons/trashIcon.png" alt="" class="relative w-16 right-0 top-24">
+        </label>
+      </div>
+    </div>
+    <div>
+      <span>Name of product</span>
+      <br>
+      <input type="text" class="custom-input-field w-120 border-neutral-300" placeholder="Cool White Shirt" name="" value="">
+      <br>
+      <span>Label</span>
+      <br>
+      <textarea rows="4" cols="120" placeholder="Coolest cat shirt in the galaxy from milkiway to neptune!!!" class="border border-neutral-300 rounded-lg"></textarea>
+      <br>
+      <span class="text-2xl font-bold">Color</span>
+      <br>
+      <input type="text" placeholder="#FFFFFF" class="custom-input-field w-80 border-neutral-300" name="" value=""><input type="button" name="" value="add color" class="w-30 bg-black text-white font-bold rounded-md h-10">
+      <div name="colorOptionsWrapper">
+
+      </div>
+      <br>
+      <span>Price</span>
+      <br>
+      <input type="text" placeholder="$10.00" class="custom-input-field w-80 border-neutral-300" name="" value="">
+      <br>
+      <span>Stock count</span>
+      <br>
+      <input type="text" placeholder="10" class="custom-input-field w-80 border-neutral-300" name="" value="">
+    </div>
+
+
+  </main>
+  <footer class="w-full h-28 bottom-0 mt-auto">
+    <hr>
+    <div class='relative top-10 grid mx-auto grid-flow-col align-middle w-fit space-x-5'>
+      <span>Contact</span>
+      <span>FAQ</span>
+      <span>c all rights reserved</span>
+    </div>
+  </footer>
+
+</body>

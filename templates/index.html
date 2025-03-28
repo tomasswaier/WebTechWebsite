@@ -1,18 +1,20 @@
 <!doctype html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
   <link href="../src/styles.css" rel="stylesheet">
   <script src="loadMaxImages.js"></script>
 </head>
-<body class='h-screen flex flex-col justify-between ' onload="loadMaxImages('newArrivals',Math.max((screen.width / 320), 5));loadMaxImages('onSale',Math.max((screen.width / 320), 5));">
-  <header class="w-full flex flex-row justify-end items-center space-x-2.5 h-20" >
-    <div name="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto m-5">
-      <img src="../resources/icons/logo.png" alt="logo" class="max-h-28 h-fit">
+
+<body class='h-screen grid grid-cols-1 justify-between ' onload="loadMaxImages('newArrivals',Math.max((screen.width / 320)+2, 5));loadMaxImages('onSale',Math.max((screen.width / 320)+2, 5));">
+  <header class="w-full flex flex-row justify-end items-center space-x-2.5 h-24">
+    <div name="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto ">
+      <a href="index.html"><img src="../resources/icons/logo.png" alt="logo" class="h-full w-fit"></a>
     </div>
     <div name="search_bar" class="flex flex-row ">
-      <input type="search" placeholder="Search.." class="ml-auto min-w-96 w-full max-w-2xl rounded-2xl border-gray-300 border-2 p-1 focus:outline-none" >
+      <input type="search" placeholder="Search.." class="ml-auto min-w-96 w-full max-w-2xl rounded-2xl border-gray-300 border-2 p-1 focus:outline-none">
       <img src="../resources/icons/searchIcon.png" alt="shopping cart icon" class="w-6 h-6 relative right-8 top-1">
     </div>
     <div name="cart_wrapper">
@@ -27,36 +29,35 @@
       </a>
     </div>
   </header>
-  <main name="body_wrapper" class="w-full h-full">
-    <div name="welcome_text" class="text-2xl flex flex-col font-bold mt-3 mb-5 items-center">
-        <span>Discover the Latest Fashion Trends</span>
-        <br>
-        <span>Find the perfect outfit for every occasion with our exclusive collections.</span>
-        <button type="submit" class="m-3 bg-neutral-300 active:bg-neutral-200 rounded-2xl p-3">Shop now</button>
+  <main name="body_wrapper" class="grid grid-cols-1 w-full h-full">
+    <div name="welcome_text" class="text-2xl justify-self-center grid-cols-1 grid justify-items-center w-fit font-bold mt-3 mb-5">
+      <span>Discover the Latest Fashion Trends</span>
+      <br>
+      <span>Find the perfect outfit for every occasion with our exclusive collections.</span>
+      <button type="submit" class="m-3 w-fit bg-neutral-300 active:bg-neutral-200 rounded-2xl p-3">Shop now</button>
     </div>
     <! –– Shouldn't there be javascript dictating how many elements can be on screen at one time? -->
-    <div name="product_box" class='p-10 '>
-      <a href="allProducts.html" class="text-4xl font-bold " >New Arrivals></a>
-        <div name="newArrivals" id="newArrivals" class="w-full flex overflow-auto no-scrollbar space-x-10 whitespace-nowrap ">
+      <div name="product_box" class='p-10 '>
+        <a href="allProducts.html" class="text-4xl font-bold ">New Arrivals></a>
+        <div name="newArrivals" id="newArrivals" class="w-full grid grid-flow-col overflow-scroll no-scrollbar space-x-10 whitespace-nowrap ">
           <!-- here go all items -->
         </div>
-    </div>
-    <div name="product_box" class='p-10 '>
-      <a href="allProducts.html" class="text-4xl font-bold " >On Sale></a>
-        <div name="onSale" id="onSale" class="w-full flex overflow-auto no-scrollbar space-x-10 whitespace-nowrap ">
+      </div>
+      <div name="product_box" class='p-10 '>
+        <a href="allProducts.html" class="text-4xl font-bold ">On Sale></a>
+        <div name="onSale" id="onSale" class="w-full grid grid-flow-col overflow-scroll no-scrollbar space-x-10 whitespace-nowrap ">
         </div>
-    </div>
+      </div>
   </main>
   <footer class="w-full h-28 bottom-0 mt-auto">
-      <hr>
-      <div class='relative top-10 flex justify-center space-x-5'>
-        <span>Contact</span>
-        <span>FAQ</span>
-        <span>c all rights reserved</span>
-      </div>
+    <hr>
+    <div class='relative top-10 grid mx-auto grid-flow-col align-middle w-fit space-x-5'>
+      <span>Contact</span>
+      <span>FAQ</span>
+      <span>c all rights reserved</span>
+    </div>
   </footer>
 
 </body>
+
 </html>
-
-

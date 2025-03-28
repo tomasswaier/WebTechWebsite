@@ -1,87 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=close" />
-    <title>Cart - overview</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=close" />
+  <title>Cart - overview</title>
 </head>
-<body class="">
-<header class="w-full flex flex-row justify-end items-center space-x-2.5 h-20" >
+
+<body class="h-screen grid grid-cols-1 justify-between">
+  <header class="w-full flex flex-row justify-end items-center space-x-2.5 h-20">
     <div name="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto m-5">
-        <img src="../resources/icons/logo.png" alt="logo" class="h-full">
+      <img src="../resources/icons/logo.png" alt="logo" class="h-full">
     </div>
     <div name="search_bar" class="flex flex-row ">
-        <input type="search" placeholder="Search.." class="ml-auto min-w-96 w-full max-w-2xl rounded-2xl border-gray-300 border-2 p-1 focus:outline-none pl-5" >
-        <img src="../resources/icons/searchIcon.png" alt="shopping cart icon" class="w-6 h-6 relative right-8 top-1">
+      <input type="search" placeholder="Search.." class="ml-auto min-w-96 w-full max-w-2xl rounded-2xl border-gray-300 border-2 p-1 focus:outline-none pl-5">
+      <img src="../resources/icons/searchIcon.png" alt="shopping cart icon" class="w-6 h-6 relative right-8 top-1">
     </div>
     <div name="cart_wrapper">
-        <a href="#">
-            <img src="../resources/icons/shoppingCart.png" alt="shopping cart icon" class="max-h-10">
-        </a>
+      <a href="#">
+        <img src="../resources/icons/shoppingCart.png" alt="shopping cart icon" class="max-h-10">
+      </a>
     </div>
     <div name="login_wrapper">
-        <button type="submit" class="w-20 h-10 bg-neutral-400 text-white active:bg-neutral-200 rounded-2xl">Log in</button>
+      <button type="submit" class="w-20 h-10 bg-neutral-400 text-white active:bg-neutral-200 rounded-2xl">Log in</button>
     </div>
     <div name="register_wrapper">
-        <button type="submit" class="w-20 h-10 bg-black text-white active:bg-neutral-200 rounded-2xl">Register</button>
+      <button type="submit" class="w-20 h-10 bg-black text-white active:bg-neutral-200 rounded-2xl">Register</button>
     </div>
-</header>
-<main>
+  </header>
+  <main>
     <div class="container mx-auto px-4 py-4">
-        <ul class="grid grid-cols-3 w-fit gap-10 py-10">
-            <li class="font-bold">1 • Overview</li>
-            <li>2 • Address</li>
-            <li>3 • Shipping & Payment</li>
-        </ul>
-        <div id="main_cart_section" class="grid grid-flow-row sm:grid-flow-col w-full">
-            <div id="products_section" class="grid grid-flow-row w-full md:w-[50vw]">
-                <h2 class="my-3 font-bold">Your Cart</h2>
-                <ul class="grid w-auto grid-flow-row gap-y-4">
-                    <li class="grid grid-flow-row sm:grid-flow-col w-full space-y-3 place-items-center sm:place-items-start justify-center sm:justify-normal border-b sm:border-none">
-                        <img src="../resources/product_images/example_shirt_front.png" alt="img1" class="w-auto max-h-30 sm:max-h-15">
-                        <span>Meow T-shirt</span>
-                        <span>$28.00</span>
-                        <span>Size: L</span>
-                        <input type="number" class="w-15 border border-black rounded-lg text-center" placeholder="1" required>
-                        <button type="button" class="hover:bg-gray-200 transition duration-300 size-fit p-2 rounded-lg hover:cursor-pointer">
-                            <span class="material-symbols-outlined">close</span>
-                        </button>
-                    </li>
-                    <li class="grid grid-flow-row sm:grid-flow-col w-full space-y-3 place-items-center sm:place-items-start justify-center sm:justify-normal border-b sm:border-none">
-                        <img src="../resources/product_images/example_shirt_front_white.png" alt="img1" class="w-auto max-h-30 sm:max-h-15">
-                        <span>Meow T-shirt</span>
-                        <span>$28.00</span>
-                        <span>Size: L</span>
-                        <input type="number" class="w-15 border border-black rounded-lg text-center" placeholder="1" required>
-                        <button type="button" class="hover:bg-gray-200 transition duration-300 size-fit p-2 rounded-lg hover:cursor-pointer">
-                            <span class="material-symbols-outlined">close</span>
-                        </button>
-                    </li>
-                </ul>
-            </div>
-            <div id="order_summary" class="grid grid-flow-row w-auto">
-                <h2 class="font-bold my-3">Order Summary</h2>
-                <div class="grid grid-flow-col justify-between">
-                    <span>Total:</span>
-                    <span id="total_price">$56.00</span>
-                </div>
-                <hr class="my-3 w-full h-0.5 border-t-0 bg-gray-300" />
-                <button class="w-full bg-black rounded-xl text-white py-2.5 hover:cursor-pointer">
-                    Continue to checkout
-                </button>
-            </div>
+      <ul class="grid grid-cols-3 w-fit gap-10 py-10">
+        <li class="font-bold">1 • Overview</li>
+        <li>2 • Address</li>
+        <li>3 • Shipping & Payment</li>
+      </ul>
+      <div id="main_cart_section" class="grid grid-flow-row sm:grid-flow-col w-full">
+        <div id="products_section" class="grid grid-flow-row w-full md:w-[50vw]">
+          <h2 class="my-3 font-bold">Your Cart</h2>
+          <ul class="grid w-auto grid-flow-row gap-y-4">
+            <li class="grid grid-flow-row sm:grid-flow-col w-full space-y-3 place-items-center sm:place-items-start justify-center sm:justify-normal border-b sm:border-none">
+              <img src="../resources/product_images/example_shirt_front.png" alt="img1" class="w-auto max-h-30 sm:max-h-15">
+              <span>Meow T-shirt</span>
+              <span>$28.00</span>
+              <span>Size: L</span>
+              <input type="number" class="w-15 border border-black rounded-lg text-center" placeholder="1" required>
+              <button type="button" class="hover:bg-gray-200 transition duration-300 size-fit p-2 rounded-lg hover:cursor-pointer">
+                <span class="material-symbols-outlined">close</span>
+              </button>
+            </li>
+            <li class="grid grid-flow-row sm:grid-flow-col w-full space-y-3 place-items-center sm:place-items-start justify-center sm:justify-normal border-b sm:border-none">
+              <img src="../resources/product_images/example_shirt_front_white.png" alt="img1" class="w-auto max-h-30 sm:max-h-15">
+              <span>Meow T-shirt</span>
+              <span>$28.00</span>
+              <span>Size: L</span>
+              <input type="number" class="w-15 border border-black rounded-lg text-center" placeholder="1" required>
+              <button type="button" class="hover:bg-gray-200 transition duration-300 size-fit p-2 rounded-lg hover:cursor-pointer">
+                <span class="material-symbols-outlined">close</span>
+              </button>
+            </li>
+          </ul>
         </div>
+        <div id="order_summary" class="grid grid-flow-row w-auto">
+          <h2 class="font-bold my-3">Order Summary</h2>
+          <div class="grid grid-flow-col justify-between">
+            <span>Total:</span>
+            <span id="total_price">$56.00</span>
+          </div>
+          <hr class="my-3 w-full h-0.5 border-t-0 bg-gray-300" />
+          <button class="w-full bg-black rounded-xl text-white py-2.5 hover:cursor-pointer">
+            Continue to checkout
+          </button>
+        </div>
+      </div>
     </div>
-</main>
-<footer class="w-full mt-auto h-auto mb-10">
+  </main>
+  <footer class="w-full h-28 bottom-0 mt-auto">
     <hr>
-    <div class='flex justify-center space-x-5'>
-        <span>Contact</span>
-        <span>FAQ</span>
-        <span>c all rights reserved</span>
+    <div class='relative top-10 grid mx-auto grid-flow-col align-middle w-fit space-x-5'>
+      <span>Contact</span>
+      <span>FAQ</span>
+      <span>c all rights reserved</span>
     </div>
-</footer>
+  </footer>
 </body>
+
 </html>
