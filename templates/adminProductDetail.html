@@ -100,8 +100,10 @@
     var reader = new FileReader();
     reader.onload = function(e) {
       imageArea.innerHTML += `
-        <input id="user_image" class="text-transparent relative w-50 h-50 border mb-2 border-black border-2 rounded-xl" name="product_image" type="image" value="${e.target.result}" src="${e.target.result}" disabled/>
-        <img src="../resources/icons/trashIcon.png" class="absolute w-50 h-50 hidden hover:block" />
+        <div class="relative">
+            <input id="user_image" class="text-transparent w-50 h-50 border mb-2 border-black border-2 rounded-xl" name="product_image" type="image" value="${e.target.result}" src="${e.target.result}" disabled/>
+            <img src="../resources/icons/trashIcon.png" class="absolute right-5 bottom-5 w-10 h-10 z-50 cursor-pointer" onclick="this.parentElement.remove()"/>
+        </div>
     `
     };
     reader.readAsDataURL(image);
