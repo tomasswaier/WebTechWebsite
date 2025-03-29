@@ -4,7 +4,9 @@ function getItemData() {
       [
         "../resources/product_images/example_shirt_front.png",
         "../resources/product_images/example_shirt_front2.png",
-        "../resources/product_images/example_shirt_front_white.png"
+        "../resources/product_images/example_shirt_front_white.png",
+        "../resources/product_images/example_shirt_Cool.png",
+        "../resources/product_images/example_shirt_Montag.png"
       ]
 
       const item = {};
