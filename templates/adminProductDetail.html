@@ -3,84 +3,64 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
   <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
   <meta name="viewport" content="width=device-width">
   <link href="../src/styles.css" rel="stylesheet">
   <script src="displayInputImage.js"></script>
 </head>
 
-<body class='h-screen grid grid-cols-1 justify-between ' onload="initiateImageInputField('imageDisplay')">
-  <header class="w-full flex flex-wrap justify-end items-center mx-auto h-20 relative z-20">
-    <a href="index.html" id="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto m-5">
-      <img src="../resources/icons/logo.png" alt="logo" class="h-full">
+<body class='h-screen grid grid-cols-1 justify-between'>
+<header class="w-full flex flex-wrap justify-end items-center mx-auto h-20 relative z-20">
+  <a href="index.html" id="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto m-5">
+    <img src="../resources/icons/logo.png" alt="logo" class="h-full">
+  </a>
+  <div class="flex bg-white mt-5 w-auto mr-3">
+    <a href="#" class="w-full md:w-20 p-1 h-10 bg-white text-black border border-black active:bg-neutral-400 rounded-lg flex items-center justify-center">
+      <span>Log out</span>
     </a>
-    <button id="hamburger_btn" type="button" data-collapse-toggle="hamburger_default" aria-controls="hamburger_default" aria-expanded="false" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-      <span class="sr-only">Open main menu</span>
-      <img src="../resources/icons/hamburgerIcon.png" alt="hamburger icon" class="max-h-12 md:mb-0">
-    </button>
-    <div id="hamburger_default" class="absolute hidden bg-white mt-5 md:mt-0 top-full right-0 w-full z-50 md:static md:flex md:w-auto md:mr-3">
-      <ul class="flex flex-col z-50 md:flex-row space-y-3 md:space-y-0 p-4 md:p-0 bg-white border border-gray-500 md:mt-0 md:border-0 md:bg-white md:space-x-2">
-        <li class="relative block">
-          <form method="post" action="#">
-            <input type="search" name="search_query" placeholder="Search.." class="block ml-auto w-full md:w-96 rounded-lg border-black border p-1 focus:outline-none pl-5">
-            <button type="submit" class="absolute top-0 z-20 end-0 rounded-e-lg bg-black p-2 focus:ring-1 border border-black">
-              <img src="../resources/icons/search.png" alt="search-icon" class="w-4 h-4">
-            </button>
-          </form>
-        </li>
-        <li class="block">
-          <a href="#" class="flex w-full justify-center space-x-3 md:space-x-0 border md:border-transparent bg-white md:bg-transparent border-black rounded-lg">
-            <img src="../resources/icons/shoppingCart.png" alt="shopping cart icon" class="max-h-10 mb-2 md:mb-0">
-            <span class="flex md:hidden self-center">Cart</span>
-          </a>
-        </li>
-        <li class="block">
-          <a href="logInPage.html"><button type="button" class="w-full md:w-20 h-10 bg-white text-black border border-black active:bg-neutral-400 rounded-lg">Log
-              in</button></a>
-        </li>
-        <li class="block">
-          <a href="registerPage.html"><button type="button" class="w-full md:w-20 h-10 bg-black text-white active:bg-neutral-500 rounded-lg">Register</button></a>
-        </li>
-      </ul>
-
-    </div>
-  </header>
+  </div>
+</header>
   <main name="bodyWrapper" class="w-full h-full grid grid-cols-1 px-10">
-    <div id="imageDisplay" class="w-full grid grid-flow-col overflow-scroll no-scrollbar space-x-10 whitespace-nowrap ">
-      <!-- here go all items -->
-      <div class="w-60 h-40  rounded-2xl bg-neutral-200 border-2 overflow-hidden flex">
-        <img id="display_image" src="" class="h-full w-full" />
-        <label for="user_image">
-          <img src="../resources/icons/trashIcon.png" alt="" class="relative w-16 right-0 top-24">
+    <form action="#" method="post">
+      <div id="imageDisplay" class="w-fit grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 overflow-scroll no-scrollbar space-x-5 whitespace-nowrap items-start">
+        <!-- here go all items -->
+        <label for="user_image" class="size-auto relative block items-center cursor-pointer order-last">
+          <input id="user_image" class="text-transparent absolute size-auto" name="user_image" type="file" onchange="addImage()" />
+          <img src="../resources/icons/addImage.png" class="w-50 h-50 mb-2 border-2 border-black rounded-xl" />
         </label>
       </div>
-    </div>
-    <div>
-      <span>Name of product</span>
-      <br>
-      <input type="text" class="custom-input-field w-120 border-neutral-300" placeholder="Cool White Shirt" name="" value="">
-      <br>
-      <span>Label</span>
-      <br>
-      <textarea rows="4" cols="10" placeholder="Coolest cat shirt in the galaxy from milkiway to neptune!!!" class="border border-neutral-300 rounded-lg"></textarea>
-      <br>
-      <span class="text-2xl font-bold">Color</span>
-      <br>
-      <input type="text" placeholder="#FFFFFF" class="custom-input-field w-80 border-neutral-300" name="" value=""><input type="button" name="" value="add color" class="w-30 bg-black text-white font-bold rounded-md h-10">
-      <div name="colorOptionsWrapper">
 
+      <div>
+        <span class="text-lg font-bold">Name of product</span>
+        <br>
+        <input type="text" class="w-full md:max-w-[50vw] custom-input-field w-120 border-neutral-300" placeholder="Cool White Shirt" name="product_name">
+        <br>
+        <span class="text-lg font-bold">Label</span>
+        <br>
+        <textarea name="product_description" rows="4" cols="120" placeholder="Coolest cat shirt in the galaxy from milkiway to neptune!!!" class="w-full md:max-w-[50vw] border border-neutral-300 rounded-lg" maxlength="200"></textarea>
+        <br>
+        <span class="text-lg font-bold">Color</span>
+        <br>
+        <div class="grid grid-cols-2 gap-x-1 size-fit">
+          <input id="colorInput" type="color" class="size-full">
+          <button type="button" class="w-30 bg-black text-white font-bold rounded-md h-10" onclick="addColor()">Add color</button>
+        </div>
+        <div id="colorOptionsWrapper" class="grid grid-flow-col size-fit">
+
+
+        </div>
+        <br>
+        <span class="text-lg font-bold">Price</span>
+        <br>
+        <input type="text" placeholder="$10.00" class="w-full md:max-w-[25vw] custom-input-field w-80 border-neutral-300" name="product_price">
+        <br>
+        <span class="text-lg font-bold">Stock count</span>
+        <br>
+        <input type="text" placeholder="10" class="w-full md:max-w-[25vw] custom-input-field w-80 border-neutral-300" name="product_instock">
       </div>
-      <br>
-      <span>Price</span>
-      <br>
-      <input type="text" placeholder="$10.00" class="custom-input-field w-80 border-neutral-300" name="" value="">
-      <br>
-      <span>Stock count</span>
-      <br>
-      <input type="text" placeholder="10" class="custom-input-field w-80 border-neutral-300" name="" value="">
-    </div>
-
-
+      <button class="w-30 bg-black text-white font-bold rounded-md h-10 my-3" type="submit">Save</button>
+    </form>
   </main>
   <footer class="w-full h-28 bottom-0 mt-auto">
     <hr>
@@ -94,3 +74,36 @@
   <script src='responsiveHeader.js'>
   </script>
 </body>
+<script>
+  const colorsArea = document.querySelector("#colorOptionsWrapper");
+  function addColor() {
+    const colorInput = document.querySelector("#colorInput");
+    colorsArea.innerHTML += `
+        <label>
+            <input type="text" name="product_color" value="${colorInput.value}" class="hidden">
+            <span
+                    class="w-10 h-10 rounded-full border-2 border-gray-300 block cursor-pointer
+        peer-checked:ring-2 peer-checked:ring-black bg-[${colorInput.value}]"
+                    aria-label="black"
+                    onclick="this.parentElement.remove()"
+            </span>
+        </label>
+    `
+  }
+
+  function addImage() {
+    const imageArea = document.querySelector("#imageDisplay");
+    // displays  selected user image to user for confirmation/better ux
+    const inputElemnt = document.getElementById("user_image")
+    inputElemnt.classList.add("hidden", "none")
+    var image = inputElemnt.files[0];
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      imageArea.innerHTML += `
+        <input id="user_image" class="text-transparent relative w-50 h-50 border mb-2 border-black border-2 rounded-xl" name="product_image" type="image" value="${e.target.result}" src="${e.target.result}" disabled/>
+        <img src="../resources/icons/trashIcon.png" class="absolute w-50 h-50 hidden hover:block" />
+    `
+    };
+    reader.readAsDataURL(image);
+  }
+</script>
