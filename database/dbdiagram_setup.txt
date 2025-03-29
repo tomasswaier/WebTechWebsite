@@ -1,0 +1,110 @@
+Table Users {
+  id uuid [pk]
+  username varchar(50)
+  email varchar(255) [unique]
+  password varchar(50)
+  isadmin bool [default: "False"]
+  created_at timestamp
+}
+
+Table Orders {
+  id uuid [pk]
+  user_id uuid [null]
+  shipping_method uuid [not null]
+  payment_method uuid [not null]
+  shipping_details uuid [not null]
+  price int
+  created_at timestamp
+}
+
+Table ShippingDetails {
+  id uuid [pk]
+  user_id uuid [null]
+  first_name varchar(50)
+  last_name varchar(50)
+  address varchar(100)
+  city varchar(80)
+  zip varchar(20)
+}
+
+Table Category {
+  id uuid [pk]
+  name varchar(50)
+}
+
+Table Products {
+  id uuid [pk]
+  category uuid [not null]
+  name varchar(30)
+  description varchar(200)
+  in_stock int
+  price decimal [not null]
+  discounted_price decimal
+  color_id uuid [not null]
+  created_at timestamp
+  updated_at timestamp
+  deleted_at timestamp
+}
+
+Table OrderProducts {
+  id uuid [pk]
+  order_id uuid [not null]
+  product_id uuid [not null]
+  quantity int [not null]
+}
+
+Table Cart {
+  id uuid [pk]
+  user_id uuid [not null]
+  is_current_cart bool
+}
+
+Table ProductCart {
+  id uuid [pk]
+  cart_id uuid [not null]
+  product_id uuid [not null]
+  quantity int
+}
+
+Table Shipping {
+  id uuid [pk]
+  name varchar(50) [not null]
+  price int [not null]
+}
+
+Table PaymentDetails {
+  id uuid [pk]
+  payment_method PaymentMethod
+}
+
+Table ProductImages {
+  id uuid [pk]
+  product_id uuid [not null]
+  image_url varchar(500)
+  is_main bool
+}
+
+Table Colors {
+  id uuid [pk]
+  name varchar(20)
+  hex_code varchar(20)
+}
+
+Enum PaymentMethod {
+  CARD
+  CASH
+}
+
+ref: Orders.shipping_details > ShippingDetails.id
+ref: ShippingDetails.user_id > Users.id
+ref: Products.category > Category.id
+ref: OrderProducts.order_id > Orders.id
+ref: OrderProducts.product_id > Products.id
+ref: Orders.user_id > Users.id
+ref: Cart.user_id > Users.id
+ref: ProductCart.product_id > Products.id
+ref: ProductCart.cart_id > Cart.id
+ref: Orders.shipping_method > Shipping.id
+ref: Orders.payment_method > PaymentDetails.id
+ref: ProductImages.product_id > Products.id
+ref: Products.color_id > Colors.id
