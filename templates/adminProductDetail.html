@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width">
   <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <meta name="viewport" content="width=device-width">
   <link href="../src/styles.css" rel="stylesheet">
   <script src="displayInputImage.js"></script>
 </head>
@@ -29,6 +30,7 @@
           <img src="../resources/icons/addImage.png" class="w-50 h-50 mb-2 border-2 border-black rounded-xl" />
         </label>
       </div>
+
       <div>
         <span class="text-lg font-bold">Name of product</span>
         <br>
@@ -45,6 +47,7 @@
           <button type="button" class="w-30 bg-black text-white font-bold rounded-md h-10" onclick="addColor()">Add color</button>
         </div>
         <div id="colorOptionsWrapper" class="grid grid-flow-col size-fit">
+
 
         </div>
         <br>
@@ -68,6 +71,8 @@
     </div>
   </footer>
 
+  <script src='responsiveHeader.js'>
+  </script>
 </body>
 <script>
   const colorsArea = document.querySelector("#colorOptionsWrapper");
