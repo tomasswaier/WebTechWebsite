@@ -13,7 +13,7 @@
 <body class='h-screen grid grid-cols-1 justify-between '>
   <header class="w-full flex flex-wrap justify-end items-center mx-auto h-20 relative z-20">
     <a href="index.html" id="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto m-5">
-      <img src="../resources/icons/logo.png" alt="logo" class="h-full">
+      <img src="icons/logo.png" alt="logo" class="h-full">
     </a>
     <button id="hamburger_btn" type="button" data-collapse-toggle="hamburger_default" aria-controls="hamburger_default" aria-expanded="false" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
       <span class="sr-only">Open main menu</span>
@@ -27,13 +27,13 @@
           <form method="post" action="#">
             <input type="search" name="search_query" placeholder="Search.." class="block ml-auto w-full md:w-96 rounded-lg border-black border p-1 focus:outline-none pl-5">
             <button type="submit" class="absolute top-0 z-20 end-0 rounded-e-lg bg-black p-2 focus:ring-1 border border-black">
-              <img src="../resources/icons/search.png" alt="search-icon" class="w-4 h-4">
+              <img src="icons/search.png" alt="search-icon" class="w-4 h-4">
             </button>
           </form>
         </li>
         <li class="block">
           <a href="#" class="flex w-full justify-center space-x-3 md:space-x-0 border md:border-transparent bg-white md:bg-transparent border-black rounded-lg">
-            <img src="../resources/icons/shoppingCart.png" alt="shopping cart icon" class="max-h-10 mb-2 md:mb-0">
+            <img src="icons/shoppingCart.png" alt="shopping cart icon" class="max-h-10 mb-2 md:mb-0">
             <span class="flex md:hidden self-center">Cart</span>
           </a>
         </li>
@@ -51,11 +51,11 @@
   <main class="container mx-auto px-4 py-4">
     <div class="grid gird-rows-2 md:grid-cols-2 -mx-4">
       <div id="product_photos" class="w-full h-max-[100vh] px-4 mb-8">
-        <img id="mainImage" src="../resources/product_images/example_shirt_front.png" alt="img1" class="w-auto max-h-[50vh] mb-4 justify-self-center">
+        <img id="mainImage" src="product_images/example_shirt_front.png" alt="img1" class="w-auto max-h-[50vh] mb-4 justify-self-center">
         <div class="grid grid-cols-3 gap-4 py-4 overflow-x-auto overflow-y-hidden items-center">
-          <img src="../resources/product_images/example_shirt_front.png" alt="img0" class="w-auto max-h-[25vh] hover:scale-125 transition duration-300" onclick="changeImage(this.src)">
-          <img src="../resources/product_images/example_shirt_side.png" alt="img2" class="w-auto max-h-[25vh] hover:scale-125 transition duration-300" onclick="changeImage(this.src)">
-          <img src="../resources/product_images/example_shirt_side1.png" alt="img3" class="w-auto max-h-[25vh] hover:scale-125 transition duration-300" onclick="changeImage(this.src)">
+          <img src="product_images/example_shirt_front.png" alt="img0" class="w-auto max-h-[25vh] hover:scale-125 transition duration-300" onclick="changeImage(this.src)">
+          <img src="product_images/example_shirt_side.png" alt="img2" class="w-auto max-h-[25vh] hover:scale-125 transition duration-300" onclick="changeImage(this.src)">
+          <img src="product_images/example_shirt_side1.png" alt="img3" class="w-auto max-h-[25vh] hover:scale-125 transition duration-300" onclick="changeImage(this.src)">
         </div>
       </div>
       <!--Product info-->

@@ -22,7 +22,7 @@ class InputField {
                           "overflow-hidden", "flex")
     wrapper.innerHTML = ` <label for = "user_image">
     <input id="user_image" class="text-transparent absolute" name="user_image" type="file" onChange="displayInputImage()" /> 
-    <img src = "../resources/icons/addImage.png" alt = "" class = "relative w-20 left-20 top-10" >
+    <img src = "icons/addImage.png" alt = "" class = "relative w-20 left-20 top-10" >
     </label>
     `
   }
