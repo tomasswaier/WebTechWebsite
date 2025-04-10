@@ -4,14 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-  <link href="../src/styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url('/css/styles.css') }}" />
+  <script src="{{ asset('js/loadMaxImages.js') }}"></script>
   <meta name="viewport" content="width=device-width">
-  <script src="loadMaxImages.js"></script>
 </head>
 
 <body class='grid grid-flow-row h-screen min-h-screen ' onload="loadMaxImages('itemDisplay',8);">
   <header class="w-full flex flex-wrap justify-end items-center mx-auto h-20 relative z-20">
-    <a href="index.html" id="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto m-5">
+    <a href="{{ url('/')}}" id="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto m-5">
       <img src="icons/logo.png" alt="logo" class="h-full">
     </a>
     <button id="hamburger_btn" type="button" data-collapse-toggle="hamburger_default" aria-controls="hamburger_default" aria-expanded="false" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
@@ -29,17 +29,17 @@
           </form>
         </li>
         <li class="block">
-          <a href="#" class="flex w-full justify-center space-x-3 md:space-x-0 border md:border-transparent bg-white md:bg-transparent border-black rounded-lg">
+          <a href="{{ url('cartOverview')}}" class="flex w-full justify-center space-x-3 md:space-x-0 border md:border-transparent bg-white md:bg-transparent border-black rounded-lg">
             <img src="icons/shoppingCart.png" alt="shopping cart icon" class="max-h-10 mb-2 md:mb-0">
             <span class="flex md:hidden self-center">Cart</span>
           </a>
         </li>
         <li class="block">
-          <a href="logInPage.html"><button type="button" class="w-full md:w-20 h-10 bg-white text-black border border-black active:bg-neutral-400 rounded-lg">Log
+          <a href="{{ url('logInPage')}}"><button type="button" class="w-full md:w-20 h-10 bg-white text-black border border-black active:bg-neutral-400 rounded-lg">Log
               in</button></a>
         </li>
         <li class="block">
-          <a href="registerPage.html"><button type="button" class="w-full md:w-20 h-10 bg-black text-white active:bg-neutral-500 rounded-lg">Register</button></a>
+          <a href="{{ url('registerPage')}}"><button type="button" class="w-full md:w-20 h-10 bg-black text-white active:bg-neutral-500 rounded-lg">Register</button></a>
         </li>
       </ul>
 
@@ -48,7 +48,7 @@
   <main id="main" class="grid h-fit gap-8 grid-flow-col ">
     <div id="itemFiltersWrapper" name="leftSide" class="max-w-64 w-full mx-10 my-20 ">
       <span class="font-bold text-2xl">Filters</span>
-      <fieldset id="itemsFiltersFieldset" class="">
+      <fieldset id="itemsFiltersFieldset" class="mr-4">
         <span class="font-bold ">Categories</span>
         <div>
           <input type="checkbox" name="placeholder" value="placeholder" class="accent-black rounded-4xl mr-1.5">
@@ -140,7 +140,7 @@
   </footer>
 
 </body>
-<script src="allProductsScreenAdjuster.js"></script>
-<script src='responsiveHeader.js'></script>
+<script src="{{ asset('js/allProductsScreenAdjuster.js')}}"></script>
+<script src="{{ asset('js/responsiveHeader.js')}}"></script>
 
 </html>

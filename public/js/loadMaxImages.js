@@ -2,11 +2,11 @@ function getItemData() {
   // todo : finish
   const randomItems =
       [
-        "../resources/product_images/example_shirt_front.png",
-        "../resources/product_images/example_shirt_front2.png",
-        "../resources/product_images/example_shirt_front_white.png",
-        "../resources/product_images/example_shirt_Cool.png",
-        "../resources/product_images/example_shirt_Montag.png"
+        "product_images/example_shirt_front.png",
+        "product_images/example_shirt_front2.png",
+        "product_images/example_shirt_front_white.png",
+        "product_images/example_shirt_Cool.png",
+        "product_images/example_shirt_Montag.png"
       ]
 
       const item = {};
@@ -28,7 +28,7 @@ function loadMaxImages(parentId, numberOfItems) {
     elementWrapper.classList.add("flex", "flex-col")
     const imageWrapper = document.createElement("a");
     elementWrapper.appendChild(imageWrapper);
-    imageWrapper.href = "./productDetail.html";
+    imageWrapper.href = "productDetail";
     imageWrapper.setAttribute(
         "class",
         "w-2xl max-w-80 min-w-20 h-50 bg-neutral-300 rounded-2xl mr-auto overflow-hidden");
