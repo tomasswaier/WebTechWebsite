@@ -5,15 +5,15 @@
   <meta charset="UTF-8">
   <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
   <meta name="viewport" content="width=device-width">
-  <link href="../src/styles.css" rel="stylesheet">
-  <script src="loadMaxImages.js"></script>
+  <link rel="stylesheet" href="{{ url('/css/styles.css') }}" />
+  <script src="{{ asset('js/loadMaxImages.js') }}"></script>
 </head>
 
 <body class='min-h-screen h-screen grid grid-cols-1 justify-between ' onload="loadMaxImages('newArrivals',Math.max((screen.width / 320)+2, 5));loadMaxImages('onSale',Math.max((screen.width / 320)+2, 5));">
 
   <body class='h-screen grid grid-cols-1 justify-between '>
     <header class="w-full flex flex-wrap justify-end items-center mx-auto h-20 relative z-20">
-      <a href="index.html" id="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto m-5">
+      <a href="{{ url('/')}}" id="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto m-5">
         <img src="icons/logo.png" alt="logo" class="h-full">
       </a>
       <button id="hamburger_btn" type="button" data-collapse-toggle="hamburger_default" aria-controls="hamburger_default" aria-expanded="false" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
@@ -31,17 +31,17 @@
             </form>
           </li>
           <li class="block">
-            <a href="#" class="flex w-full justify-center space-x-3 md:space-x-0 border md:border-transparent bg-white md:bg-transparent border-black rounded-lg">
+            <a href="{{ url('cartOverview')}}" class="flex w-full justify-center space-x-3 md:space-x-0 border md:border-transparent bg-white md:bg-transparent border-black rounded-lg">
               <img src="icons/shoppingCart.png" alt="shopping cart icon" class="max-h-10 mb-2 md:mb-0">
               <span class="flex md:hidden self-center">Cart</span>
             </a>
           </li>
           <li class="block">
-            <a href="logInPage.html"><button type="button" class="w-full md:w-20 h-10 bg-white text-black border border-black active:bg-neutral-400 rounded-lg">Log
+            <a href="{{ url('logInPage')}}"><button type="button" class="w-full md:w-20 h-10 bg-white text-black border border-black active:bg-neutral-400 rounded-lg">Log
                 in</button></a>
           </li>
           <li class="block">
-            <a href="registerPage.html"><button type="button" class="w-full md:w-20 h-10 bg-black text-white active:bg-neutral-500 rounded-lg">Register</button></a>
+            <a href="{{ url('registerPage')}}"><button type="button" class="w-full md:w-20 h-10 bg-black text-white active:bg-neutral-500 rounded-lg">Register</button></a>
           </li>
         </ul>
 
@@ -56,13 +56,13 @@
       </div>
       <! –– Shouldn't there be javascript dictating how many elements can be on screen at one time? -->
         <div name="product_box" class='p-10 '>
-          <a href="allProducts.html" class="text-4xl font-bold ">New Arrivals></a>
+          <a href="{{url('allProducts')}}" class="text-4xl font-bold ">New Arrivals></a>
           <div name="newArrivals" id="newArrivals" class="w-full grid grid-flow-col overflow-scroll no-scrollbar space-x-10 whitespace-nowrap ">
             <!-- here go all items -->
           </div>
         </div>
         <div name="product_box" class='p-10 '>
-          <a href="allProducts.html" class="text-4xl font-bold ">On Sale></a>
+          <a href="{{url('allProducts')}}" class="text-4xl font-bold ">On Sale></a>
           <div name="onSale" id="onSale" class="w-full grid grid-flow-col overflow-scroll no-scrollbar space-x-10 whitespace-nowrap ">
           </div>
         </div>
@@ -77,8 +77,8 @@
     </footer>
 
   </body>
-  <script src='responsiveHeader.js'>
-  </script>
+  <script src="{{ asset('js/responsiveHeader.js') }}"></script>
+
 
 </html>
 

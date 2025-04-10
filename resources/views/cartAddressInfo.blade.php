@@ -11,7 +11,7 @@
 
 <body class="h-screen grid grid-cols-1 justify-between">
   <header class="w-full flex flex-wrap justify-end items-center mx-auto h-20 relative z-20">
-    <a href="index.html" id="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto m-5">
+    <a href="{{ url('/')}}" id="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto m-5">
       <img src="icons/logo.png" alt="logo" class="h-full">
     </a>
     <button id="hamburger_btn" type="button" data-collapse-toggle="hamburger_default" aria-controls="hamburger_default" aria-expanded="false" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
@@ -35,11 +35,11 @@
           </a>
         </li>
         <li class="block">
-          <a href="logInPage.html"><button type="button" class="w-full md:w-20 h-10 bg-white text-black border border-black active:bg-neutral-400 rounded-lg">Log
+          <a href="{{ url('logInPage')}}"><button type="button" class="w-full md:w-20 h-10 bg-white text-black border border-black active:bg-neutral-400 rounded-lg">Log
               in</button></a>
         </li>
         <li class="block">
-          <a href="registerPage.html"><button type="button" class="w-full md:w-20 h-10 bg-black text-white active:bg-neutral-500 rounded-lg">Register</button></a>
+          <a href="{{ url('registerPage')}}"><button type="button" class="w-full md:w-20 h-10 bg-black text-white active:bg-neutral-500 rounded-lg">Register</button></a>
         </li>
       </ul>
 

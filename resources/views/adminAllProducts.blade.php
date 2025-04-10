@@ -11,7 +11,7 @@
 
 <body class='h-screen grid grid-cols-1 justify-between ' onload="loadMaxImages('newArrivals',Math.max((screen.width / 320), 5));loadMaxImages('onSale',Math.max((screen.width / 320), 5));">
 <header class="w-full flex flex-wrap justify-end items-center mx-auto h-20 relative z-20">
-  <a href="index.html" id="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto m-5">
+  <a href="{{ url('/')}}" id="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto m-5">
     <img src="icons/logo.png" alt="logo" class="h-full">
   </a>
   <div class="flex bg-white mt-5 w-auto mr-3">
