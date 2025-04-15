@@ -3,10 +3,11 @@
 
 <head>
   <meta charset="UTF-8">
-  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
   <meta name="viewport" content="width=device-width">
   <link href="../src/styles.css" rel="stylesheet">
   <script src="loadMaxImages.js"></script>
+    @vite('resources/css/app.css')
+
 </head>
 
 <body class='h-screen grid grid-rows-3 justify-stretch' onload="loadMaxImages('newArrivals',Math.max((screen.width / 320), 5));loadMaxImages('onSale',Math.max((screen.width / 320), 5));">

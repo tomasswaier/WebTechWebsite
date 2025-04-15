@@ -4,9 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width">
-  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=close" />
   <title>Cart - overview</title>
+    @vite('resources/css/app.css')
+
 </head>
 
 <body class="h-screen grid grid-cols-1 justify-between">

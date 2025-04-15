@@ -3,7 +3,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    @vite('resources/css/app.css')
+
   <link href="../src/styles.css" rel="stylesheet">
   <script src="loadMaxImages.js"></script>
   <meta name="viewport" content="width=device-width">
