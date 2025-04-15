@@ -3,10 +3,10 @@
 
 <head>
   <meta charset="UTF-8">
-  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
   <link rel="stylesheet" href="{{ url('/css/styles.css') }}" />
   <script src="{{ asset('js/loadMaxImages.js') }}"></script>
   <meta name="viewport" content="width=device-width">
+  @vite('resources/css/app.css')
 </head>
 
 <body class='grid grid-flow-row h-screen min-h-screen ' onload="loadMaxImages('itemDisplay',8);">

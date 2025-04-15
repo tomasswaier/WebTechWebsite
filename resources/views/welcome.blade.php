@@ -3,10 +3,10 @@
 
 <head>
   <meta charset="UTF-8">
-  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
   <meta name="viewport" content="width=device-width">
   <link rel="stylesheet" href="{{ url('/css/styles.css') }}" />
   <script src="{{ asset('js/loadMaxImages.js') }}"></script>
+  @vite('resources/css/app.css')
 </head>
 
 <body class='min-h-screen h-screen grid grid-cols-1 justify-between ' onload="loadMaxImages('newArrivals',Math.max((screen.width / 320)+2, 5));loadMaxImages('onSale',Math.max((screen.width / 320)+2, 5));">
