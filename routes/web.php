@@ -34,5 +34,5 @@ Route::get('productDetail', function () {
 });
 use App\Http\Controllers\ItemController;
 
-Route::get('/api/items/{count?}', [ItemController::class, 'getItems'])
+Route::get('/api/items/{count?}', [ItemController::class, 'getMainPicture'])
     ->where('count', '[0-9]+');
