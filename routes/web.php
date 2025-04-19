@@ -32,3 +32,7 @@ Route::get('cartPayment', function () {
 Route::get('productDetail', function () {
     return view('productDetail');
 });
+use App\Http\Controllers\ItemController;
+
+Route::get('/api/items/{count?}', [ItemController::class, 'getItems'])
+    ->where('count', '[0-9]+');
