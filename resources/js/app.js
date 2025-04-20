@@ -1,4 +1,6 @@
 import './bootstrap';
+import './allProductsScreenAdjuster';
+import './responsiveHeader';
 
 import Alpine from 'alpinejs';
 
