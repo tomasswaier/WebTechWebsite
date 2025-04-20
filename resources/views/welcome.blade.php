@@ -19,4 +19,14 @@
     <div name="onSale" id="onSale" class="w-full grid grid-flow-col overflow-scroll no-scrollbar space-x-10 whitespace-nowrap ">
     </div>
 </div>
+@vite('resources/js/loadMaxImages.js')
+
+<script>
+        document.addEventListener("DOMContentLoaded", () => {
+            loadMaxImages('newArrivals', Math.max((screen.width / 320) + 2, 5));
+            loadMaxImages('onSale', Math.max((screen.width / 320) + 2, 5));
+        });
+    </script>
+
+</div>
 @endsection

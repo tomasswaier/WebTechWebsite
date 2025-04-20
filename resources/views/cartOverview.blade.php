@@ -58,7 +58,7 @@
           <h2 class="my-3 font-bold">Your Cart</h2>
           <ul class="grid w-auto grid-flow-row gap-y-4">
             <li class="grid grid-flow-row sm:grid-flow-col w-full space-y-3 place-items-center sm:place-items-start justify-center sm:justify-normal border-b sm:border-none">
-              <img src="product_images/example_shirt_front.png" alt="img1" class="w-auto max-h-30 sm:max-h-15">
+              <img src="product_images/example_shirt_front.png" alt="img1" class="w-auto max-h-32 sm:max-h-16">
               <span>Meow T-shirt</span>
               <span>$28.00</span>
               <span>Size: L</span>
@@ -68,7 +68,7 @@
               </button>
             </li>
             <li class="grid grid-flow-row sm:grid-flow-col w-full space-y-3 place-items-center sm:place-items-start justify-center sm:justify-normal border-b sm:border-none">
-              <img src="product_images/example_shirt_front_white.png" alt="img1" class="w-auto max-h-30 sm:max-h-15">
+              <img src="product_images/example_shirt_front_white.png" alt="img1" class="w-auto max-h-32 sm:max-h-16">
               <span>Meow T-shirt</span>
               <span>$28.00</span>
               <span>Size: L</span>

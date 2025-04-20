@@ -49,7 +49,7 @@ async function loadMaxImages(parentId, numberOfItems) {
     imageWrapper.href = "productDetail";
     imageWrapper.setAttribute(
         "class",
-        "w-2xl max-w-80 min-w-20 h-50 bg-neutral-300 rounded-2xl mr-auto overflow-hidden");
+        "w-2xl w-80 h-52 max-h-50 bg-neutral-300 rounded-2xl overflow-hidden");
 
     const itemImage = document.createElement("img");
     imageWrapper.appendChild(itemImage);
@@ -62,7 +62,7 @@ async function loadMaxImages(parentId, numberOfItems) {
 
     const itemPriceElement = document.createElement("span");
     elementWrapper.appendChild(itemPriceElement);
-    console.log(typeof itemData.price);
     itemPriceElement.innerText = "$" + parseFloat(itemData.price).toFixed(2);
   });
 }
+window.loadMaxImages = loadMaxImages;
