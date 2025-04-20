@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
@@ -39,6 +40,8 @@ Route::get('/api/items/{count?}', [ItemController::class, 'getMainPicture'])
     ->where('count', '[0-9]+');
 Route::get('/api/cartItems/{count?}', [ItemController::class, 'getUserCartItems'])
     ->where('count', '[0-9]+');
+
+Route::get('/product/detail/{id}', [ProductController::class, 'detail'])->name('product.detail');
 
 //Route::get('/dashboard', function () {
 //    return view('dashboard');
