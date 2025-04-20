@@ -62,7 +62,6 @@ async function loadMaxImages(parentId, numberOfItems) {
 
     const itemPriceElement = document.createElement("span");
     elementWrapper.appendChild(itemPriceElement);
-    console.log(typeof itemData.price);
     itemPriceElement.innerText = "$" + parseFloat(itemData.price).toFixed(2);
   });
 }
