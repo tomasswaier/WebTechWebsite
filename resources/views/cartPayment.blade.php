@@ -102,7 +102,7 @@
         </label>
         <ul id="order_summary" class="grid grid-flow-row w-auto gap-y-4">
           <li class="flex flex-row w-full items-center justify-normal">
-            <img src="product_images/example_shirt_front.png" alt="img1" class="w-auto max-h-15">
+            <img src="product_images/example_shirt_front.png" alt="img1" class="w-auto max-h-16">
             <div class="grid grid-flow-row sm:grid-flow-col items-center justify-between w-full ml-5">
               <span class="font-bold">Meow T-shirt</span>
               <span>Size: L</span>
@@ -111,7 +111,7 @@
             </div>
           </li>
           <li class="flex flex-row w-full items-center justify-normal">
-            <img src="product_images/example_shirt_front_white.png" alt="img1" class="w-auto max-h-15">
+            <img src="product_images/example_shirt_front_white.png" alt="img1" class="w-auto max-h-16">
             <div class="grid grid-flow-row sm:grid-flow-col items-center justify-between w-full ml-5">
               <span class="font-bold">Meow T-shirt</span>
               <span>Size: L</span>

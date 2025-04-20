@@ -14,14 +14,14 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="container mx-auto px-4 py-4 h-screen min-h-screen ">
+    <body class="w-screen px-4 py-4 h-screen min-h-screen ">
         <div class="min-h-screen ">
             <header class="w-full flex flex-wrap justify-end items-center mx-auto h-20 relative z-20">
                 @component('components.header')
                 @endcomponent
             </header>
             <!-- Page Content -->
-            <main>
+            <main class="grid h-fit gap-8 grid-flow-row">
                 @yield('main_content')
             </main>
             <footer class="w-full h-auto mt-auto">
