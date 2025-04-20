@@ -20,6 +20,7 @@
     </div>
 </div>
 @vite('resources/js/loadMaxImages.js')
+@vite('resources/js/responsiveHeader.js')
 
 <script>
         document.addEventListener("DOMContentLoaded", () => {
