@@ -10,8 +10,8 @@
       <div id="main_cart_section" class="grid grid-flow-row sm:grid-flow-col w-full">
         <div id="products_section" class="grid grid-flow-row w-full md:w-[50vw]">
           <h2 class="my-3 font-bold">Your Cart</h2>
-          <ul class="grid w-auto grid-flow-row gap-y-4">
-            <li class="grid grid-flow-row sm:grid-flow-col w-full space-y-3 place-items-center sm:place-items-start justify-center sm:justify-normal border-b sm:border-none">
+          <ul id="itemCartContainer" class="grid w-auto grid-flow-row gap-y-4">
+            <!--<li class="grid grid-flow-row sm:grid-flow-col w-full space-y-3 place-items-center sm:place-items-start justify-center sm:justify-normal border-b sm:border-none">
               <img src="product_images/example_shirt_front.png" alt="img1" class="w-auto max-h-32 sm:max-h-16">
               <span>Meow T-shirt</span>
               <span>$28.00</span>
@@ -30,7 +30,7 @@
               <button type="button" class="hover:bg-gray-200 transition duration-300 size-fit p-2 rounded-lg hover:cursor-pointer">
                 <span class="material-symbols-outlined">close</span>
               </button>
-            </li>
+            </li> -->
           </ul>
         </div>
         <div id="order_summary" class="grid grid-flow-row w-auto">
@@ -46,5 +46,13 @@
         </div>
       </div>
     </div>
+    </div>
+@vite('resources/js/displayCartItems.js')
 @vite('resources/js/responsiveHeader.js')
+<script>
+        document.addEventListener("DOMContentLoaded", () => {
+            loadCartContents('itemCartContainer', 3);
+        });
+    </script>
+
 @endsection

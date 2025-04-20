@@ -8,15 +8,15 @@
     <button type="submit" class="m-3 w-fit bg-neutral-300 active:bg-neutral-200 rounded-2xl p-3">Shop now</button>
 </div>
 <! –– Shouldn't there be javascript dictating how many elements can be on screen at one time? -->
-<div name="product_box" class='p-10 '>
-    <a href="{{url('allProducts')}}" class="text-4xl font-bold ">New Arrivals></a>
-    <div name="newArrivals" id="newArrivals" class="w-full grid grid-flow-col overflow-scroll no-scrollbar space-x-10 whitespace-nowrap ">
+<div name="product_box" class=' '>
+    <a href="{{url('allProducts')}}" class="text-4xl font-bold px-10">New Arrivals></a>
+    <div name="newArrivals" id="newArrivals" class="px-10 w-screen grid grid-flow-col overflow-scroll no-scrollbar space-x-10 whitespace-nowrap ">
         <!-- here go all items -->
     </div>
 </div>
-<div name="product_box" class='p-10 '>
-    <a href="{{url('allProducts')}}" class="text-4xl font-bold ">On Sale></a>
-    <div name="onSale" id="onSale" class="w-full grid grid-flow-col overflow-scroll no-scrollbar space-x-10 whitespace-nowrap ">
+<div name="product_box" class=' '>
+    <a href="{{url('allProducts')}}" class="px-10 text-4xl font-bold ">On Sale></a>
+    <div name="onSale" id="onSale" class="px-10 w-screen grid grid-flow-col overflow-scroll no-scrollbar space-x-10 whitespace-nowrap ">
     </div>
 </div>
 @vite('resources/js/loadMaxImages.js')
