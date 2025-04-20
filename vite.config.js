@@ -11,6 +11,7 @@ plugins:
           'resources/js/allProductsScreenAdjuster.js',
           'resources/js/loadMaxImages.js',
           'resources/js/responsiveHeader.js',
+          'resources/js/displayCartItems.js',
         ],
         refresh : true,
       }),

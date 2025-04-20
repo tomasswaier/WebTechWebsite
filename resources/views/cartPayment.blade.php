@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('main_content')
+<div class="p-10">
     <ul class="grid grid-cols-3 w-fit gap-10 py-10">
       <li>1 • Overview</li>
       <li>2 • Address</li>
@@ -89,6 +90,8 @@
         </ul>
       </div>
 
+    </div>
+    </div>
     </div>
 <script>
   const shippingChoices = document.querySelector("#shipping_choice");

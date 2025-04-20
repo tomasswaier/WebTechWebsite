@@ -37,6 +37,8 @@ Route::get('productDetail', function () {
 
 Route::get('/api/items/{count?}', [ItemController::class, 'getMainPicture'])
     ->where('count', '[0-9]+');
+Route::get('/api/cartItems/{count?}', [ItemController::class, 'getUserCartItems'])
+    ->where('count', '[0-9]+');
 
 //Route::get('/dashboard', function () {
 //    return view('dashboard');

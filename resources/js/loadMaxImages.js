@@ -14,13 +14,7 @@ async function getItemData() {
     };
   } catch (error) {
     console.error('Error fetching item:', error);
-    // Fallback to static data if API fails
-    const randomItems = [
-      //"example_shirt_front.png",
-      //"example_shirt_front2.png",
-      "example_shirt_front_white.png", //"example_shirt_Cool.png",
-                                       //"example_shirt_Montag.png"
-    ];
+    const randomItems = [ "example_shirt_front_white.png" ];
 
     return {
       name : "White Shirt",
