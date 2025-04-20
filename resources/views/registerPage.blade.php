@@ -10,27 +10,27 @@
   <meta name="viewport" content="width=device-width">
 </head>
 
-<body class='h-screen grid grid-rows-3 justify-stretch' onload="loadMaxImages('newArrivals',Math.max((screen.width / 320), 5));loadMaxImages('onSale',Math.max((screen.width / 320), 5));">
+<body class='h-screen container'>
   <header class="w-full grid grid-cols-1 justify-end items-center space-x-2.5 h-24">
-    <div name="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto ">
+    <div name="logo" class="w-auto mx-2 h-14 bg-neutral-300 rounded-2xl mr-auto ">
       <a href="{{ url('/')}}"><img src="icons/logo.png" alt="logo" class="h-full w-fit"></a>
     </div>
   </header>
-  <main name="body_wrapper" class="grid justify-center  w-full h-full">
-    <div class="grid grid-flow-row my-auto space-y-3 w-120">
+  <main name="body_wrapper" class="grid place-items-center  w-full h-full">
+    <form method="post" class="grid grid-flow-row space-y-3 w-120">
       <span>Register</span>
-      <input class="custom-input-field border-neutral-200" type="text" name="" value="" placeholder="Email">
+      <input class="border rounded-lg p-2 border-neutral-200" type="text" name="" value="" placeholder="Email">
       <span>Username</span>
-      <input class="custom-input-field border-neutral-200" type="text" name="" value="" placeholder="Guy_M0ntag">
+      <input class="border rounded-lg p-2 border-neutral-200" type="text" name="" value="" placeholder="Guy_M0ntag">
       <span>Password</span>
-      <input class="custom-input-field border-neutral-200" type="text" name="" value="" placeholder="Password">
+      <input class="border rounded-lg p-2 border-neutral-200" type="text" name="" value="" placeholder="Password">
       <span>Re-enter Password</span>
       <input class="border rounded-lg p-2 border-neutral-200" type="text" name="" value="" placeholder="Password">
       <button class="border bg-black text-white p-2 rounded-xl" type="submit">Register</button>
-      <a class="mx-auto" href="">have an account? Log in!</a>
+      <a class="mx-auto" href="{{url("/logInPage")}}">have an account? Log in!</a>
 
 
-    </div>
+    </form>
 
   </main>
   <footer class="w-full h-28 bottom-0 mt-auto">
