@@ -12,6 +12,8 @@ plugins:
           'resources/js/loadMaxImages.js',
           'resources/js/responsiveHeader.js',
           'resources/js/displayCartItems.js',
+          'resources/js/displayItemImages.js',
+          'resources/js/displayInputImage.js',
         ],
         refresh : true,
       }),

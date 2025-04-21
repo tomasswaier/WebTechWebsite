@@ -2,16 +2,15 @@
 
 @section('main_content')
     <div class="grid gird-rows-2 md:grid-cols-2 -mx-4">
-        <div id="product_photos" class="w-full h-max-[100vh] px-4 mb-8">
-            <img id="mainImage" src="product_images/example_shirt_front.png" alt="img1" class="w-auto max-h-[50vh] mb-4 justify-self-center">
+        <div id="product_photos" class="w-full flex flex-col h-max-[100vh] pl-4 mb-8">
+            <!--<img id="mainImage" src="{{asset('product_images/example_shirt_front.png')}}" alt="img1" class="w-auto object-contain max-h-[50vh] mb-4 justify-self-center">
             <div class="grid grid-cols-3 gap-4 py-4 overflow-x-auto overflow-y-hidden items-center">
-                <img src="product_images/example_shirt_front.png" alt="img0" class="w-auto max-h-[25vh] hover:scale-125 transition duration-300" onclick="changeImage(this.src)">
-                <img src="product_images/example_shirt_side.png" alt="img2" class="w-auto max-h-[25vh] hover:scale-125 transition duration-300" onclick="changeImage(this.src)">
-                <img src="product_images/example_shirt_side1.png" alt="img3" class="w-auto max-h-[25vh] hover:scale-125 transition duration-300" onclick="changeImage(this.src)">
+                <img src="{{asset('product_images/example_shirt_front.png')}}" alt="img0" class="w-auto max-h-[25vh] hover:scale-125 transition duration-300" onclick="changeImage(this.src)">
+                <img src="{{asset('product_images/example_shirt_side.png')}}" alt="img2" class="w-auto max-h-[25vh] hover:scale-125 transition duration-300" onclick="changeImage(this.src)">
+                <img src="{{asset('product_images/example_shirt_side1.png')}}" alt="img3" class="w-auto max-h-[25vh] hover:scale-125 transition duration-300" onclick="changeImage(this.src)"> -->
             </div>
-        </div>
         <!--Product info-->
-        <div id="product_info" class="w-full px-4">
+        <div id="product_info" class="w-auto">
             <h1 class="font-bold mb-5 text-xl">Meow T-shirt</h1>
             <p class="mb-3">
                 Elevate your everyday style with this essential Meow T-Shirt. Crafted from premium, breathable cotton, it offers unbeatable comfort and a perfect fit. The timeless crew neck design pairs effortlessly with jeans, joggers, or shorts, making it a versatile staple in any wardrobe. Whether you’re dressing it up or keeping it casual, this T-shirt has you covered.
@@ -52,4 +51,11 @@
 
         </div>
     </div>
+@vite('resources/js/displayItemImages.js')
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const productId = `{{ $productId }}`;
+        loadItemImages('product_photos', productId);
+    });
+</script>
 @endsection
