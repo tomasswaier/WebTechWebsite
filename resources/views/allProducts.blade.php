@@ -56,7 +56,7 @@
             <span class="font-bold mr-auto ">Price</span>
             <span class="justify-self-end">$0-$100</span>
           </div>
-          <input type="range" name="" value="" class="w-full accent-neutral-200 ">
+          <input type="range" name="priceRange" id="priceRange" value="0" class="w-full accent-neutral-200 ">
 
 
         </div>
@@ -77,9 +77,10 @@
         <label class="block mb-2">
           Price
           <select class="border p-2 rounded" id="priceSort">
-            <option value="">Any price</option>
-            <option value="Highest to lowest">Highest to lowest</option>
-            <option value="Lowest to highest">Lowest to highest</option>
+            <option value="oldest">Oldest</option>
+            <option value="newest">Newest</option>
+            <option value="price-highest">Highest to lowest</option>
+            <option value="price-lowest">Lowest to highest</option>
           </select>
         </label>
         </div>
@@ -88,7 +89,7 @@
         <!-- here go all items -->
       </div>
       <div name="buttonWrapper" class="grid justify-center align-middle">
-        <input type="button" name="loadMode" value="Load More" class="border-black rounded-xl border-2 p-3 hover:bg-neutral-200" onclick="loadMaxImages('itemDisplay',8);">
+        <input type="button" name="loadMode" value="Load More" class="border-black rounded-xl border-2 p-3 hover:bg-neutral-200" onclick="loadMoreItems()">
       </div>
 
     </div>
@@ -97,24 +98,51 @@
     @vite('resources/js/loadMaxImages.js')
     @vite('resources/js/allProductsScreenAdjuster.js')
     @vite('resources/js/responsiveHeader.js')
-    <script>
-        const itemField=document.getElementById("itemDisplay");
-        itemField.innerHtml="";
-        document.addEventListener("DOMContentLoaded", () => {
-            loadMaxImages('itemDisplay', 8);
-        });
-    document.querySelectorAll('input[name="filterOption"]').forEach(radio => {
-      radio.addEventListener(
-          'change',
-          (e) => {
-          const display=document.getElementById("itemDisplay");
-          display.innerHTML="";
+<script>
+    // Track current state
+    let currentCount = 0;
+    const itemsPerLoad = 8;
+    let currentCategory = 'all';
+    let currentSort = 'oldest';
+    let currentMaxPrice = Infinity;
 
-          loadMaxImages("itemDisplay", 10, e.target.value); });
+    // Initial load
+    document.addEventListener("DOMContentLoaded", () => {
+        loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice);
     });
 
-    </script>
+    // Category filter change
+    document.querySelectorAll('input[name="filterOption"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            currentCount = 0; // Reset count when filters change
+            currentCategory = e.target.value;
+            document.getElementById("itemDisplay").innerHTML = "";
+            loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice);
+        });
+    });
 
+    // Price range change
+    document.getElementById('priceRange').addEventListener('change', (e) => {
+        currentCount = 0;
+        currentMaxPrice = e.target.value;
+        document.getElementById("itemDisplay").innerHTML = "";
+        loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice);
+    });
+
+    // Sort change
+    document.getElementById('priceSort').addEventListener('change', (e) => {
+        currentCount = 0;
+        currentSort = e.target.value;
+        document.getElementById("itemDisplay").innerHTML = "";
+        loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice);
+    });
+
+    // Load More function
+    function loadMoreItems() {
+        currentCount += itemsPerLoad;
+        loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice, currentCount);
+    }
+</script>
 </div>
 
 @endsection
