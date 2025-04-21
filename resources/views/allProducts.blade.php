@@ -8,27 +8,31 @@
       <fieldset id="itemsFiltersFieldset" class="mr-4">
         <span class="font-bold ">Categories</span>
         <div>
-          <input type="checkbox" name="placeholder" value="placeholder" class="accent-black rounded-4xl mr-1.5">
+            <input value="all" type="radio" name="filterOption" id="category_all" class="accent-black rounded-4xl mr-1.5" checked>
+            <label for="category_all">All Categories</label>
+        </div>
+        <div>
+          <input value='T-shirt' type="radio" name="filterOption" " class="accent-black rounded-4xl mr-1.5">
           <span>T-shirt</span>
         </div>
         <div>
-          <input type="checkbox" name="placeholder" value="placeholder" class="accent-black rounded-4xl mr-1.5">
+          <input value='Sweatpant' type="radio" name="filterOption" " class="accent-black rounded-4xl mr-1.5">
           <span>Sweatpants</span>
         </div>
         <div>
-          <input type="checkbox" name="placeholder" value="placeholder" class="accent-black rounded-4xl mr-1.5">
+          <input value='Shirt' type="radio" name="filterOption" " class="accent-black rounded-4xl mr-1.5">
           <span>Shirts</span>
         </div>
         <div>
-          <input type="checkbox" name="placeholder" value="placeholder" class="accent-black rounded-4xl mr-1.5">
+          <input value='Pant' type="radio" name="filterOption" " class="accent-black rounded-4xl mr-1.5">
           <span>Pants</span>
         </div>
         <div>
-          <input type="checkbox" name="placeholder" value="placeholder" class="accent-black rounded-4xl mr-1.5">
+          <input value='Hoodie' type="radio" name="filterOption" " class="accent-black rounded-4xl mr-1.5">
           <span>Hoodies</span>
         </div>
         <div>
-          <input type="checkbox" name="placeholder" value="placeholder" class="accent-black rounded-4xl mr-1.5">
+          <input value='Hat' type="radio" name="filterOption" " class="accent-black rounded-4xl mr-1.5">
           <span>Hats</span>
         </div>
         <div>
@@ -36,12 +40,12 @@
           <div id="colorSelection" class="grid grid-cols-10">
             <!-- I want to make this automatic by calling a thing in php-->
             <label>
-              <input type="checkbox" name="color_choice" value="white" class="peer hidden">
+              <input type="radio" name="color_choice" value="white" class="peer hidden">
               <span class="w-5 h-5 rounded-full border-2 border-gray-300 block cursor-pointer peer-checked:ring-2 peer-checked:ring-black bg-white" aria-label="white">
               </span>
             </label>
             <label>
-              <input type="checkbox" name="color_choice" value="black" class="peer hidden">
+              <input type="radio" name="color_choice" value="black" class="peer hidden">
               <span class="w-5 h-5 rounded-full border-2 border-gray-300 block cursor-pointer peer-checked:ring-2 peer-checked:ring-black bg-black" aria-label="black">
               </span>
             </label>
@@ -70,10 +74,14 @@
           <span>Unisex</span>
         </div>
         <div class="ml-auto border-2 p-2 rounded-lg ">
-          <select>
-            <option value="placeholder">Meow</option>
-            <option value="placeholder">Meow2</option>
+        <label class="block mb-2">
+          Price
+          <select class="border p-2 rounded" id="priceSort">
+            <option value="">Any price</option>
+            <option value="Highest to lowest">Highest to lowest</option>
+            <option value="Lowest to highest">Lowest to highest</option>
           </select>
+        </label>
         </div>
       </div>
       <div name="itemDisplay" id="itemDisplay" class="w-full flex flex-row flex-wrap justify-between">
@@ -86,13 +94,25 @@
     </div>
 
     </div>
-@vite('resources/js/loadMaxImages.js')
-@vite('resources/js/allProductsScreenAdjuster.js')
-@vite('resources/js/responsiveHeader.js')
-<script>
+    @vite('resources/js/loadMaxImages.js')
+    @vite('resources/js/allProductsScreenAdjuster.js')
+    @vite('resources/js/responsiveHeader.js')
+    <script>
+        const itemField=document.getElementById("itemDisplay");
+        itemField.innerHtml="";
         document.addEventListener("DOMContentLoaded", () => {
             loadMaxImages('itemDisplay', 8);
         });
+    document.querySelectorAll('input[name="filterOption"]').forEach(radio => {
+      radio.addEventListener(
+          'change',
+          (e) => {
+          const display=document.getElementById("itemDisplay");
+          display.innerHTML="";
+
+          loadMaxImages("itemDisplay", 10, e.target.value); });
+    });
+
     </script>
 
 </div>

@@ -40,13 +40,12 @@ Route::get('/product/detail/{id}', [ProductController::class, 'detail'])->name('
 Route::post('/cart/add/{product_id}', [CartController::class, 'add'])->name('cart.add');
 
 Route::prefix('api')->group(function () {
+    Route::get('/items', [ItemController::class, 'getFilteredItems']);
     Route::get('/products/{product_id}/images', [ItemController::class, 'getItemImages']);
     Route::get('/items/{count?}', [ItemController::class, 'getMainPicture'])->where('count', '[0-9]+');
     Route::get('/cartItems/{count?}', [ItemController::class, 'getUserCartItems'])->where('count', '[0-9]+');
+
 });
-//Route::get('/dashboard', function () {
-//    return view('dashboard');
-//})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
