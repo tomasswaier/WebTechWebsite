@@ -13,8 +13,11 @@ class ProductController extends Controller
 
         $product = Products::with(['category', 'images', 'colors'])->where('id', $id)->firstOrFail();
 
+        $mainImage = $product->images->firstWhere('is_main', true);
+
         return view('productDetail', [
-            'product' => $product
+            'product' => $product,
+            'mainImage' => $mainImage,
         ]);
     }
     //

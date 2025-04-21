@@ -16,6 +16,7 @@ return new class extends Migration
             $table->uuid('product_id');
             $table->uuid('cart_id');
             $table->integer('quantity');
+            $table->string('size');
             $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');

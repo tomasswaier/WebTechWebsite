@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductController, App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
@@ -26,9 +26,8 @@ Route::get('adminProductDetail', function () {
 Route::get('cartAddressInfo', function () {
     return view('cartAddressInfo');
 });
-Route::get('cartOverview', function () {
-    return view('cartOverview');
-});
+Route::get('cart/', [CartController::class, 'overview'])->name('cartOverview');
+Route::post('cart/delete/{product_id}', [CartController::class, 'delete'])->name('cart.delete');
 Route::get('cartPayment', function () {
     return view('cartPayment');
 });
@@ -37,6 +36,8 @@ Route::get('productDetail/{id}', function ($id) {
 });
 
 Route::get('/product/detail/{id}', [ProductController::class, 'detail'])->name('product.detail');
+
+Route::post('/cart/add/{product_id}', [CartController::class, 'add'])->name('cart.add');
 
 Route::prefix('api')->group(function () {
     Route::get('/products/{product_id}/images', [ItemController::class, 'getItemImages']);

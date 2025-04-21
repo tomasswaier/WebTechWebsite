@@ -10,34 +10,29 @@
       <div id="main_cart_section" class="grid grid-flow-row sm:grid-flow-col w-full">
         <div id="products_section" class="grid grid-flow-row w-full md:w-[50vw]">
           <h2 class="my-3 font-bold">Your Cart</h2>
-          <ul id="itemCartContainer" class="grid w-auto grid-flow-row gap-y-4">
-            <!--<li class="grid grid-flow-row sm:grid-flow-col w-full space-y-3 place-items-center sm:place-items-start justify-center sm:justify-normal border-b sm:border-none">
-              <img src="product_images/example_shirt_front.png" alt="img1" class="w-auto max-h-32 sm:max-h-16">
-              <span>Meow T-shirt</span>
-              <span>$28.00</span>
-              <span>Size: L</span>
-              <input type="number" class="w-15 border border-black rounded-lg text-center" placeholder="1" required>
-              <button type="button" class="hover:bg-gray-200 transition duration-300 size-fit p-2 rounded-lg hover:cursor-pointer">
-                <span class="material-symbols-outlined">close</span>
-              </button>
-            </li>
-            <li class="grid grid-flow-row sm:grid-flow-col w-full space-y-3 place-items-center sm:place-items-start justify-center sm:justify-normal border-b sm:border-none">
-              <img src="product_images/example_shirt_front_white.png" alt="img1" class="w-auto max-h-32 sm:max-h-16">
-              <span>Meow T-shirt</span>
-              <span>$28.00</span>
-              <span>Size: L</span>
-              <input type="number" class="w-15 border border-black rounded-lg text-center" placeholder="1" required>
-              <button type="button" class="hover:bg-gray-200 transition duration-300 size-fit p-2 rounded-lg hover:cursor-pointer">
-                <span class="material-symbols-outlined">close</span>
-              </button>
-            </li> -->
-          </ul>
+            <ul id="itemCartContainer" class="grid w-auto grid-flow-row gap-y-4">
+                @foreach($products as $product)
+                    <li class="grid grid-flow-row sm:grid-flow-col w-full space-y-3 place-items-center sm:place-items-start sm:justify-normal border-b sm:border-none">
+                        <img src="{{ asset('product_images/' . $product->images->firstWhere('is_main', true)->image_url)}}" alt="product image" class="w-auto max-h-32 sm:max-h-16">
+                        <span>{{ $product->name }}</span>
+                        <span>${{ number_format($product->price, 2) }}</span>
+                        <span>Size: {{ $product->size }}</span>
+                        <input type="number" value="{{ $product->quantity }}" class="w-15 border border-black rounded-lg text-center" readonly>
+                        <form action="{{route('cart.delete', ['product_id' => $product->id])}}" method="POST">
+                            @csrf
+                            <button type="submit" class="hover:bg-gray-200 transition duration-300 size-fit p-2 rounded-lg hover:cursor-pointer text-2xl">
+                                &times;
+                            </button>
+                        </form>
+                    </li>
+                @endforeach
+            </ul>
         </div>
-        <div id="order_summary" class="grid grid-flow-row w-auto">
+        <div id="order_summary" class="mx-5 grid grid-flow-row w-auto">
           <h2 class="font-bold my-3">Order Summary</h2>
           <div class="grid grid-flow-col justify-between">
             <span>Total:</span>
-            <span id="total_price">$56.00</span>
+            <span id="total_price">${{$total}}</span>
           </div>
           <hr class="my-3 w-full h-0.5 border-t-0 bg-gray-300" />
           <button class="w-full bg-black rounded-xl text-white py-2.5 hover:cursor-pointer">
@@ -49,10 +44,4 @@
     </div>
 @vite('resources/js/displayCartItems.js')
 @vite('resources/js/responsiveHeader.js')
-<script>
-        document.addEventListener("DOMContentLoaded", () => {
-            loadCartContents('itemCartContainer', 3);
-        });
-    </script>
-
 @endsection
