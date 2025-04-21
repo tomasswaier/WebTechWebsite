@@ -6,27 +6,25 @@ use App\Models\Products;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller{
-    public function getMainPicture($count = 1)
+    public function getMainPicture($count = null)  // Made count optional
     {
-        \DB::enableQueryLog();
         try {
-            $products = Products::with('images')
-                ->inRandomOrder()
-                ->limit($count)
-                ->get()
-                ->map(function ($product) {
-                    return [
-                        'id'=>$product->id,
-                        'name' => $product->name,
-                        'price' => $product->price,
-                        'imagePath' => $product->images->where("is_main","true")->first()->image_url
-                    ];
-                });
+            $query = Products::with('images')->inRandomOrder();
 
-            \Log::info('Executed queries:', \DB::getQueryLog());
+            if ($count) {
+                $query->limit($count);
+            }
+
+            $products = $query->get()->map(function ($product) {
+                return [
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'price' => $product->price,
+                    'imagePath' => asset("product_images/{$product->images->where("is_main", "true")->first()->image_url}")
+                ];
+            });
 
             return response()->json($products);
-
         } catch (\Exception $e) {
             \Log::error('API Error:', [
                 'message' => $e->getMessage(),
@@ -40,6 +38,34 @@ class ItemController extends Controller{
         }
     }
     public function getUserCartItems($count = 1){}
+    public function getFilteredItems(Request $request)
+    {
+        try {
+            $query = Products::with(['images', 'category']);
+            $meow="ahh";
+            if ($request->has('category') && $request->category !== 'all') {
+                $query->whereHas('category', function($q) use ($request) {
+                    $q->where('name', $request->category);
+                });
+            }
+
+
+            $results = $query->get()->map(function ($product) {
+                return [
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'price' => $product->price,
+                    'imagePath' => asset("product_images/{$product->images->where('is_main', true)->first()->image_url}")
+                ];
+            });
+
+            \Log::debug('API Response:', $results->toArray());
+            return response()->json($results);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
     public function getItemImages($product_id)
     {
         try {
