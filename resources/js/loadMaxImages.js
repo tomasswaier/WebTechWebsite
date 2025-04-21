@@ -1,27 +1,33 @@
-async function getItemData(category = 'all') {
+async function getItemData(category = 'all', count = 0, numberOfItems = 8,
+                           currentSort = 'oldest', currentMaxPrice = Infinity) {
   try {
-    const response =
-        await fetch(`http://localhost:8000/api/items?category=${category}`);
-    // console.log(response);
+    const response = await fetch(`http://localhost:8000/api/items?category=${
+        category}&count=${count}&load=${numberOfItems}&price=${
+        currentMaxPrice}&sort=${currentSort}`);
+
     if (!response.ok)
       throw new Error('Network response was not ok');
-    return await response.json();
+
+    const data = await response.json();
+    return data.items;
   } catch (error) {
     console.error('Error fetching items:', error);
     return [];
   }
 }
 
-async function loadMaxImages(parentId, numberOfItems, category = 'all') {
+async function loadMaxImages(parentId, numberOfItems, category = 'all',
+                             currentSort = 'olderst',
+                             currentMaxPrice = Infinity) {
   const parentElement = document.getElementById(parentId);
 
   try {
-    // Get all items and take first 'numberOfItems'
-    const allItems = await getItemData(category);
+    const allItems =
+        await getItemData(category, parentElement.children.length,
+                          numberOfItems, currentSort, currentMaxPrice);
+    console.log(allItems);
     const itemsToShow = allItems.slice(0, numberOfItems);
     // console.log(allItems);
-
-    // Clear previous content
 
     itemsToShow.forEach(itemData => {
       const elementWrapper = document.createElement("div");
