@@ -8,6 +8,8 @@ async function getItemData() {
     const [item] = await response.json();
 
     return {
+
+      id : item.id,
       name : item.name,
       price : item.price,
       imagePath : `product_images/${item.imagePath}`
@@ -17,6 +19,7 @@ async function getItemData() {
     const randomItems = [ "example_shirt_front_white.png" ];
 
     return {
+      id : null,
       name : "White Shirt",
       price : 28.0,
       imagePath : `product_images/${
@@ -40,7 +43,8 @@ async function loadMaxImages(parentId, numberOfItems) {
 
     const imageWrapper = document.createElement("a");
     elementWrapper.appendChild(imageWrapper);
-    imageWrapper.href = "productDetail";
+    imageWrapper.href = `productDetail/${itemData.id}`;
+    console.log(itemData.id);
     imageWrapper.setAttribute(
         "class",
         "w-2xl w-80 h-52 max-h-50 bg-neutral-300 rounded-2xl overflow-hidden");

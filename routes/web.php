@@ -32,17 +32,17 @@ Route::get('cartOverview', function () {
 Route::get('cartPayment', function () {
     return view('cartPayment');
 });
-Route::get('productDetail', function () {
-    return view('productDetail');
+Route::get('productDetail/{id}', function ($id) {
+    return view('productDetail', ['productId' => $id]);
 });
-
-Route::get('/api/items/{count?}', [ItemController::class, 'getMainPicture'])
-    ->where('count', '[0-9]+');
-Route::get('/api/cartItems/{count?}', [ItemController::class, 'getUserCartItems'])
-    ->where('count', '[0-9]+');
 
 Route::get('/product/detail/{id}', [ProductController::class, 'detail'])->name('product.detail');
 
+Route::prefix('api')->group(function () {
+    Route::get('/products/{product_id}/images', [ItemController::class, 'getItemImages']);
+    Route::get('/items/{count?}', [ItemController::class, 'getMainPicture'])->where('count', '[0-9]+');
+    Route::get('/cartItems/{count?}', [ItemController::class, 'getUserCartItems'])->where('count', '[0-9]+');
+});
 //Route::get('/dashboard', function () {
 //    return view('dashboard');
 //})->middleware(['auth', 'verified'])->name('dashboard');
