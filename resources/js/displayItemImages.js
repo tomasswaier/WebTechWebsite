@@ -8,15 +8,12 @@ async function getItemImages(productId) {
     const data = await response.json();
 
     // Use images exactly as returned from API (already have full URLs)
+    console.log(data);
     return {
       product_id : data.product_id,
       product_name : data.product_name,
       images : data.images.map(
-          img => ({
-            imagePath : img.image_url, // Already contains full URL from Laravel
-            is_main : img.is_main === "true",
-            alt_text : img.alt_text || ""
-          }))
+          img => ({imagePath : img.image_url, is_main : img.is_main == true}))
     };
   } catch (error) {
     console.error('Error fetching item images:', error);

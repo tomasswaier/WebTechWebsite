@@ -58,17 +58,21 @@ class ItemController extends Controller{
                         'is_main' => $image->is_main
                     ];
                 });
-            return response()->json([
-                'product_id'=>"2c3226eb-2cfc-4ec7-8ef8-71c4268480c5",
-                'product_name' => "name uwu",
-                'images'=>["http://localhost:8000/product_images/example_shirt_front.png"]
-            ]);
-
             //return response()->json([
-            //    'product_id' => $product_id,
-            //    'product_name' => $product->name,
-            //    'images'=>$images,
-            //    ]);
+            //    'product_id' => "2c3226eb-2cfc-4ec7-8ef8-71c4268480c5",
+            //    'product_name' => "name uwu",
+            //    'images' => [
+            //        [
+            //            'imagePath' => "http://localhost:8000/product_images/example_shirt_front.png",
+            //            'is_main' => true
+            //        ]
+            //    ]
+            //]);
+            return response()->json([
+                'product_id' => $product_id,
+                'product_name' => $product->name,
+                'images'=>$images,
+                ]);
 
         } catch (\Exception $e) {
             \Log::error('Item Images API Error:', [
@@ -78,9 +82,15 @@ class ItemController extends Controller{
             ]);
 
             return response()->json([
-                'error' => 'Server error',
-                'message' => $e->getMessage()
-            ], 500);
+                'product_id' => "2c3226eb-2cfc-4ec7-8ef8-71c4268480c5",
+                'product_name' => "name uwu",
+                'images' => [
+                    [
+                        'imagePath' => "http://localhost:8000/product_images/example_shirt_front.png",
+                        'is_main' => true
+                    ]
+                ]
+            ]);
         }
     }
 }
