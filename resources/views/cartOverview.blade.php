@@ -15,11 +15,12 @@
                     <li class="grid grid-flow-row sm:grid-flow-col w-full space-y-3 place-items-center sm:place-items-start sm:justify-normal border-b sm:border-none">
                         <img src="{{ asset('product_images/' . $product->images->firstWhere('is_main', true)->image_url)}}" alt="product image" class="w-auto max-h-32 sm:max-h-16">
                         <span>{{ $product->name }}</span>
-                        <span>${{ number_format($product->price, 2) }}</span>
+                        <span>@if($product->price == $product->discounted_price) ${{ number_format($product->price, 2) }} @else ${{ number_format($product->discounted_price, 2) }} @endif</span>
                         <span>Size: {{ $product->size }}</span>
                         <input type="number" value="{{ $product->quantity }}" class="w-15 border border-black rounded-lg text-center" readonly>
                         <form action="{{route('cart.delete', ['product_id' => $product->id])}}" method="POST">
                             @csrf
+                            <input type="hidden" name="size" value="{{ $product->size }}">
                             <button type="submit" class="hover:bg-gray-200 transition duration-300 size-fit p-2 rounded-lg hover:cursor-pointer text-2xl">
                                 &times;
                             </button>

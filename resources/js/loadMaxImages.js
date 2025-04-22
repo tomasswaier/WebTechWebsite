@@ -35,7 +35,7 @@ async function loadMaxImages(parentId, numberOfItems, category = 'all',
       parentElement.appendChild(elementWrapper);
 
       const imageWrapper = document.createElement("a");
-      imageWrapper.href = `productDetail/${itemData.id}`;
+      imageWrapper.href = `product/detail/${itemData.id}`;
       imageWrapper.className =
           "w-2xl w-80 h-52 max-h-50 bg-neutral-300 rounded-2xl overflow-hidden";
       elementWrapper.appendChild(imageWrapper);
