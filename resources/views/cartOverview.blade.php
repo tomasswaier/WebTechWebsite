@@ -23,7 +23,7 @@
                                 <button type="submit" class="btn btn-link px-2 border rounded-s-lg border-black"
                                         onclick="this.parentNode.querySelector('input[type=number]').value = parseInt(this.parentNode.querySelector('input[type=number]').value) - 1;"><b>&minus;</b></button>
                                 <input type="hidden" name="size" value="{{ $product->size }}">
-                                <input type="number" name="quantity" value="{{ $product->quantity }}" class="w-12 border-x-transparent border border-black text-center">
+                                <input type="number" name="quantity" min="0" value="{{ $product->quantity }}" class="w-12 border-x-transparent border border-black text-center">
                                 <button type="submit" class="btn btn-link px-2 border rounded-e-lg border-black"
                                         onclick="this.parentNode.querySelector('input[type=number]').value = parseInt(this.parentNode.querySelector('input[type=number]').value) + 1;"><b>&plus;</b></button>
                             </form>

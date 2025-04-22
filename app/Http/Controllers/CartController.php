@@ -156,7 +156,7 @@ class CartController extends Controller
             if ($request['quantity'] == 0) {
                 $cart->products()->wherePivot('product_id', $productId)->wherePivot('size', $request['size'])->detach($productId);
             } else {
-                $cart->products()->wherePivot('product_id', $productId)->wherePivot('size', $request['size'])->update(['quantity' => $request['quantity']]);
+                $cart->products()->updateExistingPivot($productId, ['quantity' => $request['quantity']]);
             }
 
         }
