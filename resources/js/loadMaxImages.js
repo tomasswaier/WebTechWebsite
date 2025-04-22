@@ -1,9 +1,11 @@
 async function getItemData(category = 'all', count = 0, numberOfItems = 8,
-                           currentSort = 'oldest', currentMaxPrice = Infinity) {
+                           currentSort = 'oldest', currentMaxPrice = Infinity,
+                           search = '') {
   try {
+    console.log(search);
     const response = await fetch(`http://localhost:8000/api/items?category=${
         category}&count=${count}&load=${numberOfItems}&price=${
-        currentMaxPrice}&sort=${currentSort}`);
+        currentMaxPrice}&sort=${currentSort}&search=${search}`);
 
     if (!response.ok)
       throw new Error('Network response was not ok');
@@ -17,17 +19,14 @@ async function getItemData(category = 'all', count = 0, numberOfItems = 8,
 }
 
 async function loadMaxImages(parentId, numberOfItems, category = 'all',
-                             currentSort = 'olderst',
-                             currentMaxPrice = Infinity) {
+                             currentSort = 'oldest', currentMaxPrice = Infinity,
+                             count = 0, search = '') {
   const parentElement = document.getElementById(parentId);
 
   try {
-    const allItems =
-        await getItemData(category, parentElement.children.length,
-                          numberOfItems, currentSort, currentMaxPrice);
-    console.log(allItems);
+    const allItems = await getItemData(category, count, numberOfItems,
+                                       currentSort, currentMaxPrice, search);
     const itemsToShow = allItems.slice(0, numberOfItems);
-    // console.log(allItems);
 
     itemsToShow.forEach(itemData => {
       const elementWrapper = document.createElement("div");
