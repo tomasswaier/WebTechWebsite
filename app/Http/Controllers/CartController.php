@@ -136,4 +136,31 @@ class CartController extends Controller
 
         return redirect()->back();
     }
+
+    public function change($productId, Request $request)
+    {
+        if ($request->user() == null) {
+            $cart = Session::get('cart', []);
+            $key = $productId . '_' . $request['size'];
+            if(isset($cart[$key])) {
+                if ($request['quantity'] == 0) {
+                    unset($cart[$key]);
+                } else {
+                    $cart[$key]['quantity'] = $request['quantity'];
+                }
+                Session::put('cart', $cart);
+            }
+        } else {
+            $user = $request->user();
+            $cart = $user->cart;
+            if ($request['quantity'] == 0) {
+                $cart->products()->wherePivot('product_id', $productId)->wherePivot('size', $request['size'])->detach($productId);
+            } else {
+                $cart->products()->wherePivot('product_id', $productId)->wherePivot('size', $request['size'])->update(['quantity' => $request['quantity']]);
+            }
+
+        }
+        return redirect()->back();
+
+    }
 }
