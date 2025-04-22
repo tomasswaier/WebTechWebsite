@@ -36,9 +36,9 @@
             <span id="total_price">${{$total}}</span>
           </div>
           <hr class="my-3 w-full h-0.5 border-t-0 bg-gray-300" />
-          <button class="w-full bg-black rounded-xl text-white py-2.5 hover:cursor-pointer">
+          <a href="{{url('cartAddressInfo')}}" class="w-full bg-black grid align-middle justify-center rounded-xl text-white py-2.5 hover:cursor-pointer">
             Continue to checkout
-          </button>
+          </a>
         </div>
       </div>
     </div>
