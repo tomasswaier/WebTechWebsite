@@ -1,13 +1,13 @@
 <?php
 
+
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController, App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index']);
 Route::get('/allProducts', function () {
     return view('allProducts');
 });

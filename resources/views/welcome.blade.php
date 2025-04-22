@@ -5,29 +5,48 @@
     <span>Discover the Latest Fashion Trends</span>
     <br>
     <span>Find the perfect outfit for every occasion with our exclusive collections.</span>
-    <button type="submit" class="m-3 w-fit bg-neutral-300 active:bg-neutral-200 rounded-2xl p-3">Shop now</button>
+    <a href="{{ url('allProducts') }}" class="m-3 w-fit bg-neutral-300 hover:bg-neutral-200 rounded-2xl p-3">Shop now</a>
 </div>
-<! –– Shouldn't there be javascript dictating how many elements can be on screen at one time? -->
-<div name="product_box" class=' '>
-    <a href="{{url('allProducts')}}" class="text-4xl font-bold px-10">New Arrivals></a>
-    <div name="newArrivals" id="newArrivals" class="px-10 w-screen grid grid-flow-col overflow-scroll no-scrollbar space-x-10 whitespace-nowrap ">
-        <!-- here go all items -->
+
+<div name="product_box">
+    <a href="{{ url('allProducts') }}" class="text-4xl font-bold px-10">New Arrivals ></a>
+    <div name="newArrivals" class="px-10 w-screen grid grid-flow-col overflow-scroll no-scrollbar space-x-10 whitespace-nowrap">
+        @foreach($newArrivals as $product)
+            <div class="flex flex-col w-80">
+                <a href="{{ url('productDetail/' . $product['id']) }}" class="w-full h-52 bg-neutral-300 rounded-2xl overflow-hidden">
+                    <img src="{{ $product['imagePath'] }}" alt="{{ $product['name'] }}" class="w-full h-full object-cover">
+                </a>
+                <span class="font-medium mt-2">{{ $product['name'] }}</span>
+                <span class="text-lg">
+                    @if($product['originalPrice'])
+                        <s class="text-gray-500">${{ number_format($product['originalPrice'], 2) }}</s>
+                    @endif
+                    ${{ number_format($product['price'], 2) }}
+                </span>
+            </div>
+        @endforeach
     </div>
 </div>
-<div name="product_box" class=' '>
-    <a href="{{url('allProducts')}}" class="px-10 text-4xl font-bold ">On Sale></a>
-    <div name="onSale" id="onSale" class="px-10 w-screen grid grid-flow-col overflow-scroll no-scrollbar space-x-10 whitespace-nowrap ">
+
+<div name="product_box">
+    <a href="{{ url('allProducts') }}" class="px-10 text-4xl font-bold">On Sale ></a>
+    <div name="onSale" class="px-10 w-screen grid grid-flow-col overflow-scroll no-scrollbar space-x-10 whitespace-nowrap">
+        @foreach($onSaleItems as $product)
+            <div class="flex flex-col w-80">
+                <a href="{{ url('productDetail/' . $product['id']) }}" class="w-full h-52 bg-neutral-300 rounded-2xl overflow-hidden">
+                    <img src="{{ $product['imagePath'] }}" alt="{{ $product['name'] }}" class="w-full h-full object-cover">
+                </a>
+                <span class="font-medium mt-2">{{ $product['name'] }}</span>
+                <span class="text-lg">
+                    @if($product['originalPrice'])
+                        <s class="text-gray-500">${{ number_format($product['originalPrice'], 2) }}</s>
+                    @endif
+                    ${{ number_format($product['price'], 2) }}
+                </span>
+            </div>
+        @endforeach
     </div>
 </div>
-@vite('resources/js/loadMaxImages.js')
+
 @vite('resources/js/responsiveHeader.js')
-
-<script>
-        document.addEventListener("DOMContentLoaded", () => {
-            loadMaxImages('newArrivals', Math.max((screen.width / 320) + 2, 5));
-            loadMaxImages('onSale', Math.max((screen.width / 320) + 2, 5));
-        });
-    </script>
-
-</div>
 @endsection
