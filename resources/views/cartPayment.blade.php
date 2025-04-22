@@ -8,7 +8,7 @@
       <li class="font-bold">3 • Shipping & Payment</li>
     </ul>
 
-    <div id="main_cart_section" class="w-fit grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1 w-full gap-10">
+    <div id="main_cart_section" class="grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1 w-full gap-10">
       <form method="post" action="#" class="grid grid-flow-row w-full">
         <label for="shipping_choice" class="font-bold text-lg mb-2">Select Shipping</label>
         <div id="shipping_choice" class="grid h-fit grid-flow-row space-y-2">

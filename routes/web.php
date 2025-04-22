@@ -7,7 +7,11 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 
+Route::get('/', function () {
+    return view('welcome');
+});
 Route::get('/', [HomeController::class, 'index']);
+
 Route::get('/allProducts', function () {
     return view('allProducts');
 });
@@ -34,6 +38,7 @@ Route::get('cartPayment', function () {
 Route::get('productDetail/{id}', function ($id) {
     return view('productDetail', ['productId' => $id]);
 });
+Route::get('productDetail/{id}',[ProductController::class,'detail']);
 
 Route::get('/product/detail/{id}', [ProductController::class, 'detail'])->name('product.detail');
 

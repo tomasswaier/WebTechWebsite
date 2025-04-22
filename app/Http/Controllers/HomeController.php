@@ -16,7 +16,7 @@ class HomeController extends Controller{
 
         $onSaleItems = Products::with(['images', 'category'])
             ->whereColumn('discounted_price', '<', 'price')
-            ->orderBy('created_at', 'desc')
+            ->orderBy('discounted_price', 'asc')
             ->take($this->calculateItemCount())
             ->get()
             ->map(function ($product) {
