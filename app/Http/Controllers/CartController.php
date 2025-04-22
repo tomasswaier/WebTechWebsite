@@ -20,12 +20,13 @@ class CartController extends Controller
 
         if ($request->user() == null) {
             $cart = Session::get('cart', []);
+            $key = $product->id . '_' . $size;
 
-            if (isset($cart[$product->id])) {
-                $cart[$product->id]['quantity'] += $quantity;
+            if (isset($cart[$key])) {
+                $cart[$key]['quantity'] += $quantity;
             }
             else {
-                $cart[$product->id] = [
+                $cart[$key] = [
                     'product_id' => $product->id,
                     'quantity' => $quantity,
                     'size' => $size,
@@ -46,7 +47,7 @@ class CartController extends Controller
                 $cart = Cart::where('user_id', $user->id)->get();
                 $user->cart = $cart;
             }
-            $thisProduct = $cart->products()->where('product_id', $product->id)->first();
+            $thisProduct = $cart->products()->where('product_id', $product->id)->wherePivot('size', $size)->first();
 
             if ($thisProduct) {
                 $cart->products()->updateExistingPivot($thisProduct->id, ['quantity' => $thisProduct->pivot->quantity + $quantity, 'size' => $size]);
@@ -69,16 +70,16 @@ class CartController extends Controller
         if (!$request->user()) {
             $cart = Session::get('cart', []);
 
-            foreach ($cart as $productId => $item) {
-                $product = Products::with(['images'])->find($productId);
+            foreach ($cart as $key => $item) {
+                $product = Products::with(['images'])->find($item['product_id']);
 
                 if ($product) {
                     $product->quantity = $item['quantity'];
                     $product->size = $item['size'];
                     if ($product->discounted_price == $product->price) {
-                        $product->subtotal = $product->discounted_price * $item['quantity'];
-                    } else {
                         $product->subtotal = $product->price * $item['quantity'];
+                    } else {
+                        $product->subtotal = $product->discounted_price * $item['quantity'];
                     }
 
                     $total += $product->subtotal;
@@ -96,9 +97,9 @@ class CartController extends Controller
                     $product->quantity = $item->pivot->quantity;
                     $product->size = $item->pivot->size;
                     if ($product->discounted_price == $product->price) {
-                        $product->subtotal = $product->discounted_price * $item->pivot->quantity;
-                    } else {
                         $product->subtotal = $product->price * $item->pivot->quantity;
+                    } else {
+                        $product->subtotal = $product->discounted_price * $item->pivot->quantity;
                     }
                     $total += $product->subtotal;
                     $products[] = $product;
@@ -115,18 +116,22 @@ class CartController extends Controller
 
     public function delete($productId, Request $request) {
 
+        $size = $request['size'];
+
         if (!$request->user()) {
             $cart = Session::get('cart', []);
 
-            if (isset($cart[$productId])) {
-                unset($cart[$productId]);
+            $key = $productId . '_' . $size;
+
+            if (isset($cart[$key])) {
+                unset($cart[$key]);
                 Session::put('cart', $cart);
             }
         } else {
             $user = $request->user();
 
             $cart = $user->cart;
-            $cart->products()->detach($productId);
+            $cart->products()->wherePivot('product_id', $productId)->wherePivot('size', $size)->detach($productId);
         }
 
         return redirect()->back();
