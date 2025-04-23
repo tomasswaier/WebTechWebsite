@@ -74,15 +74,12 @@
           <span>Unisex</span>
         </div>
         <div class="ml-auto border-2 p-2 rounded-lg ">
-        <label class="block mb-2">
-          Price
           <select class="border p-2 rounded" id="priceSort">
             <option value="oldest">Oldest</option>
             <option value="newest">Newest</option>
             <option value="price-highest">Highest to lowest</option>
             <option value="price-lowest">Lowest to highest</option>
           </select>
-        </label>
         </div>
       </div>
       <div name="itemDisplay" id="itemDisplay" class="w-full flex flex-row flex-wrap justify-between">
@@ -100,16 +97,32 @@
     @vite('resources/js/responsiveHeader.js')
 <script>
     // Track current state
-    let currentCount = 0;
-    const itemsPerLoad = 8;
-    let currentCategory = 'all';
-    let currentSort = 'oldest';
-    let currentMaxPrice = Infinity;
+let currentCount = 0;
+const itemsPerLoad = 8;
+let currentCategory = 'all';
+let currentSort = 'oldest';
+let currentMaxPrice = Infinity;
+let searchQuery = ''; //
 
     // Initial load
     document.addEventListener("DOMContentLoaded", () => {
         loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice);
     });
+    function handleSearch() {
+    const input = document.getElementById("searchInput");
+    searchQuery = input.value.trim();
+    currentCount = 0;
+    document.getElementById("itemDisplay").innerHTML = "";
+    loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice, currentCount, searchQuery);
+}
+
+document.getElementById("searchInput").addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
+        e.preventDefault();
+        handleSearch();
+    }
+});
+
 
     // Category filter change
     document.querySelectorAll('input[name="filterOption"]').forEach(radio => {
@@ -138,10 +151,12 @@
     });
 
     // Load More function
+
     function loadMoreItems() {
         currentCount += itemsPerLoad;
-        loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice, currentCount);
+        loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice, currentCount, searchQuery);
     }
+
 </script>
 </div>
 
