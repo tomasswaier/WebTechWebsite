@@ -30,6 +30,7 @@ Route::get('adminProductDetail', function () {
 Route::get('cartAddressInfo', function () {
     return view('cartAddressInfo');
 });
+Route::get('cartAddressInfo', [CartController::class, 'overview'])->name('cartOverview');
 Route::get('cart/', [CartController::class, 'overview'])->name('cartOverview');
 Route::post('cart/delete/{product_id}', [CartController::class, 'delete'])->name('cart.delete');
 Route::get('cartPayment', function () {

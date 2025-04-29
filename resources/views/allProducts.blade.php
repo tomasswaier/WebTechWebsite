@@ -64,16 +64,20 @@
     </div>
     <div name="rightSide" class="w-full  mt-16 mr-10">
       <div name="topSideOfItemsDisplay" class="flex flex-row justify-start space-x-3 w-full mb-5">
-        <div class="border-2 p-2 rounded-lg">
-          <span>Men's</span>
+        <div class="p-2">
+            <span>common filters:</span>
         </div>
-        <div class="border-2 p-2 rounded-lg">
-          <span>Women's</span>
-        </div>
-        <div class="border-2 p-2 rounded-lg ">
-          <span>Unisex</span>
-        </div>
-        <div class="ml-auto border-2 p-2 rounded-lg ">
+        <button class="border-2 p-2 rounded-lg category-button" data-category="T-shirt">
+          <span>T-shirt</span>
+        </button>
+        <button class="border-2 p-2 rounded-lg category-button" data-category="Hat">
+          <span>Hats</span>
+        </button>
+        <button class="border-2 p-2 rounded-lg category-button" data-category="Pant">
+          <span>Pants</span>
+        </button>
+
+        <div class="ml-auto border-2  rounded-lg ">
           <select class="border p-2 rounded" id="priceSort">
             <option value="oldest">Oldest</option>
             <option value="newest">Newest</option>
@@ -156,6 +160,21 @@ document.getElementById("searchInput").addEventListener("keypress", function (e)
         currentCount += itemsPerLoad;
         loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice, currentCount, searchQuery);
     }
+    document.querySelectorAll('.category-button').forEach(button => {
+        button.addEventListener('click', () => {
+          currentCount = 0;
+          currentCategory = button.dataset.category;
+          document.getElementById("itemDisplay").innerHTML = "";
+          loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice, currentCount, searchQuery);
+
+          // Optional: also select matching radio if it exists
+          const radioToCheck = document.querySelector(`input[name="filterOption"][value="${currentCategory}"]`);
+          if (radioToCheck) {
+            radioToCheck.checked = true;
+          }
+        });
+    });
+
 
 </script>
 </div>
