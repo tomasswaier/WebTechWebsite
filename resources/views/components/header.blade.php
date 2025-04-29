@@ -25,7 +25,7 @@
         </li>
         @if(Auth::check())
             <li class="block">
-                <a href="{{ url('/profile')}}" class="flex w-full justify-center space-x-3 md:space-x-0 border md:border-transparent bg-white md:bg-transparent border-black rounded-lg">
+                <a href="{{ route('profile.edit')}}" class="flex w-full justify-center space-x-3 md:space-x-0 border md:border-transparent bg-white md:bg-transparent border-black rounded-lg">
                     <img src="{{asset('icons/person.png')}}" alt="user page icon" class="max-h-10 mb-2 md:mb-0">
                     <span class="flex md:hidden self-center">User Profile</span>
                 </a>
