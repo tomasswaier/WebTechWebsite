@@ -28,7 +28,12 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect('/');
+        // Add admin redirect logic here
+        if (auth()->user()->is_admin) {
+            return redirect()->route('admin.all.products');
+        }
+
+        return redirect()->intended('/');
     }
 
     /**

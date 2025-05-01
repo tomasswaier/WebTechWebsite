@@ -21,12 +21,23 @@ Route::get('logInPage', function () {
 Route::get('registerPage', function () {
     return view('registerPage');
 });
-Route::get('adminAllProducts', function () {
-    return view('adminAllProducts');
+
+//Route::get('adminAllProducts', function () {
+//    return view('adminAllProducts');
+//})->name('admin.all.products');
+//Route::get('adminProductDetail', function () {
+//    return view('adminProductDetail');
+//});
+Route::middleware(['auth', 'is_admin'])->group(function () {
+    Route::get('adminAllProducts', function () {
+        return view('adminAllProducts');
+    })->name('admin.all.products');
+
+    Route::get('adminProductDetail', function () {
+        return view('adminProductDetail');
+    })->name('admin.product.detail');
 });
-Route::get('adminProductDetail', function () {
-    return view('adminProductDetail');
-});
+
 Route::get('cartAddressInfo', function () {
     return view('cartAddressInfo');
 });

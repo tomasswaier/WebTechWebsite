@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('main_content')
+<main class="grid grid-flow-row justify-items-center ">
 <div name="welcome_text" class="text-2xl justify-self-center grid-cols-1 grid justify-items-center w-fit font-bold mt-3 mb-5">
     <span>Discover the Latest Fashion Trends</span>
     <br>
@@ -47,6 +48,7 @@
         @endforeach
     </div>
 </div>
+</main>
 
 @vite('resources/js/responsiveHeader.js')
 @endsection

@@ -33,6 +33,9 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+    protected $casts = [
+        'is_admin' => 'boolean',
+    ];
 
     /**
      * Get the attributes that should be cast.
