@@ -14,6 +14,7 @@ plugins:
           'resources/js/displayCartItems.js',
           'resources/js/displayItemImages.js',
           'resources/js/displayInputImage.js',
+          'resources/js/displayAdminItems.js',
         ],
         refresh : true,
       }),

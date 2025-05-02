@@ -33,9 +33,16 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
         return view('adminAllProducts');
     })->name('admin.all.products');
 
+    //Route::prefix('api')->group(function () {
+    //    Route::get('/adminItems', [AdminItemController::class, 'loadItemInfo']);
+    //});
     Route::get('adminProductDetail', function () {
         return view('adminProductDetail');
     })->name('admin.product.detail');
+    Route::get('adminProductDetail/{id}', function ($id) {
+        return view('adminProductDetail', ['productId' => $id]);
+    })->name('admin.product.detail');
+    //Route::get('adminProductDetail/{id}',[ProductController::class,'detail']);
 });
 
 Route::get('cartAddressInfo', function () {

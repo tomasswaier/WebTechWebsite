@@ -1,27 +1,6 @@
-<!doctype html>
-<html>
+@extends('layouts.app')
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width">
-  <meta name="viewport" content="width=device-width">
-  <link href="../src/styles.css" rel="stylesheet">
-  <script src="displayInputImage.js"></script>
-    @vite('resources/css/app.css')
-
-</head>
-
-<body class='h-screen grid grid-cols-1 justify-between'>
-<header class="w-full flex flex-wrap justify-end items-center mx-auto h-20 relative z-20">
-  <a href="{{ url('/')}}" id="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto m-5">
-    <img src="icons/logo.png" alt="logo" class="h-full">
-  </a>
-  <div class="flex bg-white mt-5 w-auto mr-3">
-    <a href="#" class="w-full md:w-20 p-1 h-10 bg-white text-black border border-black active:bg-neutral-400 rounded-lg flex items-center justify-center">
-      <span>Log out</span>
-    </a>
-  </div>
-</header>
+@section('main_content')
   <main name="bodyWrapper" class="w-full h-full grid grid-cols-1 px-10">
     <form action="#" method="post">
       <div id="imageDisplay" class="w-fit grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 overflow-scroll no-scrollbar space-x-5 whitespace-nowrap items-start">
@@ -63,18 +42,6 @@
       <button class="w-30 bg-black text-white font-bold rounded-md h-10 my-3" type="submit">Save</button>
     </form>
   </main>
-  <footer class="w-full h-28 bottom-0 mt-auto">
-    <hr>
-    <div class='relative top-10 grid mx-auto grid-flow-col align-middle w-fit space-x-5'>
-      <span>Contact</span>
-      <span>FAQ</span>
-      <span>c all rights reserved</span>
-    </div>
-  </footer>
-
-  <script src='responsiveHeader.js'>
-  </script>
-</body>
 <script>
   const colorsArea = document.querySelector("#colorOptionsWrapper");
   function addColor() {
@@ -110,3 +77,4 @@
     reader.readAsDataURL(image);
   }
 </script>
+@endsection

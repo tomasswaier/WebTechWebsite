@@ -1,4 +1,7 @@
 @if(request()->is('admin*'))
+            <a href="{{ url('/adminAllProducts')}}" id="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto ">
+                <img src="{{asset('icons/logo.png')}}" alt="logo" class="h-full">
+            </a>
             <li class="block">
                 <form method="post" action="{{route("logout")}}">
                     @csrf

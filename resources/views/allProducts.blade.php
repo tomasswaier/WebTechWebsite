@@ -118,7 +118,7 @@ let searchQuery = ''; //
     currentCount = 0;
     document.getElementById("itemDisplay").innerHTML = "";
     loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice, currentCount, searchQuery);
-}
+    }
 
 document.getElementById("searchInput").addEventListener("keypress", function (e) {
     if (e.key === "Enter") {

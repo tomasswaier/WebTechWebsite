@@ -4,9 +4,9 @@
   <main name="body_wrapper" class="w-full grid h-fit gap-8 grid-flow-col mb-50">
     <div name="table wrapper" class="w-full px-20 h-fit">
       <div name="buttonWrapper" class="w-full h-fit grid">
-        <button type="button" class="w-fit bg-black text-white rounded-lg p-3">+ Add Item</button>
+        <a href="{{ url('adminProductDetail') }}" class="w-fit bg-black text-white rounded-lg p-3" >+ Add Item</a>
       </div>
-      <table class="w-full table-fixed">
+      <table  class="w-full table-fixed">
         <thead class="gap-5 ">
           <td></td>
           <td><span>Category</span></td>
@@ -16,85 +16,7 @@
           <td><span>Edit</span></td>
           <td><span>Delete</span></td>
         </thead>
-        <tbody>
-          <tr>
-            <td>
-              <div class=" w-40 h-20 bg-neutral-300 rounded-lg overflow-hidden">
-                <img src="product_images/example_shirt_front.png" alt="meow">
-              </div>
-            </td>
-            <td><span>shirt</span></td>
-            <td><span>cool shirt</span></td>
-            <td><span>$28.00</span></td>
-            <td><span>in Stock</span></td>
-            <td><img src="icons/editIcon.png" alt="edit icon" class="w-12"></td>
-            <td><img src="icons/trashIcon.png" alt="trash icon" class="w-12"></td>
-          </tr>
-          <tr>
-            <td>
-              <div class=" w-40 h-20 bg-neutral-300 rounded-lg overflow-hidden">
-                <img src="product_images/example_shirt_front.png" alt="meow">
-              </div>
-            </td>
-            <td><span>shirt</span></td>
-            <td><span>cool shirt</span></td>
-            <td><span>$28.00</span></td>
-            <td><span>in Stock</span></td>
-            <td><img src="icons/editIcon.png" alt="edit icon" class="w-12"></td>
-            <td><img src="icons/trashIcon.png" alt="trash icon" class="w-12"></td>
-          </tr>
-          <tr>
-            <td>
-              <div class=" w-40 h-20 bg-neutral-300 rounded-lg overflow-hidden">
-                <img src="product_images/example_shirt_front.png" alt="meow">
-              </div>
-            </td>
-            <td><span>shirt</span></td>
-            <td><span>cool shirt</span></td>
-            <td><span>$28.00</span></td>
-            <td><span>in Stock</span></td>
-            <td><img src="icons/editIcon.png" alt="edit icon" class="w-12"></td>
-            <td><img src="icons/trashIcon.png" alt="trash icon" class="w-12"></td>
-          </tr>
-          <tr>
-            <td>
-              <div class=" w-40 h-20 bg-neutral-300 rounded-lg overflow-hidden">
-                <img src="product_images/example_shirt_front.png" alt="meow">
-              </div>
-            </td>
-            <td><span>shirt</span></td>
-            <td><span>cool shirt</span></td>
-            <td><span>$28.00</span></td>
-            <td><span>in Stock</span></td>
-            <td><img src="icons/editIcon.png" alt="edit icon" class="w-12"></td>
-            <td><img src="icons/trashIcon.png" alt="trash icon" class="w-12"></td>
-          </tr>
-          <tr>
-            <td>
-              <div class=" w-40 h-20 bg-neutral-300 rounded-lg overflow-hidden">
-                <img src="product_images/example_shirt_front.png" alt="meow">
-              </div>
-            </td>
-            <td><span>shirt</span></td>
-            <td><span>cool shirt</span></td>
-            <td><span>$28.00</span></td>
-            <td><span>in Stock</span></td>
-            <td><img src="icons/editIcon.png" alt="edit icon" class="w-12"></td>
-            <td><img src="icons/trashIcon.png" alt="trash icon" class="w-12"></td>
-          </tr>
-          <tr>
-            <td>
-              <div class=" w-40 h-20 bg-neutral-300 rounded-lg overflow-hidden">
-                <img src="product_images/example_shirt_front.png" alt="meow">
-              </div>
-            </td>
-            <td><span>shirt</span></td>
-            <td><span>cool shirt</span></td>
-            <td><span>$28.00</span></td>
-            <td><span>in Stock</span></td>
-            <td><img src="icons/editIcon.png" alt="edit icon" class="w-12"></td>
-            <td><img src="icons/trashIcon.png" alt="trash icon" class="w-12"></td>
-          </tr>
+        <tbody name="itemDisplay" id="itemDisplay">
 
         </tbody>
       </table>
@@ -103,5 +25,13 @@
 
     </div>
   </main>
-@vite('resources/js/responsiveHeader.js')
+@vite('resources/js/displayAdminItems.js')
+<script>
+let currentCount = 0;
+const itemsPerLoad = 10;
+    document.addEventListener("DOMContentLoaded", () => {
+        loadMaxImages('itemDisplay', itemsPerLoad);
+    });
+
+</script>
 @endsection
