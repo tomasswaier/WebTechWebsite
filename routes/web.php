@@ -38,11 +38,14 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     //});
     Route::get('adminProductDetail', function () {
         return view('adminProductDetail');
-    })->name('admin.product.detail');
+    });
     Route::get('adminProductDetail/{id}', function ($id) {
         return view('adminProductDetail', ['productId' => $id]);
-    })->name('admin.product.detail');
-    //Route::get('adminProductDetail/{id}',[ProductController::class,'detail']);
+    });
+    Route::get('adminProductDetail', [ProductController::class, 'create']);
+    Route::get('adminProductDetail/{id}', [ProductController::class, 'edit']);
+    Route::post('adminProductDetail', [ProductController::class, 'store']);
+    //Route::get('adminProductDetail/{id}', [ProductController::class, 'detail']);
 });
 
 Route::get('cartAddressInfo', function () {

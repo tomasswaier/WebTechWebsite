@@ -21,17 +21,21 @@
         </tbody>
       </table>
 
-      <button type="" class="p-2 border-2 rounded-lg">Load More</button>
+      <button onclick="loadMoreItems()" type="" class="p-2 border-2 rounded-lg">Load More</button>
 
     </div>
   </main>
 @vite('resources/js/displayAdminItems.js')
 <script>
 let currentCount = 0;
-const itemsPerLoad = 10;
-    document.addEventListener("DOMContentLoaded", () => {
-        loadMaxImages('itemDisplay', itemsPerLoad);
-    });
+const itemsPerLoad = 8;
+document.addEventListener("DOMContentLoaded", () => {
+    loadMaxImages('itemDisplay', itemsPerLoad);
+});
+function loadMoreItems() {
+    currentCount += itemsPerLoad;
+    loadMaxImages('itemDisplay', itemsPerLoad, null, null, null, currentCount, null);
+}
 
 </script>
 @endsection
