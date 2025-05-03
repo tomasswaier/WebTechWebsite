@@ -27,4 +27,14 @@ class Products extends Model
     {
         return $this->belongsTo(Colors::class, 'color_id', 'id');
     }
+    protected $fillable = [
+        'category_id',
+        'name',
+        'description',
+        'in_stock',
+        'price',
+        'discounted_price',
+        'color_id'
+
+    ];
 }

@@ -1,3 +1,15 @@
+@if(request()->is('admin*'))
+            <a href="{{ url('/adminAllProducts')}}" id="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto ">
+                <img src="{{asset('icons/logo.png')}}" alt="logo" class="h-full">
+            </a>
+            <li class="block">
+                <form method="post" action="{{route("logout")}}">
+                    @csrf
+                    <button type="submit" class="w-full md:w-20 h-10 bg-white text-black border border-black active:bg-neutral-400 rounded-lg">Log
+                        out</button>
+                </form>
+            </li>
+@else
 <a href="{{ url('/')}}" id="logo" class="w-auto h-14 bg-neutral-300 rounded-2xl mr-auto ">
     <img src="{{asset('icons/logo.png')}}" alt="logo" class="h-full">
 </a>
@@ -7,8 +19,7 @@
 </button>
 <div id="hamburger_default" class="absolute hidden bg-white mt-5 md:mt-0 top-full right-0 w-full z-50 md:static md:flex md:w-auto md:mr-3">
     <ul class="flex flex-col z-50 md:flex-row space-y-3 md:space-y-0 p-4 md:p-0 bg-white border border-gray-500 md:mt-0 md:border-0 md:bg-white md:space-x-2">
-        <li class="relative block">
-
+        @if(request()->is('allProducts'))
             <form id="searchForm" action="#" onsubmit="return false;">
                 <input id="searchInput" type="search" name="search_query" placeholder="Search.." class="block ml-auto w-full md:w-96 rounded-lg border-black border p-1 focus:outline-none pl-5">
                 <button type="button" onclick="handleSearch()" class="absolute top-0 z-20 end-0 rounded-e-lg bg-black p-2 focus:ring-1 border border-black">
@@ -17,6 +28,8 @@
             </form>
 
         </li>
+        @endif
+        <li class="relative block">
         <li class="block">
             <a href="{{ route('cartOverview')}}" class="flex w-full justify-center space-x-3 md:space-x-0 border md:border-transparent bg-white md:bg-transparent border-black rounded-lg">
                 <img src="{{asset('icons/shoppingCart.png')}}" alt="shopping cart icon" class="max-h-10 mb-2 md:mb-0">
@@ -50,3 +63,4 @@
     </ul>
 
 </div>
+@endif

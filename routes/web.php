@@ -21,12 +21,33 @@ Route::get('logInPage', function () {
 Route::get('registerPage', function () {
     return view('registerPage');
 });
-Route::get('adminAllProducts', function () {
-    return view('adminAllProducts');
+
+//Route::get('adminAllProducts', function () {
+//    return view('adminAllProducts');
+//})->name('admin.all.products');
+//Route::get('adminProductDetail', function () {
+//    return view('adminProductDetail');
+//});
+Route::middleware(['auth', 'is_admin'])->group(function () {
+    Route::get('adminAllProducts', function () {
+        return view('adminAllProducts');
+    })->name('admin.all.products');
+
+    //Route::prefix('api')->group(function () {
+    //    Route::get('/adminItems', [AdminItemController::class, 'loadItemInfo']);
+    //});
+    Route::get('adminProductDetail', function () {
+        return view('adminProductDetail');
+    });
+    Route::get('adminProductDetail/{id}', function ($id) {
+        return view('adminProductDetail', ['productId' => $id]);
+    });
+    Route::get('adminProductDetail', [ProductController::class, 'create']);
+    Route::get('adminProductDetail/{id}', [ProductController::class, 'edit']);
+    Route::post('adminProductDetail', [ProductController::class, 'store']);
+    //Route::get('adminProductDetail/{id}', [ProductController::class, 'detail']);
 });
-Route::get('adminProductDetail', function () {
-    return view('adminProductDetail');
-});
+
 Route::get('cartAddressInfo', function () {
     return view('cartAddressInfo');
 });
