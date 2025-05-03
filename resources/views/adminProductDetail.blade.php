@@ -6,28 +6,36 @@
     @csrf
 
     <div id="imageDisplay" class="w-fit grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 overflow-scroll no-scrollbar space-x-5 whitespace-nowrap items-start">
-      @isset($product)
+    @isset($product)
+        <!-- Main Image -->
         @foreach($product->images as $image)
-       @if($image->is_main)
-            <div class="main-image">
-                <img src="{{ asset('product_images/'.$image->image_url) }}"
-                     alt="Product image"
-                     class="w-50 h-50 mb-2 border-black border-2 rounded-xl">
-            </div>
-            @break  <!-- Exit after first main image -->
-         @endif
+            @if($image->is_main)
+                <div class="relative main-image">
+                    <img src="{{ asset('product_images/'.$image->image_url) }}"
+                         alt="Main product image"
+                         class="w-50 h-50 mb-2 border-black border-2 rounded-xl">
+                    <img src="{{ asset('icons/trashIcon.png') }}"
+                         class="absolute right-5 bottom-5 w-10 h-10 z-50 cursor-pointer"
+                         onclick="this.parentElement.remove()">
+                </div>
+                @break
+            @endif
         @endforeach
+
+        <!-- Other Images -->
         @foreach($product->images as $image)
-       @if($image->is_main)
-       @else
-          <div class="relative">
-            <img src="{{ asset('product_images/'.$image->image_url) }}"
-                 class="w-50 h-50 mb-2 border-black border-2 rounded-xl"
-                 alt="Product image">
-          </div>
-          @endif
+            @unless($image->is_main)
+                <div class="relative">
+                    <img src="{{ asset('product_images/'.$image->image_url) }}"
+                         class="w-50 h-50 mb-2 border-black border-2 rounded-xl"
+                         alt="Product image">
+                    <img src="{{ asset('icons/trashIcon.png') }}"
+                         class="absolute right-5 bottom-5 w-10 h-10 z-50 cursor-pointer"
+                         onclick="this.parentElement.remove()">
+                </div>
+            @endunless
         @endforeach
-      @endisset
+    @endisset
       <!-- Images will be added here dynamically -->
       <label for="user_image" class="size-auto relative block items-center cursor-pointer order-last">
         <input id="user_image" class="text-transparent absolute size-auto" name="images[]" type="file" multiple onchange="addImage()" />
