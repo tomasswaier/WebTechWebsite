@@ -8,26 +8,26 @@
       <li>3 • Shipping & Payment</li>
     </ul>
 
-    <div id="main_cart_section" class="grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1 w-full gap-10">
+    <section id="main_cart_section" class="grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1 w-full gap-10">
 
-        <form id="shipping_info" method="post" action="#" class="grid grid-cols-1 w-full space-y-3">
+        <form id="shipping_info" method="post" action="{{route('cart.save_address')}}" class="grid grid-cols-1 w-full space-y-3">
           @csrf
           <label for="shipping_info" class="font-bold text-lg mb-2">Shipping information</label>
           <div id="name_input_group" class="flex flex-col md:flex-row justify-between w-full md:space-x-2 space-y-3 md:space-y-0">
-            <input name="first_name" placeholder="First name" class="w-full border border-gray-400 rounded-md p-1" required>
-            <input name="last_name" placeholder="Last name" class="w-full border border-gray-400 rounded-md p-1" required>
+            <input name="first_name" placeholder="First name" class="w-full border border-gray-400 rounded-md p-2" required>
+            <input name="last_name" placeholder="Last name" class="w-full border border-gray-400 rounded-md p-2" required>
           </div>
-          <input name="address" placeholder="Address" class="w-full border border-gray-400 rounded-md p-1" required>
-          <input name="country" placeholder="Country" class="w-full border border-gray-400 rounded-md p-1" required>
-          <input name="city" placeholder="City" class="w-full border border-gray-400 rounded-md p-1" required>
-          <input name="zipcode" placeholder="Zipcode" class="w-full border border-gray-400 rounded-md p-1" required>
+          <input name="address" placeholder="Address" class="w-full border border-gray-400 rounded-md p-2" required>
+          <input name="country" placeholder="Country" class="w-full border border-gray-400 rounded-md p-2" required>
+          <input name="city" placeholder="City" class="w-full border border-gray-400 rounded-md p-2" required>
+          <input name="zipcode" placeholder="Zipcode" class="w-full border border-gray-400 rounded-md p-2" required>
 
-          <button type="button" onclick="handleRedirect()" class="w-full bg-black rounded-xl text-white py-2.5 hover:cursor-pointer">
+          <button type="submit" class="w-full bg-black rounded-xl text-white py-2.5 hover:cursor-pointer">
             Continue to Shipping & Payment
           </button>
         </form>
 
-      <div id="products_section" class="grid grid-flow-row w-auto">
+      <section id="products_section" class="grid grid-flow-row w-auto content-start gap-y-3">
         <label for="order_summary" class="font-bold text-lg mb-2">
           Order summary
         </label>
@@ -40,34 +40,21 @@
                     <span class="font-bold">{{ $product->name }}</span>
                     <span>Size: {{ $product->size }}</span>
                     <span>Quantity: {{ $product->quantity }}</span>
-                    <span>${{ number_format($product->price, 2) }}</span>
+                    <span>@if($product->price == $product->discounted_price) ${{ number_format($product->price * $product->quantity, 2) }} @else ${{ number_format($product->discounted_price * $product->quantity, 2) }} @endif</span>
                   </div>
-                </li>
+            </li>
               @endforeach
-
-              <li class="flex flex-row w-full justify-between">
-                <span>Total:</span>
-                <span id="total_price">${{ number_format($total, 2) }}</span>
-              </li>
-              <hr class="my-3 w-full h-0.5 border-t-0 bg-gray-300" />
+                  <hr class="my-3 w-full h-0.5 border-t-0 bg-gray-300" />
+                  <li class="flex flex-row w-full justify-between">
+                    <span>Total:</span>
+                    <span id="total_price">${{ number_format($total, 2) }}</span>
+                  </li>
             </ul>
 
-      </div>
+      </section>
 
-    </div>
+    </section>
   </main>
-  <script>
-  function handleRedirect() {
-    const form = document.getElementById('shipping_info');
-
-    if (form.checkValidity()) {
-      window.location.href = "{{ url('/cartPayment') }}";
-    } else {
-      // This will trigger native HTML5 validation error messages
-      form.reportValidity();
-    }
-  }
-</script>
 
 @vite('resources/js/displayCartItems.js')
 @vite('resources/js/responsiveHeader.js')
