@@ -19,11 +19,10 @@ return new class extends Migration
             $table->integer('in_stock')->default(0);
             $table->decimal('price',8,2)->default(0);
             $table->decimal('discounted_price',8,2)->default(0);
-            $table->uuid('color_id');
+            $table->string('color',10);
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('categories');
-            $table->foreign('color_id')->references('id')->on('colors');
         });
     }
 

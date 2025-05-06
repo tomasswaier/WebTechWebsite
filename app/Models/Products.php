@@ -23,10 +23,6 @@ class Products extends Model
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
-    public function colors()
-    {
-        return $this->belongsTo(Colors::class, 'color_id', 'id');
-    }
     protected $fillable = [
         'category_id',
         'name',
@@ -34,7 +30,7 @@ class Products extends Model
         'in_stock',
         'price',
         'discounted_price',
-        'color_id'
+        'color'
 
     ];
 }

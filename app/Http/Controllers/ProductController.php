@@ -36,7 +36,7 @@ class ProductController extends Controller
                         'is_main' => $image->is_main
                     ];
                 });
-            $color =$product->colors();
+            $color =$product->color;
 
 
 
@@ -62,7 +62,7 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'colors' => 'sometimes|array',
+            'colorx' => 'required|string|max:10',
         ]);
 
         // Create the product
@@ -103,7 +103,7 @@ class ProductController extends Controller
 
     public function detail($id)
     {
-        $product = Products::with(['category', 'images', 'colors'])->findOrFail($id);
+        $product = Products::with(['category', 'images'])->findOrFail($id);
         $mainImage = $product->images->firstWhere('is_main', true);
 
         return view('productDetail', [
@@ -111,4 +111,21 @@ class ProductController extends Controller
             'mainImage' => $mainImage,
         ]);
     }
+
+    public function delete($product_id){
+
+        $images = $product->images()
+            ->get()
+            ->map(function ($image) {
+                return [
+                    'image_url' => asset("product_images/{$image->image_url}")
+                ];
+            });
+        //DB::table('')->where('column_name', '=', $value)->delete();
+        //for x meow in meow meow: delete iamges dbs , delete images locally
+    }
+    public function create_product(){
+
+    }
+
 }
