@@ -8,7 +8,7 @@
         <li>3 • Shipping & Payment</li>
       </ul>
       <div id="main_cart_section" class="grid grid-flow-row sm:grid-flow-col w-full">
-        <div id="products_section" class="grid grid-flow-row w-full md:w-[50vw]">
+        <section id="products_section" class="grid grid-flow-row w-full md:w-[50vw]">
             <ul id="itemCartContainer" class="grid w-auto grid-flow-row gap-y-4">
                 <h2 class="my-3 font-bold">Your Cart</h2>
                 @if(!empty($products))
@@ -44,18 +44,18 @@
                 @endif
 
             </ul>
-        </div>
-        <div id="order_summary" class="mx-5 grid grid-flow-row w-auto">
+        </section>
+        <section id="order_summary" class="mx-5 grid grid-flow-row w-auto">
           <h2 class="font-bold my-3">Order Summary</h2>
           <div class="grid grid-flow-col justify-between">
             <span>Total:</span>
             <span id="total_price">${{$total}}</span>
           </div>
           <hr class="my-3 w-full h-0.5 border-t-0 bg-gray-300" />
-          <a href="{{url('/cartAddressInfo')}}" class="w-full bg-black grid align-middle justify-center rounded-xl text-white py-2.5 hover:cursor-pointer">
+          <a href="{{route('cart.address')}}" class="w-full bg-black grid align-middle justify-center rounded-xl text-white py-2.5 hover:cursor-pointer">
             Continue to checkout
           </a>
-        </div>
+        </section>
       </div>
     </div>
     </div>

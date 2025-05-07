@@ -53,11 +53,12 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
 Route::get('cartAddressInfo', function () {
     return view('cartAddressInfo');
 });
-Route::get('cartAddressInfo', [CartController::class, 'overview'])->name('cartOverview');
+Route::get('cart/address', [CartController::class, 'address_info'])->name('cart.address');
+Route::post('cart/address/save', [CartController::class, 'save_address'])->name('cart.save_address');
 Route::get('cart/', [CartController::class, 'overview'])->name('cartOverview');
 Route::post('cart/delete/{product_id}', [CartController::class, 'delete'])->name('cart.delete');
 Route::post('cart/change/{product_id}', [CartController::class, 'change'])->name('cart.change');
-Route::get('cartPayment', function () {
+Route::get('cartPayment/', function () {
     return view('cartPayment');
 });
 Route::get('productDetail/{id}', function ($id) {

@@ -163,4 +163,72 @@ class CartController extends Controller
         return redirect()->back();
 
     }
+
+    public function address_info(Request $request)
+    {
+        $total = 0;
+        $products = [];
+
+        if (!$request->user()) {
+            $cart = Session::get('cart', []);
+
+            foreach ($cart as $key => $item) {
+                $product = Products::with(['images'])->find($item['product_id']);
+
+                if ($product) {
+                    $product->quantity = $item['quantity'];
+                    $product->size = $item['size'];
+                    if ($product->discounted_price == $product->price) {
+                        $product->subtotal = $product->price * $item['quantity'];
+                    } else {
+                        $product->subtotal = $product->discounted_price * $item['quantity'];
+                    }
+
+                    $total += $product->subtotal;
+
+                    $products[] = $product;
+                }
+            }
+        } else {
+            $user = $request->user();
+
+            $cart = $user->cart()->with(['products'])->first();
+            foreach ($cart->products as $item) {
+                $product = Products::with(['images'])->find($item->pivot->product_id);
+                if ($product) {
+                    $product->quantity = $item->pivot->quantity;
+                    $product->size = $item->pivot->size;
+                    if ($product->discounted_price == $product->price) {
+                        $product->subtotal = $product->price * $item->pivot->quantity;
+                    } else {
+                        $product->subtotal = $product->discounted_price * $item->pivot->quantity;
+                    }
+                    $total += $product->subtotal;
+                    $products[] = $product;
+                }
+            }
+        }
+
+        return view('cartAddressInfo', [
+            'products' => $products,
+            'total' => $total,
+        ]);
+    }
+
+    public function save_address(Request $request)
+    {
+        $address = [
+            'first_name' => $request['first_name'],
+            'last_name' => $request['last_name'],
+            'address' => $request['address'],
+            'city' => $request['city'],
+            'zipcode' => $request['zipcode'],
+            'country' => $request['country'],
+        ];
+
+        Session::put('address', $address);
+
+        return redirect('cartPayment/');
+
+    }
 }
