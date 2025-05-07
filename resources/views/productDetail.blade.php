@@ -19,9 +19,9 @@
             <h2 class="font-bold mb-3">Color</h2>
             <div id="color_picker" class="grid grid-cols-2 w-fit gap-4 mb-3">
                     <label>
-{{--                        <input type="radio" name="selectedColor" value="{{$product->colors->hex_code}}" class="peer hidden">--}}
+{{--                        <input type="radio" name="selectedColor" value="{{$product->color}}" class="peer hidden">--}}
                         <span class="w-8 h-8 rounded-full border-2 border-gray-300 block
-                peer-checked:ring-2 peer-checked:ring-black bg-[{{$product->colors->hex_code}}]" aria-label="{{$product->colors->name}}">
+                peer-checked:ring-2 peer-checked:ring-black bg-[{{$product->color}}]" aria-label="{{$product->color}}">
                         </span>
                     </label>
             </div>

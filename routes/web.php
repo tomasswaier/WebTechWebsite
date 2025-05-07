@@ -46,6 +46,8 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('adminProductDetail/{id}', [ProductController::class, 'edit']);
     Route::post('adminProductDetail', [ProductController::class, 'store']);
     //Route::get('adminProductDetail/{id}', [ProductController::class, 'detail']);
+
+    Route::post('', [ProductController::class, 'create_product']);
 });
 
 Route::get('cartAddressInfo', function () {
