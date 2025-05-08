@@ -13,6 +13,27 @@ class Products extends Model
     protected $keyType = 'string';
     public $incrementing = false;
 
+    protected $fillable = [
+        'name',
+        'description',
+        'category_id',
+        'price',
+        'in_stock',
+        'discounted_price',
+        'color'
+    ];
+
+    protected $casts = [
+        'price' => 'decimal:2',
+        'discounted_price' => 'decimal:2',
+        'in_stock' => 'integer'
+    ];
+
+    protected $attributes = [
+        'in_stock' => 0,
+        'discounted_price' => null
+    ];
+
     public function images()
     {
         return $this->hasMany(ProductImages::class, 'product_id');
@@ -23,14 +44,12 @@ class Products extends Model
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
-    protected $fillable = [
-        'category_id',
-        'name',
-        'description',
-        'in_stock',
-        'price',
-        'discounted_price',
-        'color'
-
-    ];
+    public static function uniqueColors()
+    {
+        return self::query()
+            ->select('color')
+            ->distinct()
+            ->whereNotNull('color')
+            ->pluck('color');
+    }
 }

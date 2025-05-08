@@ -57,10 +57,12 @@ async function loadMaxImages(parentId, numberOfItems = 10, category = 'all',
       itemNameElement.textContent = itemData.name;
       nameWrapper.appendChild(itemNameElement);
 
+      const priceWrapper = document.createElement("td");
+      elementWrapper.appendChild(priceWrapper);
       const itemPriceElement = document.createElement("span");
       itemPriceElement.textContent =
           `$${parseFloat(itemData.price).toFixed(2)}`;
-      elementWrapper.appendChild(itemPriceElement);
+      priceWrapper.appendChild(itemPriceElement);
 
       const stockWrapper = document.createElement("td");
       elementWrapper.appendChild(stockWrapper);

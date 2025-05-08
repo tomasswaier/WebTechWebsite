@@ -50,6 +50,9 @@ class ItemController extends Controller{
             if ($request->has('price') && is_numeric($request->price)) {
                 $query->where('price', '<=', (float)$request->price);
             }
+            if ($request->has('color') && $request->color!='None') {
+                $query->where('color', '=', $request->color);
+            }
 
             if ($request->has('search') && !empty($request->search)) {
                 $search = $request->search;

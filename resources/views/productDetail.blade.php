@@ -21,7 +21,7 @@
                     <label>
 {{--                        <input type="radio" name="selectedColor" value="{{$product->color}}" class="peer hidden">--}}
                         <span class="w-8 h-8 rounded-full border-2 border-gray-300 block
-                peer-checked:ring-2 peer-checked:ring-black bg-[{{$product->color}}]" aria-label="{{$product->color}}">
+                peer-checked:ring-2 peer-checked:ring-black bg-[#{{$product->color}}]" aria-label="{{$product->color}}">
                         </span>
                     </label>
             </div>
