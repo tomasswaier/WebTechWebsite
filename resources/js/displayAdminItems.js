@@ -83,10 +83,36 @@ async function loadMaxImages(parentId, numberOfItems = 10, category = 'all',
 
       const deleteWrapper = document.createElement("td");
       elementWrapper.appendChild(deleteWrapper);
-      const deleteImageElement = document.createElement("img");
-      deleteWrapper.append(deleteImageElement);
-      deleteImageElement.src = "icons/trashIcon.png";
-      deleteImageElement.classList.add("w-12");
+
+      const deleteLink = document.createElement("a");
+      deleteLink.href = "#";
+      deleteLink.onclick = async (e) => {
+        e.preventDefault();
+        try {
+          const response = await fetch(`/deleteProduct/${itemData.id}`, {
+            method : 'DELETE',
+            headers : {
+              'X-CSRF-TOKEN' :
+                  document.querySelector('meta[name="csrf-token"]').content,
+              'Accept' : 'application/json'
+            }
+          });
+
+          if (response.ok) {
+            elementWrapper.remove(); // Immediately remove the row
+          } else {
+            console.error("Delete failed");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      };
+      deleteWrapper.appendChild(deleteLink);
+
+      const deleteImage = document.createElement("img");
+      deleteImage.src = "icons/trashIcon.png";
+      deleteImage.classList.add("w-12");
+      deleteLink.appendChild(deleteImage);
     });
   } catch (error) {
     console.error('Error loading images:', error);

@@ -33,6 +33,7 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('adminAllProducts', function () {
         return view('adminAllProducts');
     })->name('admin.all.products');
+    Route::delete('/deleteProduct/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 
     //Route::prefix('api')->group(function () {
     //    Route::get('/adminItems', [AdminItemController::class, 'loadItemInfo']);

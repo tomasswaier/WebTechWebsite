@@ -6,6 +6,7 @@ use App\Models\Products;
 use App\Models\ProductImages;
 use App\Models\ProductColor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -18,6 +19,7 @@ class ProductController extends Controller
     }
     public function create()
     {
+        //while creating new product you need categories
         try{
             $categories = \App\Models\Category::all(); // Fetch all categories
 
@@ -27,9 +29,9 @@ class ProductController extends Controller
         }
 
     }
-    // In your ProductController (or create a new controller if needed)
     public function edit($product_id)
     {
+        // displays edited product. Does not save edits of a product
         try{
             $categories = \App\Models\Category::all(); // Fetch all categories
             $product=Products::find($product_id);
@@ -145,17 +147,23 @@ class ProductController extends Controller
         ]);
     }
 
-    public function delete($product_id){
+    public function destroy($id)
+    {
+        try {
+            $product = Products::findOrFail($id);
 
-        $images = $product->images()
-            ->get()
-            ->map(function ($image) {
-                return [
-                    'image_url' => asset("product_images/{$image->image_url}")
-                ];
-            });
-        //DB::table('')->where('column_name', '=', $value)->delete();
-        //for x meow in meow meow: delete iamges dbs , delete images locally
+            // Delete associated images
+            foreach ($product->images as $image) {
+                Storage::disk('public')->delete($image->image_url);
+                $image->delete();
+            }
+
+            $product->delete();
+
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            \Log::error('Product deletion failed: '.$e->getMessage());
+            return response()->json(['success' => false], 500);
+        }
     }
-
 }
