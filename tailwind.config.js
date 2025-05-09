@@ -13,6 +13,12 @@ export default {
         './resources/js/*.js',
         './resources/views/**/**/*.blade.php',
       ],
+  // safelist:
+  //     [
+  //       {
+  //         pattern : /bg-\[^+\]/, // Matches bg-[anyvalue]
+  //       },
+  //     ],
 
   theme: {
     extend: {

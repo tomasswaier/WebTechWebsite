@@ -20,9 +20,9 @@
 <div id="hamburger_default" class="absolute hidden bg-white mt-5 md:mt-0 top-full right-0 w-full z-50 md:static md:flex md:w-auto md:mr-3">
     <ul class="flex flex-col z-50 md:flex-row space-y-3 md:space-y-0 p-4 md:p-0 bg-white border border-gray-500 md:mt-0 md:border-0 md:bg-white md:space-x-2">
         @if(request()->is('allProducts'))
-            <form id="searchForm" action="#" onsubmit="return false;">
+            <form id="searchForm" action="#" class="relative" onsubmit="return false;">
                 <input id="searchInput" type="search" name="search_query" placeholder="Search.." class="block ml-auto w-full md:w-96 rounded-lg border-black border p-1 focus:outline-none pl-5">
-                <button type="button" onclick="handleSearch()" class="absolute top-0 z-20 end-0 rounded-e-lg bg-black p-2 focus:ring-1 border border-black">
+                <button type="button" onclick="handleSearch()" class="absolute right-0 top-0 right-0 z-20  rounded-e-lg bg-black p-2 focus:ring-1 border border-black">
                     <img src="{{asset('icons/search.png')}}" alt="search-icon" class="w-4 h-4">
                 </button>
             </form>

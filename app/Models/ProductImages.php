@@ -17,4 +17,12 @@ class ProductImages extends Model
     {
         return $this->belongsTo(Products::class, 'product_id');
     }
+    // In your ProductImage model
+    //public function getImageUrlAttribute($value)
+    //{
+    //    return asset('storage/'.$value);
+    //}
+    protected $fillable=[
+        'product_id','image_url','is_main'
+    ];
 }

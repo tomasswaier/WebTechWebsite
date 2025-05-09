@@ -32,6 +32,6 @@ function adjustScreenFilters(parentId, childFieldsetId) {
   turnOnFilterButton.addEventListener(
       "click", function() { showHideFieldset(childFieldsetId) });
 }
-if (screen.width <= 768) {
-  adjustScreenFilters("itemFiltersWrapper", "itemsFiltersFieldset");
+if (screen.width <= 850) {
+    adjustScreenFilters("itemFiltersWrapper", "itemsFiltersFieldset");
 }

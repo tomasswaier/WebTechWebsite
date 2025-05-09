@@ -15,6 +15,7 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/allProducts', function () {
     return view('allProducts');
 });
+Route::get('/allProducts', [ProductController::class, 'getUniqueColors'])->name('products.all');
 Route::get('logInPage', function () {
     return view('logInPage');
 });
@@ -32,6 +33,7 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('adminAllProducts', function () {
         return view('adminAllProducts');
     })->name('admin.all.products');
+    Route::delete('/deleteProduct/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 
     //Route::prefix('api')->group(function () {
     //    Route::get('/adminItems', [AdminItemController::class, 'loadItemInfo']);
@@ -44,10 +46,9 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     });
     Route::get('adminProductDetail', [ProductController::class, 'create']);
     Route::get('adminProductDetail/{id}', [ProductController::class, 'edit']);
-    Route::post('adminProductDetail', [ProductController::class, 'store']);
     //Route::get('adminProductDetail/{id}', [ProductController::class, 'detail']);
 
-    Route::post('', [ProductController::class, 'create_product']);
+    Route::post('adminProductDetail', [ProductController::class, 'store'])->name("products.store");
 });
 
 Route::get('cartAddressInfo', function () {
@@ -83,5 +84,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
 
 require __DIR__.'/auth.php';

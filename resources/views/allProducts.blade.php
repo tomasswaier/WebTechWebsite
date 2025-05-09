@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('main_content')
-<div class="grid h-fit gap-8 grid-flow-col">
+<main id="main" class="grid h-fit grid-flow-col">
 
     <div id="itemFiltersWrapper" name="leftSide" class="max-w-64 w-full mx-10 my-20 ">
       <span class="font-bold text-2xl">Filters</span>
@@ -39,16 +39,14 @@
           <span class="font-bold">Color</span>
           <div id="colorSelection" class="grid grid-cols-10">
             <!-- I want to make this automatic by calling a thing in php-->
-            <label>
-              <input type="radio" name="color_choice" value="white" class="peer hidden">
-              <span class="w-5 h-5 rounded-full border-2 border-gray-300 block cursor-pointer peer-checked:ring-2 peer-checked:ring-black bg-white" aria-label="white">
-              </span>
-            </label>
-            <label>
-              <input type="radio" name="color_choice" value="black" class="peer hidden">
-              <span class="w-5 h-5 rounded-full border-2 border-gray-300 block cursor-pointer peer-checked:ring-2 peer-checked:ring-black bg-black" aria-label="black">
-              </span>
-            </label>
+            @foreach($colors as $color)
+                <label>
+                  <input type="radio" name="color_choice" value="white" class="peer hidden">
+                  <span class="w-5 h-5 rounded-full border-2 border-gray-300 block cursor-pointer peer-checked:ring-2 peer-checked:ring-black bg-[#{{$color}}]" value="{{$color}}" aria-label="white">
+                  </span>
+                </label>
+            @endforeach
+
           </div>
         </div>
         <div>
@@ -86,7 +84,7 @@
           </select>
         </div>
       </div>
-      <div name="itemDisplay" id="itemDisplay" class="w-full flex flex-row flex-wrap justify-between">
+      <div name="itemDisplay" id="itemDisplay" class="w-full grid 2xl:grid-cols-4 xl:grid-cols-3 grid-cols-2 justify-between">
         <!-- here go all items -->
       </div>
       <div name="buttonWrapper" class="grid justify-center align-middle">
@@ -101,31 +99,32 @@
     @vite('resources/js/responsiveHeader.js')
 <script>
     // Track current state
-let currentCount = 0;
-const itemsPerLoad = 8;
-let currentCategory = 'all';
-let currentSort = 'oldest';
-let currentMaxPrice = Infinity;
-let searchQuery = ''; //
+    let currentCount = 0;
+    const itemsPerLoad = 8;
+    let currentCategory = 'all';
+    let currentSort = 'oldest';
+    let currentMaxPrice = Infinity;
+    let color= 'None';
+    let searchQuery = ''; //
 
     // Initial load
     document.addEventListener("DOMContentLoaded", () => {
-        loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice);
+        loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice,color);
     });
     function handleSearch() {
     const input = document.getElementById("searchInput");
     searchQuery = input.value.trim();
     currentCount = 0;
     document.getElementById("itemDisplay").innerHTML = "";
-    loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice, currentCount, searchQuery);
+    loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice, currentCount, searchQuery,color);
     }
 
-document.getElementById("searchInput").addEventListener("keypress", function (e) {
-    if (e.key === "Enter") {
-        e.preventDefault();
-        handleSearch();
-    }
-});
+    document.getElementById("searchInput").addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            handleSearch();
+        }
+    });
 
 
     // Category filter change
@@ -134,7 +133,16 @@ document.getElementById("searchInput").addEventListener("keypress", function (e)
             currentCount = 0; // Reset count when filters change
             currentCategory = e.target.value;
             document.getElementById("itemDisplay").innerHTML = "";
-            loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice);
+            loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice, currentCount, searchQuery,color);
+        });
+    });
+    document.querySelectorAll('input[name="color_choice"]').forEach(label=> {
+        label.addEventListener('change', (e) => {
+            console.log(e.target.nextElementSibling.attributes.value.value);
+            currentCount = 0; // Reset count when filters change
+            color= e.target.nextElementSibling.attributes.value.value;
+            document.getElementById("itemDisplay").innerHTML = "";
+            loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice, currentCount, searchQuery,color);
         });
     });
 
@@ -143,7 +151,7 @@ document.getElementById("searchInput").addEventListener("keypress", function (e)
         currentCount = 0;
         currentMaxPrice = e.target.value;
         document.getElementById("itemDisplay").innerHTML = "";
-        loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice);
+        loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice,color);
     });
 
     // Sort change
@@ -151,21 +159,21 @@ document.getElementById("searchInput").addEventListener("keypress", function (e)
         currentCount = 0;
         currentSort = e.target.value;
         document.getElementById("itemDisplay").innerHTML = "";
-        loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice);
+        loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice,color);
     });
 
     // Load More function
 
     function loadMoreItems() {
         currentCount += itemsPerLoad;
-        loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice, currentCount, searchQuery);
+        loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice, currentCount, searchQuery,color);
     }
     document.querySelectorAll('.category-button').forEach(button => {
         button.addEventListener('click', () => {
           currentCount = 0;
           currentCategory = button.dataset.category;
           document.getElementById("itemDisplay").innerHTML = "";
-          loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice, currentCount, searchQuery);
+          loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice, currentCount, searchQuery,color);
 
           // Optional: also select matching radio if it exists
           const radioToCheck = document.querySelector(`input[name="filterOption"][value="${currentCategory}"]`);
@@ -177,6 +185,6 @@ document.getElementById("searchInput").addEventListener("keypress", function (e)
 
 
 </script>
-</div>
+</main>
 
 @endsection

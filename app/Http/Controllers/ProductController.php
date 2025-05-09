@@ -3,15 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Products;
-use App\Models\ProductImage;
+use App\Models\ProductImages;
 use App\Models\ProductColor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+    public function getUniqueColors(){
+        $colors= \App\Models\Products::uniqueColors();
+
+
+        return view('allProducts',['colors'=>$colors]);
+    }
     public function create()
     {
+        //while creating new product you need categories
         try{
             $categories = \App\Models\Category::all(); // Fetch all categories
 
@@ -21,9 +29,9 @@ class ProductController extends Controller
         }
 
     }
-    // In your ProductController (or create a new controller if needed)
     public function edit($product_id)
     {
+        // displays edited product. Does not save edits of a product
         try{
             $categories = \App\Models\Category::all(); // Fetch all categories
             $product=Products::find($product_id);
@@ -32,21 +40,15 @@ class ProductController extends Controller
                 ->get()
                 ->map(function ($image) {
                     return [
-                        'image_url' => asset("product_images/{$image->image_url}"),
+                        'image_url' => asset("{$image->image_url}"),
                         'is_main' => $image->is_main
                     ];
                 });
-            $color =$product->color;
-
-
-
-
 
             return view('adminProductDetail', [
             'product' => $product,
             'images' => $images,
             'categories' => $categories,
-            'color'=>$color,
             ]);
         }catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
@@ -55,51 +57,84 @@ class ProductController extends Controller
     }
     public function store(Request $request)
     {
+        \Log::info('Starting product store method');
+        \Log::debug('Request data:', $request->all());
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required|string|max:500',
+            'description' => 'required|string',
             'category_id' => 'required|exists:categories,id',
             'price' => 'required|numeric|min:0',
-            'stock' => 'required|integer|min:0',
+            'discounted_price' => 'nullable|numeric|min:0',
+            'in_stock' => 'required|integer|min:0',
+            //'images' => 'required|array|min:1',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'colorx' => 'required|string|max:10',
+            'color' => 'required|string|max:7',
         ]);
+        \Log::debug('Validated data:', $validated);
+        try {
 
-        // Create the product
-        $product = Products::create([
-            'name' => $validated['name'],
-            'description' => $validated['description'],
-            'category_id' => $validated['category_id'],
-            'price' => $validated['price'],
-            'stock' => $validated['stock'],
-        ]);
 
-        // Handle images
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $key => $image) {
-                $path = $image->store('product_images', 'public');
+            $product = Products::create([
+                'name' => $validated['name'],
+                'description' => $validated['description'],
+                'category_id' => $validated['category_id'],
+                'price' => $validated['price'],
+                'discounted_price' => $validated['discounted_price'] ?? null,
+                'in_stock' => $validated['in_stock'],
+                'color' => $validated['color'],
+            ]);
+            \Log::info("Product created with ID: {$product->id}");
 
-                ProductImage::create([
-                    'product_id' => $product->id,
-                    'image_url' => $path,
-                    'is_main' => $key === 0 // First image is main
-                ]);
+
+            if ($request->hasFile('images')) {
+                \Log::info('Files detected: '.count($request->file('images')));
+                $previmg=NULL;
+                foreach ($request->file('images') as $key => $image) {
+                    \Log::debug("Processing image {$key}", [
+                        'original_name' => $image->getClientOriginalName(),
+                        'size' => $image->getSize(),
+                        'mime' => $image->getMimeType()
+                    ]);
+                    if ($previmg==$image) {
+                        break;
+                    }
+                    $isMain = $key === 0; // First image is main
+                    $index = $key + 1; // Start index at 1
+
+                    // Generate custom filename
+                    $filename = $product->id.'_'.($isMain ? 'true' : 'false').'_'.$index.'.'.$image->getClientOriginalExtension();
+
+                    \Log::debug("Attempting to store as: {$filename}");
+
+                    // Store with custom name
+                    $path = $image->storeAs(
+                        '',
+                        $filename,
+                        'public' // Store in public disk
+                    );
+
+                    ProductImages::create([
+                        'product_id' => $product->id,
+                        'image_url' => $path,
+                        'is_main' => $isMain
+                    ]);
+                    $previmg=$image;
+
+                    \Log::debug("Image record created");
+
+                }
+            }else {
+                    \Log::info("no image files found");
             }
-        }
 
-        // Handle colors
-        if ($request->has('colors')) {
-            foreach ($request->colors as $color) {
-                ProductColor::create([
-                    'product_id' => $product->id,
-                    'color_code' => $color
-                ]);
-            }
+            return redirect('adminAllProducts')->with('success', 'Product created!');
+        } catch (\Exception $e) {
+            \Log::error('Product creation failed: '.$e->getMessage(), [
+            'trace' => $e->getTraceAsString()
+            ]);
         }
-
-        return redirect()->route('products.show', $product->id)
-                         ->with('success', 'Product created successfully!');
-    }
+}
 
     public function detail($id)
     {
@@ -112,20 +147,23 @@ class ProductController extends Controller
         ]);
     }
 
-    public function delete($product_id){
+    public function destroy($id)
+    {
+        try {
+            $product = Products::findOrFail($id);
 
-        $images = $product->images()
-            ->get()
-            ->map(function ($image) {
-                return [
-                    'image_url' => asset("product_images/{$image->image_url}")
-                ];
-            });
-        //DB::table('')->where('column_name', '=', $value)->delete();
-        //for x meow in meow meow: delete iamges dbs , delete images locally
+            // Delete associated images
+            foreach ($product->images as $image) {
+                Storage::disk('public')->delete($image->image_url);
+                $image->delete();
+            }
+
+            $product->delete();
+
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            \Log::error('Product deletion failed: '.$e->getMessage());
+            return response()->json(['success' => false], 500);
+        }
     }
-    public function create_product(){
-
-    }
-
 }
