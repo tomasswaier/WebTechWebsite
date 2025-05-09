@@ -33,24 +33,25 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('adminAllProducts', function () {
         return view('adminAllProducts');
     })->name('admin.all.products');
-    Route::delete('/deleteProduct/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 
-    //Route::prefix('api')->group(function () {
-    //    Route::get('/adminItems', [AdminItemController::class, 'loadItemInfo']);
-    //});
-    Route::get('adminProductDetail', function () {
-        return view('adminProductDetail');
-    });
-    Route::get('adminProductDetail/{id}', function ($id) {
-        return view('adminProductDetail', ['productId' => $id]);
-    });
-    Route::get('adminProductDetail', [ProductController::class, 'create']);
-    Route::get('adminProductDetail/{id}', [ProductController::class, 'edit']);
-    //Route::get('adminProductDetail/{id}', [ProductController::class, 'detail']);
+    Route::prefix('adminProductDetail')->group(function () {
 
-    Route::post('adminProductDetail', [ProductController::class, 'store'])->name("products.store");
+        Route::get('/', [ProductController::class, 'create'])
+             ->name('products.create');
+
+        Route::get('{id}', [ProductController::class, 'edit'])
+             ->name('products.edit');
+
+        Route::post('{id}', [ProductController::class, 'editProduct'])
+             ->name('products.update');
+    });
+
+    Route::delete('/deleteProduct/{id}', [ProductController::class, 'destroy'])
+         ->name('products.destroy');
+
+    Route::post('products', [ProductController::class, 'store'])
+         ->name('products.store');
 });
-
 Route::get('cartAddressInfo', function () {
     return view('cartAddressInfo');
 });

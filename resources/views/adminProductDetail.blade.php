@@ -1,24 +1,31 @@
 @extends('layouts.app')
 
 @section('main_content')
-<main name="bodyWrapper" class="w-full h-full grid grid-cols-1 px-10">
-  <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+<main name="bodyWrapper" class="w-full h-full grid grid-cols-1 justify-center px-10">
+
+<form action="{{ isset($product) ? route('products.update', ['id' => $product->id]) : route('products.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
 
     <div id="imageDisplay" class="w-fit grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 overflow-scroll no-scrollbar space-x-5 whitespace-nowrap items-start">
-    @isset($product)
+     @isset($product)
         <!-- Main Image -->
         @foreach($product->images as $image)
             @if($image->is_main)
-                <div class="relative main-image">
+                <div class="relative">
                     <img src="{{ asset('product_images/'.$image->image_url) }}"
-                         alt="Main product image"
                          class="w-50 h-50 mb-2 border-black border-2 rounded-xl">
+
+                    <!-- The key fix: Add disabled attribute -->
+                    <input type="text"
+                           name="stored_images[]"
+                           style="display:none"
+                           value="{{ $image->image_url }}"
+                           multiple> <!-- This prevents submission -->
+
                     <img src="{{ asset('icons/trashIcon.png') }}"
                          class="absolute right-5 bottom-5 w-10 h-10 z-50 cursor-pointer"
                          onclick="this.parentElement.remove()">
                 </div>
-                @break
             @endif
         @endforeach
 
@@ -27,8 +34,15 @@
             @unless($image->is_main)
                 <div class="relative">
                     <img src="{{ asset('product_images/'.$image->image_url) }}"
-                         class="w-50 h-50 mb-2 border-black border-2 rounded-xl"
-                         alt="Product image">
+                         class="w-50 h-50 mb-2 border-black border-2 rounded-xl">
+
+                    <!-- The key fix: Add disabled attribute -->
+                    <input type="text"
+                           name="stored_images[]"
+                           style="display:none"
+                           value="{{ $image->image_url }}"
+                           multiple> <!-- This prevents submission -->
+
                     <img src="{{ asset('icons/trashIcon.png') }}"
                          class="absolute right-5 bottom-5 w-10 h-10 z-50 cursor-pointer"
                          onclick="this.parentElement.remove()">
@@ -36,7 +50,7 @@
             @endunless
         @endforeach
     @endisset
-      <!-- Images will be added here dynamically -->
+    <!-- Images will be added here dynamically -->
       <label for="user_image" class="size-auto relative block items-center cursor-pointer order-last">
         <input id="user_image" class="text-transparent absolute size-auto" name="images[]" type="file" multiple onchange="addImage()" />
         <img src="{{ asset('icons/addImage.png') }}" class="w-50 h-50 mb-2 border-2 border-black rounded-xl" />
