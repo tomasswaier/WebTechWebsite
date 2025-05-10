@@ -3,10 +3,16 @@ async function getItemData(category = 'all', count = 0, numberOfItems = 8,
                            search = '', color = 'None') {
   try {
     console.log(color);
-    const response = await fetch(`http://localhost:8000/api/items?category=${
-        category}&count=${count}&load=${numberOfItems}&price=${
-        currentMaxPrice}&sort=${currentSort}&search=${search}&color=${color}`);
-
+    const response = await fetch(`http://localhost:8000/api/items?${
+        new URLSearchParams({
+          category : category,
+          count : count,
+          load : numberOfItems,
+          price : currentMaxPrice,
+          sort : currentSort,
+          search : search,
+          color : color // Will be automatically encoded
+        }).toString()}`);
     if (!response.ok)
       throw new Error('Network response was not ok');
 

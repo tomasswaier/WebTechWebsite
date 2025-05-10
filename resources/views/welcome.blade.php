@@ -30,7 +30,7 @@
 </div>
 
 <div name="product_box">
-    <a href="{{ url('allProducts') }}" class="px-10 text-4xl font-bold">On Sale ></a>
+    <a href="{{ url('allProducts') }}" class="px-10 text-4xl font-bold">Best Prices ></a>
     <div name="onSale" class="px-10 w-screen grid grid-flow-col overflow-scroll no-scrollbar space-x-10 whitespace-nowrap">
         @foreach($onSaleItems as $product)
             <div class="flex flex-col w-80">
