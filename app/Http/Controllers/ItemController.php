@@ -88,6 +88,7 @@ class ItemController extends Controller{
                                   'name' => $product->name,
                                   'category' => $product->category->name,
                                   'price' => $product->price,
+                                  'discounted_price' => $product->discounted_price,
                                   'imagePath' => asset("product_images/{$product->images->where('is_main', true)->first()->image_url}"),
                                   'stock'=>$product->in_stock
                               ];

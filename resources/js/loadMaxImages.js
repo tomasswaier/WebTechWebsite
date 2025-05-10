@@ -49,10 +49,19 @@ async function loadMaxImages(parentId, numberOfItems, category = 'all',
       itemNameElement.textContent = itemData.name;
       elementWrapper.appendChild(itemNameElement);
 
-      const itemPriceElement = document.createElement("span");
-      itemPriceElement.textContent =
-          `$${parseFloat(itemData.price).toFixed(2)}`;
-      elementWrapper.appendChild(itemPriceElement);
+      if (itemData.discounted_price) {
+        const itemPriceElement = document.createElement("span");
+        itemPriceElement.innerHTML =
+            `<s>$${parseFloat(itemData.price).toFixed(2)}</s>$${
+                parseFloat(itemData.discounted_price).toFixed(2)}`;
+        elementWrapper.appendChild(itemPriceElement);
+      } else {
+
+        const itemPriceElement = document.createElement("span");
+        itemPriceElement.textContent =
+            `$${parseFloat(itemData.price).toFixed(2)}`;
+        elementWrapper.appendChild(itemPriceElement);
+      }
     });
   } catch (error) {
     console.error('Error loading images:', error);

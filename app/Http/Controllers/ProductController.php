@@ -134,7 +134,115 @@ class ProductController extends Controller
             'trace' => $e->getTraceAsString()
             ]);
         }
-}
+    }
+
+    public function editProduct($id, Request $request)
+    {
+        \Log::info('Request id:', ['id' => $id]);
+        \Log::info('Starting product edit method');
+        \Log::info('Request data:', $request->all());
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+            'price' => 'required|numeric|min:0',
+            'discounted_price' => 'nullable|numeric|min:0',
+            'in_stock' => 'required|integer|min:0',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'color' => 'required|string|max:7',
+        ]);
+
+        \Log::debug('Validated data:', $validated);
+
+        try {
+            $product = Products::findOrFail($id);
+
+            // Update product details
+            $product->update([
+                'name' => $validated['name'],
+                'description' => $validated['description'],
+                'category_id' => $validated['category_id'],
+                'price' => $validated['price'],
+                'discounted_price' => $validated['discounted_price'] ?? null,
+                'in_stock' => $validated['in_stock'],
+                'color' => $validated['color'],
+            ]);
+
+            // Handle image updates
+            $storedImages = $request->input('stored_images', []);
+            $existingImages = $product->images;
+            $hasMainImage = false;
+
+            // Delete images not in stored_images
+            foreach ($existingImages as $image) {
+                if (!in_array($image->image_url, $storedImages)) {
+                    if ($image->is_main) {
+                        $hasMainImage = true;
+                    }
+                    Storage::disk('public')->delete($image->image_url);
+                    $image->delete();
+                } else {
+                    if ($image->is_main) {
+                        $hasMainImage = true;
+                    }
+                }
+            }
+
+            // If main image was deleted, set a new one
+            if (!$hasMainImage && count($storedImages) > 0) {
+                // Set first stored image as main
+                $newMainImage = $product->images()
+                    ->where('image_url', $storedImages[0])
+                    ->first();
+
+                if ($newMainImage) {
+                    $newMainImage->update(['is_main' => true]);
+                    $hasMainImage = true;
+                }
+            }
+
+            // Process new uploaded images
+            if ($request->hasFile('images')) {
+                $previmage=NULL;
+                foreach ($request->file('images') as $key => $image) {
+                    if ($previmage==$image) {
+                        break;
+                    }
+                    $isMain = (!$hasMainImage && $key === 0);
+
+                    $filename = $product->id.'_'.($isMain ? 'main' : 'sub').'_'.time().'.'.$image->getClientOriginalExtension();
+                    $path = $image->storeAs('', $filename, 'public');
+
+                    ProductImages::create([
+                        'product_id' => $product->id,
+                        'image_url' => $path,
+                        'is_main' => $isMain
+                    ]);
+
+                    if ($isMain) {
+                        $hasMainImage = true;
+                    }
+                    $previmage=$image;
+                }
+            }
+
+            // If no main image exists at all, set the first available image as main
+            if (!$hasMainImage) {
+                $firstImage = $product->images()->first();
+                if ($firstImage) {
+                    $firstImage->update(['is_main' => true]);
+                }
+            }
+
+            return redirect('adminAllProducts')->with('success', 'Product updated successfully!');
+        } catch (\Exception $e) {
+            \Log::error('Product update failed: '.$e->getMessage(), [
+                'trace' => $e->getTraceAsString()
+            ]);
+            return back()->with('error', 'Failed to update product');
+        }
+    }
 
     public function detail($id)
     {
