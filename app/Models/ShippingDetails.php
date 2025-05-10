@@ -9,4 +9,6 @@ class ShippingDetails extends Model
 {
     use hasUuids;
     //
+
+    protected $fillable = ['user_id', 'city', 'zip', 'address', 'first_name', 'last_name'];
 }

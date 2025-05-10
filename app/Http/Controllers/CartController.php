@@ -3,11 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\OrderProduct;
+use App\Models\Orders;
+use App\Models\PaymentDetails;
 use App\Models\Products;
+use App\Models\Shipping;
+use App\Models\ShippingDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
+use JetBrains\PhpStorm\NoReturn;
 
 
 class CartController extends Controller
@@ -217,18 +224,194 @@ class CartController extends Controller
 
     public function save_address(Request $request)
     {
-        $address = [
-            'first_name' => $request['first_name'],
-            'last_name' => $request['last_name'],
-            'address' => $request['address'],
-            'city' => $request['city'],
-            'zipcode' => $request['zipcode'],
-            'country' => $request['country'],
-        ];
+        /*email validation*/
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => ['required', 'email:rfc,dns'],
+            'address' => 'required',
+            'city' => 'required',
+            'zipcode' => ['required', 'max:5'],
+            'country' => 'required',
+        ]);
 
-        Session::put('address', $address);
+//        dd($validatedForm);
 
-        return redirect('cartPayment/');
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        } else {
+            $address = [
+                'first_name' => $request['first_name'],
+                'last_name' => $request['last_name'],
+                'address' => $request['address'],
+                'city' => $request['city'],
+                'zipcode' => $request['zipcode'],
+                'country' => $request['country'],
+            ];
+
+            Session::put('address', $address);
+
+            return redirect(route('cart.payment'));
+        }
 
     }
+
+    public function payment(Request $request) {
+
+        $total = 0;
+        $products = [];
+
+        if (!$request->user()) {
+            $cart = Session::get('cart', []);
+
+            foreach ($cart as $key => $item) {
+                $product = Products::with(['images'])->find($item['product_id']);
+
+                if ($product) {
+                    $product->quantity = $item['quantity'];
+                    $product->size = $item['size'];
+                    if ($product->discounted_price == $product->price) {
+                        $product->subtotal = $product->price * $item['quantity'];
+                    } else {
+                        $product->subtotal = $product->discounted_price * $item['quantity'];
+                    }
+
+                    $total += $product->subtotal;
+
+                    $products[] = $product;
+                }
+            }
+        } else {
+            $user = $request->user();
+
+            $cart = $user->cart()->with(['products'])->first();
+            foreach ($cart->products as $item) {
+                $product = Products::with(['images'])->find($item->pivot->product_id);
+                if ($product) {
+                    $product->quantity = $item->pivot->quantity;
+                    $product->size = $item->pivot->size;
+                    if ($product->discounted_price == $product->price) {
+                        $product->subtotal = $product->price * $item->pivot->quantity;
+                    } else {
+                        $product->subtotal = $product->discounted_price * $item->pivot->quantity;
+                    }
+                    $total += $product->subtotal;
+                    $products[] = $product;
+                }
+            }
+        }
+
+        $shipping_methods = Shipping::all();
+
+        return view('cartPayment', [
+            'products' => $products,
+            'total' => $total,
+            'shipping_methods' => $shipping_methods,
+        ]);
+
+    }
+
+    public function confirm_order(Request $request)
+    {
+        if ($request['payment_method'] == 'method_cash') {
+            $validator = Validator::make($request->all(), [
+                'shipping_method' => 'required',
+            ]);
+        } else {
+            $validator = Validator::make($request->all(), [
+                'shipping_method' => 'required',
+                'cardholder' => 'required',
+                'card_number' => ['required', 'regex:/^[0-9]{4}\s?[0-9]{4}\s?[0-9]{4}\s?[0-9]{4}$/'],
+                'expiration_date' => 'required|date_format:m/d',
+                'cvc' => ['required', 'digits:3'],
+            ]);
+        }
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        } else {
+            $shipping_method = Shipping::where('name', $request['shipping_method'])->first();
+            if ($request['payment_method'] == 'method_cash') {
+                $payment_method = PaymentDetails::where('payment_method', 'CASH')->first();
+            } else {
+                $payment_method = PaymentDetails::where('payment_method', 'CARD')->first();
+            }
+
+            $address = Session::get('address');
+
+            if (!$request->user()) {
+                $shipping_details = ShippingDetails::create([
+                    'first_name' => $address['first_name'],
+                    'last_name' => $address['last_name'],
+                    'address' => $address['address'],
+                    'city' => $address['city'],
+                    'zip' => $address['zipcode'],
+                ]);
+
+                $order = Orders::create([
+                   'shipping_method' => $shipping_method->id,
+                   'payment_method' => $payment_method->id,
+                   'shipping_details' => $shipping_details->id,
+                   'price' => $request['total'] + $shipping_method->price,
+                ]);
+
+                $cart = Session::get('cart', []);
+                foreach ($cart as $key => $item) {
+                    $product = Products::find($item['product_id']);
+                    if ($product) {
+                        OrderProduct::create([
+                            'order_id' => $order->id,
+                            'product_id' => $product->id,
+                            'quantity' => $item['quantity'],
+                        ]);
+                    }
+                }
+
+                Session::forget('cart');
+
+
+            } else {
+                $shipping_details = ShippingDetails::create([
+                    'user_id' => $request->user()->id,
+                    'first_name' => $address['first_name'],
+                    'last_name' => $address['last_name'],
+                    'address' => $address['address'],
+                    'city' => $address['city'],
+                    'zip' => $address['zipcode'],
+                ]);
+
+                $order = Orders::create([
+                    'user_id' => $request->user()->id,
+                    'shipping_method' => $shipping_method->id,
+                    'payment_method' => $payment_method->id,
+                    'shipping_details' => $shipping_details->id,
+                    'price' => $request['total'] + $shipping_method->price,
+                ]);
+
+                $cart = $request->user()->cart()->with(['products'])->first();
+
+                foreach ($cart->products as $item) {
+                    $product = Products::find($item->pivot->product_id);
+                    if ($product) {
+                        // Insert into OrdersProducts table
+                        OrderProduct::create([
+                            'order_id' => $order->id,
+                            'product_id' => $product->id,
+                            'quantity' => $item->pivot->quantity,
+                        ]);
+                    }
+                }
+
+                $cart->products()->detach();
+            }
+
+            Session::forget('address');
+
+            return redirect()->route('cart.payment')->with('success', 'Order has been successufully placed!');
+
+
+        }
+
+    }
+
 }
