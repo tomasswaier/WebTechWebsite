@@ -42,7 +42,7 @@
             @foreach($colors as $color)
                 <label>
                   <input type="radio" name="color_choice" value="white" class="peer hidden">
-                  <span class="w-5 h-5 rounded-full border-2 border-gray-300 block cursor-pointer peer-checked:ring-2 peer-checked:ring-black bg-[#{{$color}}]" value="{{$color}}" aria-label="white">
+                  <span class="w-5 h-5 rounded-full border-2 border-gray-300 block cursor-pointer peer-checked:ring-2 peer-checked:ring-black bg-[{{$color}}]" value="{{$color}}" aria-label="white">
                   </span>
                 </label>
             @endforeach
@@ -140,7 +140,8 @@
         label.addEventListener('change', (e) => {
             console.log(e.target.nextElementSibling.attributes.value.value);
             currentCount = 0; // Reset count when filters change
-            color= e.target.nextElementSibling.attributes.value.value;
+            color= e.target.nextElementSibling.attributes.value.nodeValue;
+            console.log(e.target.nextElementSibling.attributes);
             document.getElementById("itemDisplay").innerHTML = "";
             loadMaxImages('itemDisplay', itemsPerLoad, currentCategory, currentSort, currentMaxPrice, currentCount, searchQuery,color);
         });
