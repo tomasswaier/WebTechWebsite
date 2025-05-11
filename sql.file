@@ -1,0 +1,1208 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 17.4
+-- Dumped by pg_dump version 17.4
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: cache; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.cache (
+    key character varying(255) NOT NULL,
+    value text NOT NULL,
+    expiration integer NOT NULL
+);
+
+
+ALTER TABLE public.cache OWNER TO postgres;
+
+--
+-- Name: cache_locks; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.cache_locks (
+    key character varying(255) NOT NULL,
+    owner character varying(255) NOT NULL,
+    expiration integer NOT NULL
+);
+
+
+ALTER TABLE public.cache_locks OWNER TO postgres;
+
+--
+-- Name: carts; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.carts (
+    id uuid NOT NULL,
+    user_id uuid NOT NULL,
+    is_current_cart boolean DEFAULT true NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.carts OWNER TO postgres;
+
+--
+-- Name: categories; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.categories (
+    id uuid NOT NULL,
+    name character varying(50) NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.categories OWNER TO postgres;
+
+--
+-- Name: colors; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.colors (
+    id uuid NOT NULL,
+    name character varying(20) NOT NULL,
+    hex_code character varying(20) NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.colors OWNER TO postgres;
+
+--
+-- Name: failed_jobs; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.failed_jobs (
+    id bigint NOT NULL,
+    uuid character varying(255) NOT NULL,
+    connection text NOT NULL,
+    queue text NOT NULL,
+    payload text NOT NULL,
+    exception text NOT NULL,
+    failed_at timestamp(0) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+ALTER TABLE public.failed_jobs OWNER TO postgres;
+
+--
+-- Name: failed_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.failed_jobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.failed_jobs_id_seq OWNER TO postgres;
+
+--
+-- Name: failed_jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.failed_jobs_id_seq OWNED BY public.failed_jobs.id;
+
+
+--
+-- Name: job_batches; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.job_batches (
+    id character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    total_jobs integer NOT NULL,
+    pending_jobs integer NOT NULL,
+    failed_jobs integer NOT NULL,
+    failed_job_ids text NOT NULL,
+    options text,
+    cancelled_at integer,
+    created_at integer NOT NULL,
+    finished_at integer
+);
+
+
+ALTER TABLE public.job_batches OWNER TO postgres;
+
+--
+-- Name: jobs; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.jobs (
+    id bigint NOT NULL,
+    queue character varying(255) NOT NULL,
+    payload text NOT NULL,
+    attempts smallint NOT NULL,
+    reserved_at integer,
+    available_at integer NOT NULL,
+    created_at integer NOT NULL
+);
+
+
+ALTER TABLE public.jobs OWNER TO postgres;
+
+--
+-- Name: jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.jobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.jobs_id_seq OWNER TO postgres;
+
+--
+-- Name: jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.jobs_id_seq OWNED BY public.jobs.id;
+
+
+--
+-- Name: migrations; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.migrations (
+    id integer NOT NULL,
+    migration character varying(255) NOT NULL,
+    batch integer NOT NULL
+);
+
+
+ALTER TABLE public.migrations OWNER TO postgres;
+
+--
+-- Name: migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.migrations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.migrations_id_seq OWNER TO postgres;
+
+--
+-- Name: migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.migrations_id_seq OWNED BY public.migrations.id;
+
+
+--
+-- Name: order_products; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.order_products (
+    id uuid NOT NULL,
+    order_id uuid NOT NULL,
+    product_id uuid NOT NULL,
+    quantity integer NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.order_products OWNER TO postgres;
+
+--
+-- Name: orders; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.orders (
+    id uuid NOT NULL,
+    user_id uuid,
+    shipping_method uuid NOT NULL,
+    payment_method uuid NOT NULL,
+    shipping_details uuid NOT NULL,
+    price numeric(8,2) NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.orders OWNER TO postgres;
+
+--
+-- Name: password_reset_tokens; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.password_reset_tokens (
+    email character varying(255) NOT NULL,
+    token character varying(255) NOT NULL,
+    created_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.password_reset_tokens OWNER TO postgres;
+
+--
+-- Name: payment_details; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.payment_details (
+    id uuid NOT NULL,
+    payment_method character varying(255) NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone,
+    CONSTRAINT payment_details_payment_method_check CHECK (((payment_method)::text = ANY ((ARRAY['CARD'::character varying, 'CASH'::character varying])::text[])))
+);
+
+
+ALTER TABLE public.payment_details OWNER TO postgres;
+
+--
+-- Name: product_carts; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.product_carts (
+    id uuid NOT NULL,
+    product_id uuid NOT NULL,
+    cart_id uuid NOT NULL,
+    quantity integer NOT NULL,
+    size character varying(255) NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.product_carts OWNER TO postgres;
+
+--
+-- Name: product_images; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.product_images (
+    id uuid NOT NULL,
+    product_id uuid NOT NULL,
+    image_url character varying(500),
+    is_main boolean DEFAULT false NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.product_images OWNER TO postgres;
+
+--
+-- Name: products; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.products (
+    id uuid NOT NULL,
+    category_id uuid NOT NULL,
+    name character varying(30) NOT NULL,
+    description character varying(200) NOT NULL,
+    in_stock integer DEFAULT 0 NOT NULL,
+    price numeric(8,2) DEFAULT '0'::numeric NOT NULL,
+    discounted_price numeric(8,2),
+    color character varying(10) NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.products OWNER TO postgres;
+
+--
+-- Name: sessions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.sessions (
+    id character varying(255) NOT NULL,
+    user_id uuid,
+    ip_address character varying(45),
+    user_agent text,
+    payload text NOT NULL,
+    last_activity integer NOT NULL
+);
+
+
+ALTER TABLE public.sessions OWNER TO postgres;
+
+--
+-- Name: shipping_details; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.shipping_details (
+    id uuid NOT NULL,
+    user_id uuid,
+    first_name character varying(50) NOT NULL,
+    last_name character varying(50) NOT NULL,
+    address character varying(100) NOT NULL,
+    city character varying(80) NOT NULL,
+    zip character varying(20) NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone,
+    country character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.shipping_details OWNER TO postgres;
+
+--
+-- Name: shippings; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.shippings (
+    id uuid NOT NULL,
+    name character varying(50) NOT NULL,
+    price numeric(5,2) NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.shippings OWNER TO postgres;
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.users (
+    id uuid NOT NULL,
+    name character varying(255) NOT NULL,
+    email character varying(255) NOT NULL,
+    password character varying(255) NOT NULL,
+    remember_token character varying(100),
+    is_admin boolean DEFAULT false NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- Name: failed_jobs id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.failed_jobs ALTER COLUMN id SET DEFAULT nextval('public.failed_jobs_id_seq'::regclass);
+
+
+--
+-- Name: jobs id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.jobs ALTER COLUMN id SET DEFAULT nextval('public.jobs_id_seq'::regclass);
+
+
+--
+-- Name: migrations id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.migrations ALTER COLUMN id SET DEFAULT nextval('public.migrations_id_seq'::regclass);
+
+
+--
+-- Data for Name: cache; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.cache (key, value, expiration) FROM stdin;
+\.
+
+
+--
+-- Data for Name: cache_locks; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.cache_locks (key, owner, expiration) FROM stdin;
+\.
+
+
+--
+-- Data for Name: carts; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.carts (id, user_id, is_current_cart, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.categories (id, name, created_at, updated_at) FROM stdin;
+94965e4b-102d-499c-bff7-036e99ea0a6c	T-shirt	2025-04-15 19:32:34	2025-04-15 19:32:34
+835439ff-b633-4b84-9578-8b4c3ff51daf	Hat	2025-04-21 21:26:20	2025-04-21 21:26:20
+10f8c888-afec-4f6f-ae49-f20a8f0e1c29	Sweatpant	2025-05-11 23:04:58	2025-05-11 23:04:58
+3b3aeefe-ef0b-4016-bac2-5b2bd64b2883	Shirt	2025-05-11 23:05:09	2025-05-11 23:05:09
+621d280b-52be-4bc8-b0f7-6ea4f0d11d7a	Pant	2025-05-11 23:05:20	2025-05-11 23:05:20
+b98626ef-ff25-4e2e-bbe4-1c4e36415260	Hoodie	2025-05-11 23:05:30	2025-05-11 23:05:30
+\.
+
+
+--
+-- Data for Name: colors; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.colors (id, name, hex_code, created_at, updated_at) FROM stdin;
+c6fb51dd-aa99-408e-897f-e92feff059c9	black	000000	2025-04-15 19:40:34	2025-04-15 19:40:34
+16d14758-c187-4e93-809b-b08a7ddd0547	white	FFFFFF	2025-04-15 19:41:26	2025-04-15 19:41:26
+\.
+
+
+--
+-- Data for Name: failed_jobs; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.failed_jobs (id, uuid, connection, queue, payload, exception, failed_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: job_batches; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.job_batches (id, name, total_jobs, pending_jobs, failed_jobs, failed_job_ids, options, cancelled_at, created_at, finished_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: jobs; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.jobs (id, queue, payload, attempts, reserved_at, available_at, created_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: migrations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.migrations (id, migration, batch) FROM stdin;
+1	0001_01_01_000000_create_users_table	1
+2	0001_01_01_000001_create_cache_table	1
+3	0001_01_01_000002_create_jobs_table	1
+4	2025_04_15_000000_create_categories_table	1
+5	2025_04_15_000001_create_products_table	1
+6	2025_04_15_000002_create_product_images_table	1
+7	2025_04_15_094005_create_carts_table	1
+8	2025_04_15_094738_create_product_carts_table	1
+9	2025_04_15_094957_create_payment_details_table	1
+10	2025_04_15_095228_create_shippings_table	1
+11	2025_04_15_095416_create_shipping_details_table	1
+12	2025_04_15_113748_create_orders_table	1
+13	2025_04_15_114204_create_order_products_table	1
+14	2025_05_10_161325_add_nullable	1
+15	2025_05_10_163227_shipping_details_add_country	1
+\.
+
+
+--
+-- Data for Name: order_products; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.order_products (id, order_id, product_id, quantity, created_at, updated_at) FROM stdin;
+0196c13b-4034-7193-9767-57dbd10d7e2b	0196c13b-4032-734e-ac1d-4370ddd6e910	0196c12e-ab4b-706d-b720-b3c0e550d5c6	2	2025-05-11 21:23:27	2025-05-11 21:23:27
+\.
+
+
+--
+-- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.orders (id, user_id, shipping_method, payment_method, shipping_details, price, created_at, updated_at) FROM stdin;
+0196c13b-4032-734e-ac1d-4370ddd6e910	\N	e97d2962-8267-427c-ac28-8c9ec8d1e47b	ad6ea638-1447-49a9-9a2d-063b3a68955d	0196c13b-4030-713d-b009-75d47f575b26	205.00	2025-05-11 21:23:27	2025-05-11 21:23:27
+\.
+
+
+--
+-- Data for Name: password_reset_tokens; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.password_reset_tokens (email, token, created_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: payment_details; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.payment_details (id, payment_method, created_at, updated_at) FROM stdin;
+40a0a870-c371-4b73-a5f0-ab37016daa89	CARD	\N	\N
+ad6ea638-1447-49a9-9a2d-063b3a68955d	CASH	\N	\N
+\.
+
+
+--
+-- Data for Name: product_carts; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.product_carts (id, product_id, cart_id, quantity, size, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: product_images; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.product_images (id, product_id, image_url, is_main, created_at, updated_at) FROM stdin;
+0196c12e-ab50-7245-bb2f-4845245a51bc	0196c12e-ab4b-706d-b720-b3c0e550d5c6	0196c12e-ab4b-706d-b720-b3c0e550d5c6_true_1.png	t	2025-05-11 21:09:43	2025-05-11 21:09:43
+0196c12e-ab52-70dc-88cc-49489e8fa176	0196c12e-ab4b-706d-b720-b3c0e550d5c6	0196c12e-ab4b-706d-b720-b3c0e550d5c6_false_2.png	f	2025-05-11 21:09:43	2025-05-11 21:09:43
+0196c12e-ab55-7218-b30a-89e464e28fe7	0196c12e-ab4b-706d-b720-b3c0e550d5c6	0196c12e-ab4b-706d-b720-b3c0e550d5c6_false_3.png	f	2025-05-11 21:09:43	2025-05-11 21:09:43
+0196c130-6923-7367-abbd-6c93a0cc678d	0196c130-691d-7047-a848-6ad00e0296a5	0196c130-691d-7047-a848-6ad00e0296a5_true_1.png	t	2025-05-11 21:11:37	2025-05-11 21:11:37
+0196c130-6925-7350-b8b5-e7635744b74b	0196c130-691d-7047-a848-6ad00e0296a5	0196c130-691d-7047-a848-6ad00e0296a5_false_2.png	f	2025-05-11 21:11:37	2025-05-11 21:11:37
+0196c130-6927-73f2-b143-a1280db2457f	0196c130-691d-7047-a848-6ad00e0296a5	0196c130-691d-7047-a848-6ad00e0296a5_false_3.png	f	2025-05-11 21:11:37	2025-05-11 21:11:37
+0196c131-bc58-707b-bbbc-1ee12ac4eded	0196c131-bc51-72be-bf53-44ce12721bc1	0196c131-bc51-72be-bf53-44ce12721bc1_true_1.png	t	2025-05-11 21:13:04	2025-05-11 21:13:04
+0196c131-bc5a-7167-bbb4-41b4c613837c	0196c131-bc51-72be-bf53-44ce12721bc1	0196c131-bc51-72be-bf53-44ce12721bc1_false_2.png	f	2025-05-11 21:13:04	2025-05-11 21:13:04
+0196c131-bc5c-725a-affd-292173312fed	0196c131-bc51-72be-bf53-44ce12721bc1	0196c131-bc51-72be-bf53-44ce12721bc1_false_3.png	f	2025-05-11 21:13:04	2025-05-11 21:13:04
+0196c133-368c-726a-83fb-93e07b0b3dc0	0196c133-3686-7165-af01-86b5bdc7f79a	0196c133-3686-7165-af01-86b5bdc7f79a_true_1.png	t	2025-05-11 21:14:41	2025-05-11 21:14:41
+0196c133-368f-709c-9c08-577cdca85036	0196c133-3686-7165-af01-86b5bdc7f79a	0196c133-3686-7165-af01-86b5bdc7f79a_false_2.png	f	2025-05-11 21:14:41	2025-05-11 21:14:41
+0196c133-3692-73d0-b328-8762f2737cc1	0196c133-3686-7165-af01-86b5bdc7f79a	0196c133-3686-7165-af01-86b5bdc7f79a_false_3.png	f	2025-05-11 21:14:41	2025-05-11 21:14:41
+0196c135-ecc6-720f-821a-18f3e053aa65	0196c135-ecc0-7315-b28b-281fc4935a01	0196c135-ecc0-7315-b28b-281fc4935a01_true_1.png	t	2025-05-11 21:17:38	2025-05-11 21:17:38
+0196c135-ecc9-71c1-aea7-8664ad2caa26	0196c135-ecc0-7315-b28b-281fc4935a01	0196c135-ecc0-7315-b28b-281fc4935a01_false_2.png	f	2025-05-11 21:17:38	2025-05-11 21:17:38
+b8fb4978-e310-48a6-bb2a-f108fdbb8517	e1815fdb-431a-4c2b-9c09-a98ee28685df	example_shirt_front.png	t	2025-04-15 19:59:09	2025-04-15 19:59:09
+75ba266b-43f4-4b90-b142-7ac657151946	e1815fdb-431a-4c2b-9c09-a98ee28685df	example_shirt_side.png	f	2025-04-15 20:00:15	2025-04-15 20:00:15
+897cebbe-da8c-4baf-9467-e361a112b936	e1815fdb-431a-4c2b-9c09-a98ee28685df	example_shirt_side1.png	f	2025-04-15 20:00:20	2025-04-15 20:00:20
+fbadb7ab-c38e-45c0-b90f-b1a65f14e0fc	2c3226eb-2cfc-4ec7-8ef8-71c4268480c5	example_shirt_side1.png	f	2025-04-19 19:57:38	2025-04-19 19:57:38
+78f6f189-57ad-44a2-83e4-e1148f85c014	2c3226eb-2cfc-4ec7-8ef8-71c4268480c5	example_shirt_side.png	f	2025-04-19 19:57:44	2025-04-19 19:57:44
+4118ad21-3f0e-4263-b76a-73817c60bf0d	2c3226eb-2cfc-4ec7-8ef8-71c4268480c5	example_shirt_Montag.png	t	2025-04-19 19:57:24	2025-04-19 19:57:24
+11ba52d4-4157-49b8-98d3-985e03943142	8e66bfc9-9415-4ba6-9223-61aa49fffbf2	example_shirt_front2.png	t	2025-04-19 20:02:25	2025-04-19 20:02:25
+b4d5b6f5-c87d-4554-b0f5-65df1afb2b01	8e66bfc9-9415-4ba6-9223-61aa49fffbf2	example_shirt_side1.png	f	2025-04-19 20:02:35	2025-04-19 20:02:35
+f3114481-bbe5-48a2-9a3b-d37e394f0bff	8e66bfc9-9415-4ba6-9223-61aa49fffbf2	example_shirt_side.png	f	2025-04-19 20:02:41	2025-04-19 20:02:41
+ae4f8c42-15d3-4e29-be89-8eea7ba8452d	2e4a88ee-feed-4ba2-853c-0cf61d725105	example_shirt_Cool.png	t	2025-04-19 20:04:50	2025-04-19 20:04:50
+1d12fa9a-ea5e-4fe7-8010-72af79ac1ad3	2e4a88ee-feed-4ba2-853c-0cf61d725105	example_shirt_side_white1.png	f	2025-04-19 20:05:02	2025-04-19 20:05:02
+bff557b4-c617-4f7a-8840-3dc22d28ad4c	2e4a88ee-feed-4ba2-853c-0cf61d725105	example_shirt_side_white.png	f	2025-04-19 20:05:07	2025-04-19 20:05:07
+8cbe8e42-3bc3-41dc-998a-a3e1c8dc9586	3c554169-6309-41d5-90cc-4b54d1f54503	example_shirt_front_white.png	t	2025-04-19 20:07:28	2025-04-19 20:07:28
+db2ab455-0fbf-4d99-823a-b6ae0d5e5f3f	3c554169-6309-41d5-90cc-4b54d1f54503	example_shirt_side_white.png	f	2025-04-19 20:07:51	2025-04-19 20:07:51
+d7227d23-d6aa-4c53-a856-6290dddbedf0	3c554169-6309-41d5-90cc-4b54d1f54503	example_shirt_side_white1.png	f	2025-04-19 20:07:40	2025-04-19 20:07:40
+6600ae27-879d-4f52-a668-14adc3267b0f	924119d1-fc24-4bc1-a37b-a25d9ce32e30	hat_front.png	t	2025-04-21 21:40:45	2025-04-21 21:40:45
+240b22d8-6858-4d7a-9db2-c779d5b4eb4e	924119d1-fc24-4bc1-a37b-a25d9ce32e30	hat_side_1.png	f	2025-04-21 21:40:57	2025-04-21 21:40:57
+7070f81c-7224-4c23-9ea7-a51fc01f4374	924119d1-fc24-4bc1-a37b-a25d9ce32e30	hat_side_2.png	f	2025-04-21 21:41:05	2025-04-21 21:41:05
+991dd98b-87d1-413b-8c0e-84593a58b440	fd422b52-6fff-4120-8c55-63ef2b8cb209	hat_front_2.png	t	2025-04-21 21:41:39	2025-04-21 21:41:39
+7ec17c1b-3e3d-449f-be2d-7fafa344570f	fd422b52-6fff-4120-8c55-63ef2b8cb209	hat_side_1.png	f	2025-04-21 21:41:52	2025-04-21 21:41:52
+099a8828-abd2-48fb-9d18-4080f4912869	fd422b52-6fff-4120-8c55-63ef2b8cb209	hat_side_2.png	f	2025-04-21 21:41:53	2025-04-21 21:41:53
+fcebe9ec-1ca0-46e5-ab0d-4890a6126780	373de32e-bd7d-4482-8b74-1f239858cd02	yourTextHereHat.png	t	2025-04-21 21:42:24	2025-04-21 21:42:24
+af571a98-d5fc-46f5-80b1-b2bfd397b5d8	373de32e-bd7d-4482-8b74-1f239858cd02	hat_side_1.png	f	2025-04-21 21:42:37	2025-04-21 21:42:37
+b162e70e-3e40-4d8b-8a02-d6533fbf45d3	373de32e-bd7d-4482-8b74-1f239858cd02	hat_side_2.png	f	2025-04-21 21:42:41	2025-04-21 21:42:41
+8bcf6a8f-78b5-4465-b757-5add81c17bc9	358e6d0e-4b9d-4f2a-a9b3-a4d2419bc49b	weirdHat.png	t	2025-04-21 21:43:02	2025-04-21 21:43:02
+117bad66-6ec3-4516-b235-29e7cc012423	358e6d0e-4b9d-4f2a-a9b3-a4d2419bc49b	hat_side_1.png	f	2025-04-21 21:43:10	2025-04-21 21:43:10
+92e5e38c-0cba-461e-b349-96fe2ea0438e	358e6d0e-4b9d-4f2a-a9b3-a4d2419bc49b	hat_side_2.png	f	2025-04-21 21:43:12	2025-04-21 21:43:12
+b34de7cf-62d3-400c-81d3-fa86bf5dc323	d9a24583-006f-49e0-b788-84931d5413a0	fiitGreatAgainHat.png	t	2025-04-21 21:43:32	2025-04-21 21:43:32
+332aa2e1-cac8-4336-90c9-6999ed141388	d9a24583-006f-49e0-b788-84931d5413a0	hat_side_1.png	f	2025-04-21 21:43:40	2025-04-21 21:43:40
+89498a1c-6558-4872-8d2e-1dafd66cb065	d9a24583-006f-49e0-b788-84931d5413a0	hat_side_2.png	f	2025-04-21 21:43:41	2025-04-21 21:43:41
+\.
+
+
+--
+-- Data for Name: products; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.products (id, category_id, name, description, in_stock, price, discounted_price, color, created_at, updated_at) FROM stdin;
+0196c12e-ab4b-706d-b720-b3c0e550d5c6	621d280b-52be-4bc8-b0f7-6ea4f0d11d7a	Baller Pants	Baller Pants with JUMBO	12	100.00	\N	#000000	2025-05-11 21:09:43	2025-05-11 21:09:43
+0196c130-691d-7047-a848-6ad00e0296a5	621d280b-52be-4bc8-b0f7-6ea4f0d11d7a	Random Picture Pants	see em cool ADVENTURE TIME CARD WARS PANTS ? GET EM	100	11.00	10.00	#000000	2025-05-11 21:11:37	2025-05-11 21:11:37
+0196c135-ecc0-7315-b28b-281fc4935a01	3b3aeefe-ef0b-4016-bac2-5b2bd64b2883	Shirt grey	idk just some description i have so much time hahaha	12398	12.00	\N	#9a9996	2025-05-11 21:17:38	2025-05-11 21:17:38
+0196c133-3686-7165-af01-86b5bdc7f79a	b98626ef-ff25-4e2e-bbe4-1c4e36415260	Jambo Hoodie	Jambo hoodie . the one that will attract all the pussy	10	43.00	32.00	#c01c28	2025-05-11 21:14:41	2025-05-11 21:17:47
+0196c131-bc51-72be-bf53-44ce12721bc1	b98626ef-ff25-4e2e-bbe4-1c4e36415260	Hoodie with random picture	I have so much time hahahahahahah	123	32.00	\N	#c01c28	2025-05-11 21:13:04	2025-05-11 21:17:53
+2e4a88ee-feed-4ba2-853c-0cf61d725105	94965e4b-102d-499c-bff7-036e99ea0a6c	White Shirt with Chill Cat	Chilles dude in the world. Has many hoes but he only cares about his league of lengeds rank because he is chill like that.	100	29.99	19.99	#FFFFFF	2025-04-19 20:04:21	2025-04-19 20:04:21
+3c554169-6309-41d5-90cc-4b54d1f54503	94965e4b-102d-499c-bff7-036e99ea0a6c	White Shirt with Ugly Creature	White Shirt depicting hideous createure that is impossible to look at but wait... What is this ??? It is just another cat !!!	100	29.99	19.99	#FFFFFF	2025-04-19 20:07:02	2025-04-19 20:07:02
+924119d1-fc24-4bc1-a37b-a25d9ce32e30	835439ff-b633-4b84-9578-8b4c3ff51daf	Cool hat	A kinda cool hat going brrr moew meow meow	123	9.99	8.99	#FFFFFF	2025-04-21 21:30:24	2025-04-21 21:30:24
+fd422b52-6fff-4120-8c55-63ef2b8cb209	835439ff-b633-4b84-9578-8b4c3ff51daf	L9 hat	ratirl spacegliding on lowelo stomping their candy parents	123	9.99	8.99	#FFFFFF	2025-04-21 21:31:26	2025-04-21 21:31:26
+358e6d0e-4b9d-4f2a-a9b3-a4d2419bc49b	835439ff-b633-4b84-9578-8b4c3ff51daf	Hat with everything	Hat that has lot of designs all on top of eachother	123	9.99	9.98	#FFFFFF	2025-04-21 21:33:57	2025-04-21 21:33:57
+d9a24583-006f-49e0-b788-84931d5413a0	835439ff-b633-4b84-9578-8b4c3ff51daf	Make FIIT GREAT AGAIN	LETS MAKE FIIT GREAT AGAIN BY ALL COMMITTING	123	9.99	8.99	#FFFFFF	2025-04-21 21:34:53	2025-04-21 21:34:53
+373de32e-bd7d-4482-8b74-1f239858cd02	835439ff-b633-4b84-9578-8b4c3ff51daf	Your text goes here	Hat that literally says "your text goes here"	123	9.99	4.99	#FFFFFF	2025-04-21 21:32:21	2025-04-21 21:32:21
+e1815fdb-431a-4c2b-9c09-a98ee28685df	94965e4b-102d-499c-bff7-036e99ea0a6c	Black Shirt	A really cool black shirt with cool cat that will make girls LOVE YOU like in Play Boy adds.	100	29.99	19.99	#000000	2025-04-15 19:46:24	2025-04-15 19:46:24
+8e66bfc9-9415-4ba6-9223-61aa49fffbf2	94965e4b-102d-499c-bff7-036e99ea0a6c	Black Shirt Cute Kitty	Cute kitty... What more needs to be said. Good looking kitty very pettable and has much to spare in terms of cuteness meow meow meow.	100	29.99	19.99	#000000	2025-04-19 20:01:33	2025-04-19 20:01:33
+2c3226eb-2cfc-4ec7-8ef8-71c4268480c5	94965e4b-102d-499c-bff7-036e99ea0a6c	Black Shirt Guy Morgan	Shirt with picture that is the most realistic depiction of Guy Morgan from Farenheit 451 that modern science could depict.	100	26.99	19.99	#000000	2025-04-19 19:56:44	2025-04-19 19:56:44
+\.
+
+
+--
+-- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sessions (id, user_id, ip_address, user_agent, payload, last_activity) FROM stdin;
+zUudIbwqocB0rAoIgHaHkKKNABCyZC6JQ9mxZyOb	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoidVFwS1dUbVBrWkZ0UzVzcktmMjJqcWVLT1dsUnFBaWVNQzRsS2xuMiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTA4OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj1Ob25lJmNvdW50PU5vbmUmbG9hZD04JnByaWNlPUluZmluaXR5JnNlYXJjaD0mc29ydD1vbGRlc3QiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746997327
+UbQyN4cFH0B4ow8dlWyBsvoxlw9e9mMsYRNWOA2P	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiWnh5ZDVCM2pNbmFZWEVkYTluOW1JcGxXSHZqYjRHNUdzd0d6NnZvaCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvaXRlbXM/Y291bnQ9MCZsb2FkPTgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746997783
+mgUnuJNDOJN34UBdVNngR5AkUegZQ4Y8RSFdzUJs	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiZ2dYcEVxTWFpQVhWSVp6dzlQQ1VLNnZHZEhxVjRpY0xmUWkxeWExRiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTA4OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj1Ob25lJmNvdW50PU5vbmUmbG9hZD04JnByaWNlPUluZmluaXR5JnNlYXJjaD0mc29ydD1vbGRlc3QiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746998347
+EvkMq2f0wvum5cbmsuck6832gJDRsy07jeuo7oSy	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiZUhvTkpBVE9nVkFBU2l3eWNvV3F6Qkx0TExldXpycjlJY0JBbzJlUSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTA4OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj1Ob25lJmNvdW50PU5vbmUmbG9hZD04JnByaWNlPUluZmluaXR5JnNlYXJjaD0mc29ydD1vbGRlc3QiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746998452
+1b6vDJp9hTPoeaKuenkxjVsC2bak3PW0rrE6MRQ5	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiVUg0b05JMTlyVmdEVnFhV1NEc3M4RWlCdUZ3RzhpcHYxZkVRNFhNNyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvaXRlbXM/Y291bnQ9MCZsb2FkPTgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746996665
+WKiGqpdJR2TZQn2UHvZAKF3kVi3zmyermJ6imtUn	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiQ3Q3TWNZbmRzUkNFTDBVaWRpa21iSHhTRHJudlN5eVRUWlE4b1NZWCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvaXRlbXM/Y291bnQ9MCZsb2FkPTgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746996649
+UwPDGZftSm0PeXfQz4CQ2y7Ay3pInmCY3jTVhtjK	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiY0VtdDY0azRwYzh6RGUwZlRPNWFrdDY2ZXVzNVZmSnM5bFNDcmg4ZyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvaXRlbXM/Y291bnQ9MCZsb2FkPTgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746996681
+Evu6aQ1CCgeAtsBIz56YlJggk3AJgTIyEhxLrltu	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoibXJ1alVFQjJ4NGxlR0pRUFFNeFNRTngzQ05vZHlTeVl6azM0akV1MSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvaXRlbXM/Y291bnQ9MCZsb2FkPTgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746996714
+VNm7MXCgsNlgKzGH6C1rBE8IRNcil3j57Uxhv4hw	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoibjFUZ054WVFNdHhsZ1FlcnFUbFpNY0FkaTZkdTJMeThnTG1NZDJ0UiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvaXRlbXM/Y291bnQ9MCZsb2FkPTgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746997897
+Hb5gKvQKBiwPLz8JRwfEtmwWaulOULKFXpTegy8t	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoieVU1WjBQUHhHZFU2QXdFdmd2ZUxqT1Uwcmo3SHR0SHBaM0s5WDIybSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTA3OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj1GRkZGRkYmY291bnQ9MCZsb2FkPTgmcHJpY2U9SW5maW5pdHkmc2VhcmNoPSZzb3J0PW9sZGVzdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=	1746998349
+jm4Nk87X8KKzFABM0lUF0IrUiNpfIvOyZJJBWtvV	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiMTZtaVhtbDVtV0JZS3FWODlLZ2dvVlRRUldRaHRnUk5KcUNMYW9WRSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTA1OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj1Ob25lJmNvdW50PTgmbG9hZD04JnByaWNlPUluZmluaXR5JnNlYXJjaD0mc29ydD1vbGRlc3QiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746998454
+EESokKVHemC7jLkQOBXvyXo1adko8KBkuJSWqRfW	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiZWVEMUJBRkt1YXNEbGgzcDVGRE1aZjU5bTFmRnQwMmFTeWZCMTdBNyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvaXRlbXM/Y291bnQ9MCZsb2FkPTgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746997984
+wWUjTD9ykwstBRQL5v4VNH3ea2bDBDtu9vx12wTI	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoibFQ0c3FrcEZlTjlCaGdqNFJnbUIwZ3ZIUXRDSVVHTVlRdk5kODNNZSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTA3OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj0wMDAwMDAmY291bnQ9MCZsb2FkPTgmcHJpY2U9SW5maW5pdHkmc2VhcmNoPSZzb3J0PW9sZGVzdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=	1746998353
+ejrTPWuVe17UHxuSQCfDCceyQtgQLoyOLkQVl7Q1	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiQkpMT1V5S0E3T0NzTVlOOXRmN2VTN0xNUk5JdlhMRjY4bTdNSDJsTCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTE1OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj1Ob25lJmNvdW50PU5vbmUmbG9hZD04JnByaWNlPUluZmluaXR5JnNlYXJjaD0mc29ydD1wcmljZS1oaWdoZXN0Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1746998460
+sD6QYbAzRC4Pj6zyK6VkJCKk387UfyKowAhvV2HO	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiWjAzbXBRQkZ3TFRtb2xQR01YcDFLVlNROEdmenZRdkR3bHZhQXA0TCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvaXRlbXM/Y291bnQ9OCZsb2FkPTgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746997986
+xgI7PUPrdf9GIOScOloV2Oc4YeqnNjSTtacaLC96	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoicjVBTnVKMkNWU2V0UjB0MmFzWTJ5eDRqeFJIRHZ5OHd0dWd6TWJSeiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTA3OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj1GRkZGRkYmY291bnQ9MCZsb2FkPTgmcHJpY2U9SW5maW5pdHkmc2VhcmNoPSZzb3J0PW9sZGVzdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=	1746998354
+cvWDOaQ3Hy94QIFGT5xWGncx7rt3XjUi4s0b9W60	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiRFVNRVA2eEtuZldmQVg0QzhCSWRNcVA1Z3o4NTVRUW05dm5nUGR0ZCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTEyOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj1Ob25lJmNvdW50PTgmbG9hZD04JnByaWNlPUluZmluaXR5JnNlYXJjaD0mc29ydD1wcmljZS1oaWdoZXN0Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1746998462
+DIFD2xHgwADBe1N6yCWJdTqV9BRS5wnNiIC2DgPy	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiYjZXOExDcVVCNXh4MlpRYXBWMURjMEhrcDhnSHdVUmhUaVhsaWtldyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvaXRlbXM/Y291bnQ9OCZsb2FkPTgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746997994
+KH6c3E9HHMBbP6Hqx8CHT1gaYgV1Hx8lxfMIYubN	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiOHNkTW15WU1KNU5oS3hoUGJTNFdxQ2hOSmc0N3FtTzd4Nk1KZ0VUZyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTA3OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj0wMDAwMDAmY291bnQ9MCZsb2FkPTgmcHJpY2U9SW5maW5pdHkmc2VhcmNoPSZzb3J0PW9sZGVzdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=	1746998356
+4h5oNJoI0sMBwgCBL4AuEK8iQD5R7Z3HugLxjZKd	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiQjFpUnRpUExCY09aU2VzTFRkWkc5dFFpZDZMeVZKaXF3cU0wRFJ2OCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fX0=	1746998610
+9SRaBFB5e2Xs1tlKM4aFvw9fGTwYoX3hDtEYO0pP	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoieDI5YURHNm1RNzZyZHdld2JaR2xma1NIQ1JXM1plMTJZTUVqMENZeiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvaXRlbXM/Y291bnQ9MCZsb2FkPTgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746998081
+ccd97aYxOaQTOpTpKu0Lv2GIPeabyJBJNU0Yg0nY	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiZmlUbEVoVG4xeThaNUlkYkJiYVV6TVNiUGg3Tml4Yk1VaDRPYURUWiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTEwOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj0lMjMwMDAwMDAmY291bnQ9MCZsb2FkPTgmcHJpY2U9SW5maW5pdHkmc2VhcmNoPSZzb3J0PW9sZGVzdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=	1746998361
+wwf56DFTh6Z2C4XA7GS26OQ0mB23ZCK7a3hKAhCF	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiU2NiS2trdnpIRksxZGNyNjJoSDZPOVREYjJrQ29VSUpkUFRSazVmMiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvaXRlbXM/Y291bnQ9MCZsb2FkPTgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746998259
+f3bCk0Sr2bSxu8EHK74ZefzBnOWa0lFM2HsyAf38	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiY09Qbm5JUnNDSGxJRW4wQXZoQzBtVzVDSkcwSk4wUUl4MHpsRzRxeiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTA3OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj0wMDAwMDAmY291bnQ9MCZsb2FkPTgmcHJpY2U9SW5maW5pdHkmc2VhcmNoPSZzb3J0PW9sZGVzdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=	1746998367
+5lrAIvlujb7bYcpk7KHs2Dak8t3KP3sDTTa5l0UT	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiZUszVEpOTXhycGszTEF6c0lkaFVmTWtDV0pCMTZtY3ZCdmxBdGJXcyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvaXRlbXM/Y291bnQ9OCZsb2FkPTgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746998260
+V0viIdbGKhNKRD88PHLmU1FZvhjOCOEb68HD1oZB	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiSXcwZzZzaFhPaWYwSnJWYXdwQmR1MGFqam5xVGRrTE1lQWtIM3hOViI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTA3OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj1GRkZGRkYmY291bnQ9MCZsb2FkPTgmcHJpY2U9SW5maW5pdHkmc2VhcmNoPSZzb3J0PW9sZGVzdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=	1746998369
+nW2eHmiNnusbAbVZYSnyfl7xhIOG7hCJ0bCSr5Ek	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiZlFsaE5OSEduNDZ4QUlTdkpuYzYwMEQ3MFQ3VUpZVWJ5Sm9YRFdVRyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvaXRlbXM/Y291bnQ9MCZsb2FkPTgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746998267
+zJTMEYsbuwb8Vz2URvE6T0vXHnGrNjLkunLtfXYg	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiNXZ5dU1yNmt2NE9FclNxazRDSG5nYWlkWWxEazRuTklzRjc3V3F1aiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTA3OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj0wMDAwMDAmY291bnQ9MCZsb2FkPTgmcHJpY2U9SW5maW5pdHkmc2VhcmNoPSZzb3J0PW9sZGVzdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=	1746998371
+XEj1bUBzhb04GqEHt2yLQOskUt4Hvi0HEgVW7k2W	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiTmluR29XVFZhYkpFZDgyZ1FKQXh1VkNyV2JRT1g4VXkyUHBTeFFoYSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvaXRlbXM/Y291bnQ9OCZsb2FkPTgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746998268
+hiUcSWdhSRJBeNEcuwgoxxNRbMyBjaAN4Rp8VpH0	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiS0pqaGFmS0g2UEhRQnFaYlVBVHVVRlVsVFlpNmc3Vzk3RDZzSFZ3QSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTA3OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj1GRkZGRkYmY291bnQ9MCZsb2FkPTgmcHJpY2U9SW5maW5pdHkmc2VhcmNoPSZzb3J0PW9sZGVzdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=	1746998390
+HyRc7UOP26pCboSx0elcoUPEPrsQS8hQ6ce22Hpp	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiWDlacUp0Qm41UUpOQmp2d2s2YzFOMmhiZUZueGJLc0tNUUN2N0ZBdiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvaXRlbXM/Y291bnQ9MCZsb2FkPTgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746996790
+9EeYwushjP30qzFqgphEWQnA06jKRCrdFQWjyr74	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoicFhTZERlQnQza3BWV05ZS3pxSk15Z2xWdXBXSDZ3NEtkZFJNemZ5dyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvaXRlbXM/Y291bnQ9MCZsb2FkPTgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746996792
+2ND3k2WJNAdB1l7XtTADWm9iLqidbVMcz8zcK5xC	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiWUYwVUZqQ3lvVlBER1hDT2NXeUJOREQzZ1ZvVUtKd1BqQm43cjJXdiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTA1OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj1Ob25lJmNvdW50PTgmbG9hZD04JnByaWNlPUluZmluaXR5JnNlYXJjaD0mc29ydD1vbGRlc3QiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746997334
+w0E7TVdx464Y1zCTH2ETRR3Gbb0IUWytvyrlybXE	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiWVh4a2ltSWt2anhjVU5HbEFzMjRlMzhEOHcyTW1SdHZBSHlia0c2dSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTA4OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj1Ob25lJmNvdW50PU5vbmUmbG9hZD04JnByaWNlPUluZmluaXR5JnNlYXJjaD0mc29ydD1vbGRlc3QiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746997409
+t3iYlw395THCS0P848m4cPTGWSfxGHJSx1j99oBc	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiSW5rWmxVWTNtT09YVFRGeW92aTRxN0Y4M3RSdEJqeU4wR1VidjlteiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvaXRlbXM/Y291bnQ9MCZsb2FkPTgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746998273
+g64kcZZDhDJfKY5rxXOJO21uukUKakDIwssPq1Ce	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiMkpHNHg4N0FtV3ZQMWJSZFh5d29wOTNabjVHVmRMT1M0dnZuTlFYSiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTA4OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj1Ob25lJmNvdW50PU5vbmUmbG9hZD04JnByaWNlPUluZmluaXR5JnNlYXJjaD0mc29ydD1vbGRlc3QiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746998442
+X5SjHFdrxTr2mcV7yxjGAK7WD8hCCFRRvNJ2j3VH	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiOEJHU0hoN0VhbXN2dlB5cXpUaEZNYzVKVDI2SWYzbm1IQ1lEVUJKUSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTA1OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj1Ob25lJmNvdW50PTgmbG9hZD04JnByaWNlPUluZmluaXR5JnNlYXJjaD0mc29ydD1vbGRlc3QiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746997411
+WNHyEj1cZ9RDkcbSVGHMmvhu5olW8yep8gIrZzDe	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiRVZNN3BtS3ZvNTlBM0xmZ0RLS3B5eTFpTDVyQ1NSaFJ2VTc2MGF5TyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvaXRlbXM/Y291bnQ9OCZsb2FkPTgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746998274
+YJGX2MP23yc6XCXOpKTQcTeXj6QYIeKHIgkNoEu0	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiaFJkbzBwVGJFN2ZDNHluM0VZN3R5cHNqcVRoM21vVVFYQ2Z5Y21XeiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTEwOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj0lMjM5YTk5OTYmY291bnQ9MCZsb2FkPTgmcHJpY2U9SW5maW5pdHkmc2VhcmNoPSZzb3J0PW9sZGVzdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=	1746998443
+i7HuyL2gTJEhoOmHY0r7UbGusKIiwZdcbQd7Owtj	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiRURvcXQ2dkVTMUsxR2hwTUZDWkZxYzNqUXNWZnlsa1A0TWdaeFB3OSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTA4OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PUhvb2RpZSZjb2xvcj1Ob25lJmNvdW50PTAmbG9hZD04JnByaWNlPUluZmluaXR5JnNlYXJjaD0mc29ydD1vbGRlc3QiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746997602
+HglIncbzDVA5kTPmh4py4LpMCqBriRyMzCb542s7	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoicHo4R0Z1eE5UWExuQUd0TGFVS3FVaU93ZXlGd2Q2QWlSbUJrRVYyciI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvaXRlbXM/Y291bnQ9MCZsb2FkPTgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746998276
+Yah5OrFBLSIIGusj21kuqU5yxgUAk5G592DdUwmu	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiNTJYVnNFVmZPdWk5UkhLM1VCOWhzMnFSenNDMXloYjhsMTJuUWg2OCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTEwOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj0lMjNGRkZGRkYmY291bnQ9MCZsb2FkPTgmcHJpY2U9SW5maW5pdHkmc2VhcmNoPSZzb3J0PW9sZGVzdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=	1746998444
+Sk12NEFavzZ84SZx53UESXA6Y5D9rj0kUsf2jdEJ	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiaTBodzJCVHJOMEFBVTBBbWVFT1JDdmF5SVQ0TWxSYWhRU1h1TE5NMyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTA3OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PVNoaXJ0JmNvbG9yPU5vbmUmY291bnQ9MCZsb2FkPTgmcHJpY2U9SW5maW5pdHkmc2VhcmNoPSZzb3J0PW9sZGVzdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=	1746997602
+nCwR8MfF3pnrTl4vIXAHKGT37uakCifK9mUeFvb9	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiNzlQSU80S0RrZmVlbVFXMlBhVWdyWDZXZU5tVnFIUU9NQUxEdEtuWSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTEwOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj0lMjM5YTk5OTYmY291bnQ9MCZsb2FkPTgmcHJpY2U9SW5maW5pdHkmc2VhcmNoPSZzb3J0PW9sZGVzdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=	1746998444
+9kCJlhUeyJlbbwqATiG8RA6OkUd7pwlfhClR5IKr	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiVjVGNkVjaHRyOVJvdHA2eWhpU0NhN2hrN0NaN2VKSkJnR0o2TFV6dSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTA1OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj1Ob25lJmNvdW50PTAmbG9hZD04JnByaWNlPUluZmluaXR5JnNlYXJjaD0mc29ydD1vbGRlc3QiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746997603
+n1oZJswdmoQJrEg2ZSng6WgOkIZlYsdEUGgpqbqO	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiWm1RRVNvZW1XR2VKdzZoTVhObEZ3UmN0TmZlNXRVbWVDOWNQR0hseiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTA4OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj1Ob25lJmNvdW50PU5vbmUmbG9hZD04JnByaWNlPUluZmluaXR5JnNlYXJjaD0mc29ydD1vbGRlc3QiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746998287
+tafFi2S9SJRWceTYdewiDfC0ot9qzVC8y53OBD8B	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoic2pMdTFIQzJvZTR1dlR6OGRHeWw3aVljNVpXbGZjb292RUF3TUZOViI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTEwOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj0lMjMwMDAwMDAmY291bnQ9MCZsb2FkPTgmcHJpY2U9SW5maW5pdHkmc2VhcmNoPSZzb3J0PW9sZGVzdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=	1746998445
+4ZUnbddVeZ8WDwPcUsqcIkTE63XtoDHs1RvyswhG	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoicElvYVVkRkVjSjdlclFZcHdUMm9XWk1DMjZhdm5Gd2NJTjF1aVJkSSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTA1OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj1Ob25lJmNvdW50PTgmbG9hZD04JnByaWNlPUluZmluaXR5JnNlYXJjaD0mc29ydD1vbGRlc3QiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746998289
+XuznMJNZqZWJQtZdbUVAvLOWzfDiy1l7ZWX1E9Bp	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiOG1qYjA4VDNoSFpIaTM3Q2JxZEluZlF2bHl4MFZwbWhhMWxNcnFEcSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTEwOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj0lMjMwMDAwMDAmY291bnQ9OCZsb2FkPTgmcHJpY2U9SW5maW5pdHkmc2VhcmNoPSZzb3J0PW9sZGVzdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=	1746998447
+4zfb6N8ldDvCaA6g67aNM8FJC1KRbQw5hhJQI6db	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiaDRZZ3c2WnpZMm9vcHJaWUs4eFN5b2hWREdiWjQ4RjNhbGZGblVyYiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvaXRlbXM/Y291bnQ9MCZsb2FkPTgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746997606
+TuyajWOtkQ233URWxwsnZRQm2DXivE9LHq1HtF01	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiRmtCQkxJb2FldlVaOVowY0pQN3U2cTk0N3JBVnplWndIOFk1ajd5cSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTEwOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj0lMjNjMDFjMjgmY291bnQ9MCZsb2FkPTgmcHJpY2U9SW5maW5pdHkmc2VhcmNoPSZzb3J0PW9sZGVzdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=	1746998294
+0ExqAKdFFDEAAcDTAD7khrMd7G7Skdmx9iC3lf0P	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiT2JQRmptZWxRdmFMSjJqbFlwUnluaERUVmljRjU5Qm00cXYyUlFYZCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTEwOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj0lMjNGRkZGRkYmY291bnQ9MCZsb2FkPTgmcHJpY2U9SW5maW5pdHkmc2VhcmNoPSZzb3J0PW9sZGVzdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=	1746998448
+HNNsvBvhjdltW0ZDHVj95NMx7Zb7UkolVx955oxg	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoib0dObG12MnBGVmpUbGhqNXVTaXp3OHk4b1dYc0w2U1BWQkNFTTZ4dyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvaXRlbXM/Y291bnQ9OCZsb2FkPTgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19	1746997608
+VQXv9A9JxywDVEoNVMDQEEZmIlKs1UjQAImKIwBm	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoidnBqeVNqNXBBTG1DWUFKYUdKdDFFbmw1amxobk5XUWRXektuemdEdyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTEwOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj0lMjMwMDAwMDAmY291bnQ9MCZsb2FkPTgmcHJpY2U9SW5maW5pdHkmc2VhcmNoPSZzb3J0PW9sZGVzdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=	1746998295
+l1hi6SaxzKmgKob9jpcrTCoT7tXXckCW2Vw6WPYs	\N	127.0.0.1	Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoialhMaWVqMzBjNGZnRDNtZXdkYTJybERPTTVQNnAwQnZid1FsYVB4RCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTEwOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2l0ZW1zP2NhdGVnb3J5PWFsbCZjb2xvcj0lMjNGRkZGRkYmY291bnQ9OCZsb2FkPTgmcHJpY2U9SW5maW5pdHkmc2VhcmNoPSZzb3J0PW9sZGVzdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=	1746998449
+\.
+
+
+--
+-- Data for Name: shipping_details; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.shipping_details (id, user_id, first_name, last_name, address, city, zip, created_at, updated_at, country) FROM stdin;
+0196c13b-4030-713d-b009-75d47f575b26	\N	aosdij	laksdj	alsdijowija	oiajdoaj	91102	2025-05-11 21:23:27	2025-05-11 21:23:27	oaidjoqwj
+\.
+
+
+--
+-- Data for Name: shippings; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.shippings (id, name, price, created_at, updated_at) FROM stdin;
+e97d2962-8267-427c-ac28-8c9ec8d1e47b	SPS	5.00	\N	\N
+b2ae5d16-47aa-4519-9368-71528a98e11a	GLS	4.00	\N	\N
+db68d9a6-de12-4cac-91ef-0c64f7d11a37	SPS	5.00	\N	\N
+5d769bc8-b6ee-4dff-99d7-4d73f9dc7914	GLS	4.00	\N	\N
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.users (id, name, email, password, remember_token, is_admin, created_at, updated_at) FROM stdin;
+0196c11d-1c1c-707d-9bf3-50f4f1927044	admin	admin@email.com	$2y$12$/fFXeV8ft5KInJ2.W94YBerQVMkrcOMzaGBiIs7POINdRLNXnZ7Em	\N	t	2025-05-11 20:50:32	2025-05-11 20:50:32
+\.
+
+
+--
+-- Name: failed_jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.failed_jobs_id_seq', 1, false);
+
+
+--
+-- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.jobs_id_seq', 1, false);
+
+
+--
+-- Name: migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.migrations_id_seq', 20, true);
+
+
+--
+-- Name: cache_locks cache_locks_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cache_locks
+    ADD CONSTRAINT cache_locks_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: cache cache_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cache
+    ADD CONSTRAINT cache_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: carts carts_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.carts
+    ADD CONSTRAINT carts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: categories categories_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.categories
+    ADD CONSTRAINT categories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: colors colors_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.colors
+    ADD CONSTRAINT colors_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: failed_jobs failed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.failed_jobs
+    ADD CONSTRAINT failed_jobs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: failed_jobs failed_jobs_uuid_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.failed_jobs
+    ADD CONSTRAINT failed_jobs_uuid_unique UNIQUE (uuid);
+
+
+--
+-- Name: job_batches job_batches_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_batches
+    ADD CONSTRAINT job_batches_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: jobs jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.jobs
+    ADD CONSTRAINT jobs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: migrations migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.migrations
+    ADD CONSTRAINT migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: order_products order_products_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.order_products
+    ADD CONSTRAINT order_products_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: orders orders_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT orders_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: password_reset_tokens password_reset_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.password_reset_tokens
+    ADD CONSTRAINT password_reset_tokens_pkey PRIMARY KEY (email);
+
+
+--
+-- Name: payment_details payment_details_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.payment_details
+    ADD CONSTRAINT payment_details_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: product_carts product_carts_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product_carts
+    ADD CONSTRAINT product_carts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: product_images product_images_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product_images
+    ADD CONSTRAINT product_images_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: products products_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.products
+    ADD CONSTRAINT products_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sessions sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sessions
+    ADD CONSTRAINT sessions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: shipping_details shipping_details_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.shipping_details
+    ADD CONSTRAINT shipping_details_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: shippings shippings_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.shippings
+    ADD CONSTRAINT shippings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users users_email_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_email_unique UNIQUE (email);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: jobs_queue_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX jobs_queue_index ON public.jobs USING btree (queue);
+
+
+--
+-- Name: sessions_last_activity_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX sessions_last_activity_index ON public.sessions USING btree (last_activity);
+
+
+--
+-- Name: sessions_user_id_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX sessions_user_id_index ON public.sessions USING btree (user_id);
+
+
+--
+-- Name: carts carts_user_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.carts
+    ADD CONSTRAINT carts_user_id_foreign FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+
+
+--
+-- Name: order_products order_products_order_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.order_products
+    ADD CONSTRAINT order_products_order_id_foreign FOREIGN KEY (order_id) REFERENCES public.orders(id) ON DELETE CASCADE;
+
+
+--
+-- Name: order_products order_products_product_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.order_products
+    ADD CONSTRAINT order_products_product_id_foreign FOREIGN KEY (product_id) REFERENCES public.products(id) ON DELETE CASCADE;
+
+
+--
+-- Name: orders orders_payment_method_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT orders_payment_method_foreign FOREIGN KEY (payment_method) REFERENCES public.payment_details(id) ON DELETE CASCADE;
+
+
+--
+-- Name: orders orders_shipping_details_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT orders_shipping_details_foreign FOREIGN KEY (shipping_details) REFERENCES public.shipping_details(id) ON DELETE CASCADE;
+
+
+--
+-- Name: orders orders_shipping_method_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT orders_shipping_method_foreign FOREIGN KEY (shipping_method) REFERENCES public.shippings(id) ON DELETE CASCADE;
+
+
+--
+-- Name: orders orders_user_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT orders_user_id_foreign FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+
+
+--
+-- Name: product_carts product_carts_cart_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product_carts
+    ADD CONSTRAINT product_carts_cart_id_foreign FOREIGN KEY (cart_id) REFERENCES public.carts(id) ON DELETE CASCADE;
+
+
+--
+-- Name: product_carts product_carts_product_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product_carts
+    ADD CONSTRAINT product_carts_product_id_foreign FOREIGN KEY (product_id) REFERENCES public.products(id) ON DELETE CASCADE;
+
+
+--
+-- Name: product_images product_images_product_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product_images
+    ADD CONSTRAINT product_images_product_id_foreign FOREIGN KEY (product_id) REFERENCES public.products(id) ON DELETE CASCADE;
+
+
+--
+-- Name: products products_category_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.products
+    ADD CONSTRAINT products_category_id_foreign FOREIGN KEY (category_id) REFERENCES public.categories(id);
+
+
+--
+-- Name: shipping_details shipping_details_user_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.shipping_details
+    ADD CONSTRAINT shipping_details_user_id_foreign FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: pg_database_owner
+--
+
+GRANT ALL ON SCHEMA public TO myuser;
+
+
+--
+-- Name: TABLE cache; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT ALL ON TABLE public.cache TO myuser;
+
+
+--
+-- Name: TABLE cache_locks; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT ALL ON TABLE public.cache_locks TO myuser;
+
+
+--
+-- Name: TABLE carts; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT ALL ON TABLE public.carts TO myuser;
+
+
+--
+-- Name: TABLE categories; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT ALL ON TABLE public.categories TO myuser;
+
+
+--
+-- Name: TABLE colors; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT ALL ON TABLE public.colors TO myuser;
+
+
+--
+-- Name: TABLE failed_jobs; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT ALL ON TABLE public.failed_jobs TO myuser;
+
+
+--
+-- Name: TABLE job_batches; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT ALL ON TABLE public.job_batches TO myuser;
+
+
+--
+-- Name: TABLE jobs; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT ALL ON TABLE public.jobs TO myuser;
+
+
+--
+-- Name: TABLE migrations; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT ALL ON TABLE public.migrations TO myuser;
+
+
+--
+-- Name: TABLE order_products; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT ALL ON TABLE public.order_products TO myuser;
+
+
+--
+-- Name: TABLE orders; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT ALL ON TABLE public.orders TO myuser;
+
+
+--
+-- Name: TABLE password_reset_tokens; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT ALL ON TABLE public.password_reset_tokens TO myuser;
+
+
+--
+-- Name: TABLE payment_details; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT ALL ON TABLE public.payment_details TO myuser;
+
+
+--
+-- Name: TABLE product_carts; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT ALL ON TABLE public.product_carts TO myuser;
+
+
+--
+-- Name: TABLE product_images; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT ALL ON TABLE public.product_images TO myuser;
+
+
+--
+-- Name: TABLE products; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT ALL ON TABLE public.products TO myuser;
+
+
+--
+-- Name: TABLE sessions; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT ALL ON TABLE public.sessions TO myuser;
+
+
+--
+-- Name: TABLE shipping_details; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT ALL ON TABLE public.shipping_details TO myuser;
+
+
+--
+-- Name: TABLE shippings; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT ALL ON TABLE public.shippings TO myuser;
+
+
+--
+-- Name: TABLE users; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT ALL ON TABLE public.users TO myuser;
+
+
+--
+-- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: public; Owner: postgres
+--
+
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON TABLES TO myuser;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

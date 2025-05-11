@@ -347,6 +347,7 @@ class CartController extends Controller
                     'address' => $address['address'],
                     'city' => $address['city'],
                     'zip' => $address['zipcode'],
+                    'country' => $address['country'],
                 ]);
 
                 $order = Orders::create([
@@ -379,6 +380,7 @@ class CartController extends Controller
                     'address' => $address['address'],
                     'city' => $address['city'],
                     'zip' => $address['zipcode'],
+                    'country' => $address['country'],
                 ]);
 
                 $order = Orders::create([

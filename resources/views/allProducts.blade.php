@@ -42,7 +42,7 @@
             @foreach($colors as $color)
                 <label>
                   <input type="radio" name="color_choice" value="white" class="peer hidden">
-                  <span class="w-5 h-5 rounded-full border-2 border-gray-300 block cursor-pointer peer-checked:ring-2 peer-checked:ring-black bg-[{{$color}}]" value="{{$color}}" aria-label="white">
+                  <span class="w-5 h-5 rounded-full border-2 border-gray-300 block cursor-pointer peer-checked:ring-2 peer-checked:ring-black " value="{{$color}}" style="background-color:{{$color}};" aria-label="white">
                   </span>
                 </label>
             @endforeach
