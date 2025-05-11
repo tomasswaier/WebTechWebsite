@@ -69,12 +69,12 @@
                   @enderror
               </div>
           </div>
-          <button type="submit" class="w-full bg-black rounded-lg text-white py-2.5 hover:cursor-pointer">
+          <button type="submit" class="w-full h-fit bg-black rounded-lg text-white py-2.5 hover:cursor-pointer">
             Pay with Card
           </button>
         </div>
         <div id="order_btn" class="grid grid-flow-row w-full">
-          <button type="submit" class="w-full bg-black rounded-lg text-white py-2 hover:cursor-pointer">
+          <button type="submit" class="w-full h-fit bg-black rounded-lg text-white py-2.5 hover:cursor-pointer">
             Place the order
           </button>
         </div>
@@ -88,7 +88,7 @@
             @foreach ($products as $product)
                 <li class="flex flex-row w-full items-center justify-normal">
                     <img src="{{ asset('product_images/' . $product->images->firstWhere('is_main', true)?->image_url ?? 'default.png') }}" alt="{{ $product->name }}" class="w-auto max-h-16">
-                    <div class="grid grid-flow-row sm:grid-flow-col items-center justify-between w-full ml-5">
+                    <div class="grid grid-flow-row sm:grid-cols-4 items-center place-items-end w-full ml-5">
                         <span class="font-bold">{{ $product->name }}</span>
                         <span>Size: {{ $product->size }}</span>
                         <span>Quantity: {{ $product->quantity }}</span>
