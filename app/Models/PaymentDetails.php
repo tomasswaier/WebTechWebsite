@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 class PaymentDetails extends Model
 {
-    use Illuminate\Database\Eloquent\Concerns\HasUuids;
-    //
+    use HasUuids;
+
+    protected $fillable = ['payment_method'];
 }

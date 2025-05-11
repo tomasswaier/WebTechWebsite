@@ -27,9 +27,9 @@
             </div>
             <h2 class="font-bold mb-3">Category</h2>
             <p class="mb-3">{{$product->category->name}}</p>
-            <h2 class="font-bold p-2 text-xl">
+            <h2 class="font-bold text-xl mb-2">
                 @if($product->discounted_price != $product->price)
-                    <s>${{$product->price}}</s> ${{$product->discounted_price}}
+                    <s class="text-gray-300 font-normal">${{$product->price}}</s> ${{$product->discounted_price}}
                 @else
                     ${{$product->price}}
                 @endif
@@ -43,10 +43,10 @@
                     <option value="L">L</option>
                     <option value="XL">XL</option>
                 </select>
+                <input type="number" name="quantity" value="0" min="1" class="border border-black rounded-lg p-2 pl-3">
                 <button type="submit" class="bg-black rounded-lg text-white p-2">
                     Add to cart
                 </button>
-                <input type="number" name="quantity" value="0" min="1" class="border border-black rounded-lg pl-[14px]">
             </form>
 
 

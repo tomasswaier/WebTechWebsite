@@ -52,17 +52,13 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::post('products', [ProductController::class, 'store'])
          ->name('products.store');
 });
-Route::get('cartAddressInfo', function () {
-    return view('cartAddressInfo');
-});
 Route::get('cart/address', [CartController::class, 'address_info'])->name('cart.address');
 Route::post('cart/address/save', [CartController::class, 'save_address'])->name('cart.save_address');
 Route::get('cart/', [CartController::class, 'overview'])->name('cartOverview');
 Route::post('cart/delete/{product_id}', [CartController::class, 'delete'])->name('cart.delete');
 Route::post('cart/change/{product_id}', [CartController::class, 'change'])->name('cart.change');
-Route::get('cartPayment/', function () {
-    return view('cartPayment');
-});
+Route::get('cart/payment', [CartController::class, 'payment'])->name('cart.payment');
+Route::post('cart/payment/confirm', [CartController::class, 'confirm_order'])->name('cart.confirm');
 Route::get('productDetail/{id}', function ($id) {
     return view('productDetail', ['productId' => $id]);
 });
