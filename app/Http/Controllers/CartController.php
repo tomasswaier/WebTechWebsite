@@ -83,7 +83,7 @@ class CartController extends Controller
                 if ($product) {
                     $product->quantity = $item['quantity'];
                     $product->size = $item['size'];
-                    if ($product->discounted_price == $product->price) {
+                    if (!$product->discounted_price || $product->discounted_price == $product->price) {
                         $product->subtotal = $product->price * $item['quantity'];
                     } else {
                         $product->subtotal = $product->discounted_price * $item['quantity'];
@@ -103,7 +103,7 @@ class CartController extends Controller
                 if ($product) {
                     $product->quantity = $item->pivot->quantity;
                     $product->size = $item->pivot->size;
-                    if ($product->discounted_price == $product->price) {
+                    if (!$product->discounted_price || $product->discounted_price == $product->price) {
                         $product->subtotal = $product->price * $item->pivot->quantity;
                     } else {
                         $product->subtotal = $product->discounted_price * $item->pivot->quantity;
@@ -185,7 +185,7 @@ class CartController extends Controller
                 if ($product) {
                     $product->quantity = $item['quantity'];
                     $product->size = $item['size'];
-                    if ($product->discounted_price == $product->price) {
+                    if (!$product->discounted_price || $product->discounted_price == $product->price) {
                         $product->subtotal = $product->price * $item['quantity'];
                     } else {
                         $product->subtotal = $product->discounted_price * $item['quantity'];
@@ -205,7 +205,7 @@ class CartController extends Controller
                 if ($product) {
                     $product->quantity = $item->pivot->quantity;
                     $product->size = $item->pivot->size;
-                    if ($product->discounted_price == $product->price) {
+                    if (!$product->discounted_price || $product->discounted_price && $product->discounted_price == $product->price) {
                         $product->subtotal = $product->price * $item->pivot->quantity;
                     } else {
                         $product->subtotal = $product->discounted_price * $item->pivot->quantity;
@@ -270,7 +270,7 @@ class CartController extends Controller
                 if ($product) {
                     $product->quantity = $item['quantity'];
                     $product->size = $item['size'];
-                    if ($product->discounted_price == $product->price) {
+                    if (!$product->discounted_price || $product->discounted_price == $product->price) {
                         $product->subtotal = $product->price * $item['quantity'];
                     } else {
                         $product->subtotal = $product->discounted_price * $item['quantity'];
@@ -290,7 +290,7 @@ class CartController extends Controller
                 if ($product) {
                     $product->quantity = $item->pivot->quantity;
                     $product->size = $item->pivot->size;
-                    if ($product->discounted_price == $product->price) {
+                    if (!$product->discounted_price || $product->discounted_price == $product->price) {
                         $product->subtotal = $product->price * $item->pivot->quantity;
                     } else {
                         $product->subtotal = $product->discounted_price * $item->pivot->quantity;
@@ -340,6 +340,7 @@ class CartController extends Controller
             $address = Session::get('address');
 
             if (!$request->user()) {
+                //\Log::info('cela adresa{request}',['request'=>$address.all()]);
                 $shipping_details = ShippingDetails::create([
                     'first_name' => $address['first_name'],
                     'last_name' => $address['last_name'],

@@ -92,7 +92,7 @@
                         <span class="font-bold">{{ $product->name }}</span>
                         <span>Size: {{ $product->size }}</span>
                         <span>Quantity: {{ $product->quantity }}</span>
-                        <span>@if($product->price == $product->discounted_price) ${{ number_format($product->price * $product->quantity, 2) }} @else ${{ number_format($product->discounted_price * $product->quantity, 2) }} @endif</span>
+                        <span>@if(!$product->discounted_price || $product->price == $product->discounted_price) ${{ number_format($product->price * $product->quantity, 2) }} @else ${{ number_format($product->discounted_price * $product->quantity, 2) }} @endif</span>
                     </div>
                 </li>
             @endforeach
