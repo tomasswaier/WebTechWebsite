@@ -36,6 +36,7 @@ class HomeController extends Controller{
 
     protected function formatProductData($product)
     {
+        \Log::info("Starting product store method:{$product->images}");
         return [
             'id' => $product->id,
             'name' => $product->name,
