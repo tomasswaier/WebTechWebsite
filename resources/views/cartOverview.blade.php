@@ -13,7 +13,7 @@
                 <h2 class="my-3 font-bold">Your Cart</h2>
                 @if(!empty($products))
                     @foreach($products as $product)
-                        <li class="grid grid-flow-row sm:grid-flow-col w-full space-y-3 place-items-center sm:place-items-center sm:justify-normal border-b sm:border-none">
+                        <li class="grid grid-flow-row sm:grid-cols-6 w-full space-y-3 place-items-center sm:place-items-start sm:justify-start border-b sm:border-none">
                             <img src="{{ asset('product_images/' . $product->images->firstWhere('is_main', true)->image_url)}}" alt="{{$product->name}}" class="w-auto max-h-32 sm:max-h-16">
                             <span>{{ $product->name }}</span>
                             <span>@if($product->price == $product->discounted_price) ${{ number_format($product->price, 2) }} @else ${{ number_format($product->discounted_price, 2) }} @endif</span>
@@ -30,10 +30,10 @@
                                 </div>
 
                             </form>
-                            <form action="{{route('cart.delete', ['product_id' => $product->id])}}" method="POST">
+                            <form action="{{route('cart.delete', ['product_id' => $product->id])}}" method="POST" class="justify-self-center size-fit">
                                 @csrf
                                 <input type="hidden" name="size" value="{{ $product->size }}">
-                                <button type="submit" class="hover:bg-gray-200 transition duration-300 size-fit p-2 rounded-lg hover:cursor-pointer text-2xl">
+                                <button type="submit" class="hover:bg-gray-200 transition duration-300 rounded-lg hover:cursor-pointer text-2xl">
                                     &times;
                                 </button>
                             </form>
@@ -52,7 +52,7 @@
             <span id="total_price">${{$total}}</span>
           </div>
           <hr class="my-3 w-full h-0.5 border-t-0 bg-gray-300" />
-          <a href="{{route('cart.address')}}" class="w-full bg-black grid align-middle justify-center rounded-xl text-white py-2.5 hover:cursor-pointer">
+          <a href="{{route('cart.address')}}" class="w-full h-fit bg-black text-center py-2.5 rounded-xl text-white hover:cursor-pointer">
             Continue to checkout
           </a>
         </section>

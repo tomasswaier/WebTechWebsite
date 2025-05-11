@@ -12,6 +12,14 @@
         </div>
         <!--Product info-->
         <div id="product_info" class="w-auto">
+            @if( session('success'))
+                <h2 class="text-xl font-bold">
+                    {{session('success')}}
+                </h2>
+                <p>
+                    You can now view the <a href="{{route('cartOverview')}}" class="underline">cart</a>
+                </p>
+            @endif
             <h1 class="font-bold mb-5 text-xl">{{$product->name}}</h1>
             <p class="mb-3">
                 {{$product->description}}
