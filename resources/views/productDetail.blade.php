@@ -28,7 +28,7 @@
             <h2 class="font-bold mb-3">Category</h2>
             <p class="mb-3">{{$product->category->name}}</p>
             <h2 class="font-bold text-xl mb-2">
-                @if($product->discounted_price != $product->price)
+                @if($product->discounted_price && $product->discounted_price != $product->price)
                     <s class="text-gray-300 font-normal">${{$product->price}}</s> ${{$product->discounted_price}}
                 @else
                     ${{$product->price}}

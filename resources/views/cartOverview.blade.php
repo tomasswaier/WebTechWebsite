@@ -16,7 +16,7 @@
                         <li class="grid grid-flow-row sm:grid-flow-col w-full space-y-3 place-items-center sm:place-items-center sm:justify-normal border-b sm:border-none">
                             <img src="{{ asset('product_images/' . $product->images->firstWhere('is_main', true)->image_url)}}" alt="{{$product->name}}" class="w-auto max-h-32 sm:max-h-16">
                             <span>{{ $product->name }}</span>
-                            <span>@if($product->price == $product->discounted_price) ${{ number_format($product->price, 2) }} @else ${{ number_format($product->discounted_price, 2) }} @endif</span>
+                            <span>@if(!$product->discounted_price || $product->price == $product->discounted_price) ${{ number_format($product->price, 2) }} @else ${{ number_format($product->discounted_price, 2) }} @endif</span>
                             <span>Size: {{ $product->size }}</span>
                             <form method="post" action="{{route('cart.change', ['product_id' => $product->id])}}" class="flex">
                                 @csrf
